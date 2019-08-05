@@ -1,0 +1,466 @@
+//index.js
+//获取应用实例
+const config = require('../../config.js');
+const md5 = require('../../utils/md5.js');
+const util = require('../../utils/util.js');
+const app = getApp();
+const recorderManager = wx.getRecorderManager();
+const innerAudioContext = wx.createInnerAudioContext();
+Page({
+  data: {
+    work_info:[],
+    share_title:"寻声朗读",
+    share_url:"",
+    share_image:"http://resource.xunsheng.org.cn/20190727175250-task-cover-283.JPG",
+    audioCtx:[],
+    is_play: 0,
+    play_miuse_id: '',
+    form_grade : '',
+    form_score :0,
+    hasright:0,
+    recordingTimeqwe: 0,
+    miuse_state: 1,
+    miuse_url: '',
+    setInter: "",//录音名称
+    strat: false,
+    form_yd:'', // 优点
+    form_tsd:'',// 提升点
+    form_xl:'', // 训练
+
+  },
+  onLoad: function (options) {
+      var token = wx.getStorageSync("token");
+      var member_id = wx.getStorageSync("member_id");
+      var work_id = options.work_id;
+      if (!work_id){
+        work_id = wx.getStorageSync("work_id")
+      }
+      //work_id = 130238;
+      wx.setStorageSync('work_id', work_id);
+      if(!token){
+          wx.redirectTo({
+              url: '../login/login?type=work_info'
+          })
+      }else{
+        this.getworkinfo();
+        this.hasright();
+        this.animation = wx.createAnimation()
+      
+      }
+  },
+  // 获取作品详情
+  getworkinfo:function(){
+    var that = this;
+    var ts = Date.parse(new Date());
+    var data = {
+      member_id: wx.getStorageSync("member_id"),
+      token: wx.getStorageSync("token"),
+      works_id: wx.getStorageSync("work_id"),
+      ts:ts
+    };
+    var cs = app.encryption(data);
+    data.cs = cs;
+    wx.request({
+      url: config.URL + "muse/works/detail",
+      data: data,
+      method: 'post',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
+      success: function (res) {
+        if (res.data.code == 200) {
+            var works_detail = res.data.data.works_detail;
+            var date = new Date();
+            works_detail.create_time = util.formatTimeTwo(works_detail.create_time,'Y-M-D h:m:s');
+            if (works_detail.cover_img){
+                that.setData({//存值
+                  share_image: works_detail.cover_img,
+                })
+            }
+            that.setData({//存值
+                 work_info: res.data.data.works_detail,
+            })
+        }
+      }
+    })
+  },
+  onShareAppMessage: function(res) {
+
+    var share_url = "/pages/work_info/work_info?work_id=" + wx.getStorageSync('work_id')+"&parent_id="+wx.getStorageSync("member_id");
+  
+    return {
+      title: this.data.share_title,
+      imageUrl: this.data.share_image,
+      path: share_url,
+      success: function(res) {
+        // 转发成功
+      },
+      fail: function(res) {
+        // 转发失败
+      }
+    }
+  },
+  //跳转个人中心
+  jump(e) {
+    var url = e.currentTarget.dataset.url;
+    wx.navigateTo({
+      url: url,
+    })
+  },
+  bf(e) {
+    if (this.data.is_play == 1) {
+      this.audioCtx.pause();
+      this.setData({
+        is_play: 0,
+      })
+    } else {
+      this.audioCtx.play();
+      this.setData({
+        is_play: 1,
+      })
+    }
+  },
+  end_play() {
+    this.setData({
+      is_play: 0,
+      play_miuse_id: ''
+    })
+  },
+  // 播放音频
+  play_miuse(e) {
+    var miuse_id = e.target.id;
+    if (miuse_id == this.data.play_miuse_id) { // 当前音频正在播放
+      this.data.audioCtx[miuse_id].pause();
+      this.setData({
+        is_play: 0,
+        play_miuse_id: ''
+      })
+    } else {
+      if (this.data.play_miuse_id) { // 当前正在播放的音频
+        this.data.audioCtx[this.data.play_miuse_id].pause();
+      }
+      if (!this.data.audioCtx[miuse_id]) { // 当前音频未进行播放过
+        this.data.audioCtx[miuse_id] = wx.createAudioContext(miuse_id)
+      }
+      this.data.audioCtx[miuse_id].play();
+      this.setData({
+        is_play: 1,
+        play_miuse_id: miuse_id
+      })
+    }
+  },
+  // 选择评星
+  select_score(e){
+    var id = e.currentTarget.dataset.id;
+    var score = 0;
+    if(id== "S"){
+      score = 100;
+    } else if (id == "A"){
+      score = 80;
+    } else if (id == "B") {
+      score = 60;
+    } else if (id == "C") {
+      score = 40;
+    } else if (id == "D") {
+      score = 20;
+    }
+    this.setData({
+      form_grade: id,
+      form_score: score
+    })
+  },
+  // 隐藏点评框
+  comment_hide(){
+    console.log(0);
+    this.animation.translateY(800).step({ duration: 300 })
+    this.setData({ animation: this.animation.export() })
+  },
+  // 显示点评框
+  comment_show(){
+      console.log(1);
+      this.animation.translateY(0).step({ duration: 300 })
+      this.setData({ animation: this.animation.export() })
+  },
+  // 查询当前用户是否有评论权限
+  hasright(){
+    var that = this;
+    var ts = Date.parse(new Date());
+    var data = {
+      member_id: wx.getStorageSync("member_id"),
+      token: wx.getStorageSync("token"),
+      work_id: wx.getStorageSync("work_id"),
+      ts: ts
+    };
+    var cs = app.encryption(data);
+    data.cs = cs;
+    wx.request({
+      url: config.URL + "school/classwork/hasright",
+      data: data,
+      method: 'post',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
+      success: function (res) {
+         if(res.data.code == 200){ //
+            if (res.data.data.hasright){
+                that.setData({
+                  hasright:1
+                })
+            }
+         }
+      }
+    })
+  },
+  get_form_info(e){
+    var id = e.target.id;
+    var value = e.detail.value;
+    if (id == "yd"){
+       this.setData({
+         form_yd: value
+       });
+    } else if (id == "tsd"){
+      this.setData({
+        form_tsd: value
+      });
+    } else if (id == "xl") {
+      this.setData({
+        form_xl: value
+      });
+    } else if (id == "score"){
+      var grade = "";
+      value = parseInt(value);
+      if (value > 0 && value <= 20){
+         grade = "D"; 
+      } else if (value > 20 && value <= 40) {
+        grade = "C";
+      } else if(value > 40 && value <= 60){
+        grade = "B";
+      } else if(value > 60 && value <= 80){
+        grade = "A";
+      } else if(value > 80 && value <= 100){
+        grade = "S";
+      } else if (value > 100){
+        grade = "S";
+        value = 100;
+      } else if (value < 0) {
+        grade = "D";
+        value = 0;
+      }else{
+        return;
+      }
+      this.setData({
+        form_score: value,
+        form_grade: grade
+      });
+    }
+  },
+  //开始录音
+  openRecording: function () {
+    var that = this;
+    const options = {
+      duration: 600000,//指定录音的时长，单位 ms
+      sampleRate: 44100,//采样率
+      numberOfChannels: 2,//录音通道数
+      encodeBitRate: 84000,//编码码率
+      format: 'mp3',//音频格式，有效值 aac/mp3
+      frameSize: 64,//指定帧大小，单位 KB
+    };
+    //开始录音
+    recorderManager.start(options);
+    recorderManager.onStart(() => {
+      //开始录音计时
+      that.recordingTimer();
+      that.setData({//存值
+        miuse_state: 2,
+        strat: true,
+        miuse_url: '',
+        recordingTimeqwe:0
+      })
+      wx.showToast({
+        title: '开始录音',
+        icon: 'none',
+        duration: 1500,
+      });
+    });
+    //错误回调
+    recorderManager.onError((res) => {
+      console.log(res);
+      wx.showToast({
+        title: '没有权限',
+        icon: 'none',
+        duration: 1500,
+      })
+    })
+  },
+  //录音计时器
+  recordingTimer: function () {
+    var that = this;
+    //将计时器赋值给setInter
+    that.data.setInter = setInterval(
+      function () {
+        if (that.data.strat) {
+          var time = that.data.recordingTimeqwe + 1;
+          that.setData({
+            recordingTimeqwe: time
+          })
+        }
+      }
+      , 1000);
+  },
+  //结束录音
+  shutRecording: function () {
+    var that = this;
+    wx.showToast({
+      title: '停止录音',
+      icon: 'none',
+      duration: 1500,
+    })
+    //结束录音计时
+    clearInterval(that.data.setInter);
+    recorderManager.stop();
+    recorderManager.onStop((res) => {
+      this.tempFilePath = res.tempFilePath;
+      that.setData({//存值
+        miuse_url: res.tempFilePath,
+        strat: false,
+        miuse_state: 1,
+        tempFilePath: res
+      })
+    })
+  },
+  submit_from(qiniu_url){
+    var that = this;
+    var ts = Date.parse(new Date());
+    var data = {
+      member_id: wx.getStorageSync("member_id"),
+      token: wx.getStorageSync("token"),
+      teacher_comment: '优点：' + that.data.form_yd + '\r\n提升点:' + that.data.form_tsd +'\r\n训练方法:'+that.data.form_xl,
+      voice_url: qiniu_url,
+      grade:that.data.form_grade,
+      score:that.data.form_score,
+      work_id: wx.getStorageSync("work_id"),
+      duration: that.data.recordingTimeqwe,
+      ts: ts
+    };
+    var cs = app.encryption(data);
+    data.cs = cs;
+    wx.request({
+      url: config.URL + "fa/Xspaycomment/apply_comment",
+      data: data,
+      method: 'post',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
+      success: function (res) {
+        if (res.data.code == 200) {
+          wx.showToast({
+            title: '点评成功',
+            icon: 'none',
+            duration: 1500,
+          });
+          that.getworkinfo();
+          that.onLoad();
+          that.comment_hide();
+          wx.redirectTo({
+            url: '../work_info/work_info'
+          })
+        }else{
+          wx.showToast({
+            title: res.data.error,
+            icon: 'none',
+            duration: 1500,
+          });
+        }
+      }
+    })
+    
+  },
+  // 获取七牛云参数
+  get_qiniu_info: function () {
+    var that = this;
+    if (!that.data.miuse_url){
+      wx.showToast({
+        title: '请先停止录音',
+        icon: 'none',
+        duration: 1500,
+      });
+      return;
+    }
+    if (!that.data.form_yd && !that.data.form_tsd && !that.data.form_xl) {
+      wx.showToast({
+        title: '未填写点评内容',
+        icon: 'none',
+        duration: 1500,
+      });
+      return;
+    } else if (that.data.recordingTimeqwe < 30) {
+      wx.showToast({
+        title: '点评语音需要大于30秒',
+        icon: 'none',
+        duration: 1500,
+      });
+      return;
+    } else if (!that.data.form_grade) {
+      wx.showToast({
+        title: '请选择评分',
+        icon: 'none',
+        duration: 1500,
+      });
+      return;
+    }
+    
+    var ts = Date.parse(new Date());
+    var data = {
+      member_id: wx.getStorageSync("member_id"),
+      token: wx.getStorageSync("token"),
+      device_id: 9999,
+      suffix: "MP3",
+      ts: ts
+    };
+    console.log(that.data.miuse_url);
+    var cs = app.encryption(data);
+    data.cs = cs;
+    wx.request({
+      url: config.URL + "/voice/qiniu/uploadtoken",
+      data: data,
+      method: 'post',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
+      success: function (res) {
+        if (res.data.code == 200) {
+          //上传录音
+          wx.uploadFile({
+            url: 'http://up.qiniu.com',//这是你自己后台的连接
+            filePath: that.data.miuse_url,
+            name: "file",//后台要绑定的名称
+            header: {
+              "Content-Type": "multipart/form-data"
+            },
+            //参数绑定
+            formData: {
+              token: res.data.data.upToken,
+              fileName: res.data.data.key,
+            },
+            dataType: 'JSON',
+            success: function (ress) {
+              var data = JSON.parse(ress.data);
+              console.log(ress);
+              that.setData({//存值
+                q_url: data.key,
+              })
+              that.submit_from(data.key);
+            },
+            fail: function (ress) {
+              wx.showToast({
+                title: '录音保存失败',
+                icon: 'none',
+                duration: 1500,
+              });
+            }
+          })
+        }
+      }
+    })
+  },
+});

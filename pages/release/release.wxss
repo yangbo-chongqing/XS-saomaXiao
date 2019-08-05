@@ -1,0 +1,232 @@
+.works-detail {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    height: 17.5rem;
+    color: #fff;
+}
+
+.works-detail .lyric-content {
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.works-detail .lyric {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    padding: 0rem 0.625rem;
+    height: 12.5rem;
+    overflow: auto;
+    color: #fff;
+}
+.lyric-content{
+   overflow: auto;
+   padding: 0rem 0.625rem;
+}
+
+.aplayer {
+    font-family: Arial,Helvetica,sans-serif;
+    color: #000;
+    background-color: #fff;
+    margin: 5px;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.07), 0 1px 5px 0 rgba(0,0,0,.1);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.07), 0 1px 5px 0 rgba(0,0,0,.1);
+    border-radius: 2px;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    line-height: normal;
+    position: relative;
+}
+.works-detail .aplayer {
+    box-shadow: none !important;
+    margin-left: 0.6875rem;
+    background-color: transparent;
+}
+.aplayer-body audio{
+    display: flex;    /*设置显示样式**/
+    align-items: center;    /**子view垂直居中*/
+    vertical-align: center; /**垂直居中*/
+    justify-content: center; /**内容居中*/
+    flex-direction:row;
+}
+
+.ss-task .works-record {
+    width: 95%;
+    margin: 1.25rem auto;
+}
+.ss-task .works-record .works-record-title {
+    padding-left: 0.3125rem;
+    border-left: 2px solid #f2574b;
+    font-size: 0.8125rem;
+}
+
+.ss-task .record-box {
+    text-align: center;
+    width: 95%;
+    margin: 0.625rem auto;
+    border: 1px solid #ddd;
+    padding: 0.625rem 0;
+    border-radius: 8px;
+}
+.vux-flex-row {
+    box-direction: row;
+    box-orient: horizontal;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+.vux-flexbox {
+    width: 100%;
+    text-align: left;
+     display: -webkit-box;
+    display: flex;
+    display: -webkit-flex; 
+    box-align: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+.vux-flexbox1 {
+    width: 100%;
+    text-align: left;
+    /* display: -webkit-box;
+    display: flex;
+    display: -webkit-flex; */
+    box-align: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.ss-task .record-box .record-duration {
+    color: #f2574b;
+    font-size: 0.9375rem;
+    text-align: left;
+    padding-left: 0.625rem;
+}
+.vux-flexbox .vux-flexbox-item:first-child {
+    margin-left: 0!important;
+    margin-top: 0!important;
+}
+.vux-flexbox .vux-flexbox-item {
+    -webkit-box-flex: 1;
+    flex: 1;
+    -webkit-flex: 1;
+    min-width: 1.25rem;
+    width: 0%;
+}
+.ss-task .record-box .record-btn-content {
+    text-align: right;
+    color: #f2574b;
+    font-size: 0.8125rem;
+    padding-right: 0.625rem;
+}
+
+.ss-task .record-box .record-btn-content .record-btn {
+    display: inline-block;
+    width: 1.5625rem;
+    height: 1.5625rem;
+    border-radius: 50%;
+    border: 2px solid #eee;
+    text-align: center;
+    line-height: 1.5625rem;
+}
+
+.ss-task .works-record .works-item .audio-content {
+    position: relative;
+}
+.vux-flex-col > .vux-flexbox-item {
+    width: 100%;
+}
+.ss-task .works-record .works-item .works-impression, .ss-task .works-record .works-item .works-time {
+    font-size: 0.625rem;
+    color: #999;
+}
+.audio-content {
+    position: relative;
+    margin-top: 5px;
+}
+
+.vux-flexbox .vux-flexbox-item:first-child {
+    margin-left: 0!important;
+    margin-top: 0!important;
+}
+
+.audio-content{
+    display: flex;    /*设置显示样式**/
+    align-items: center;    /**子view垂直居中*/
+    vertical-align: center; /**垂直居中*/
+    justify-content: center; /**内容居中*/
+    flex-direction:row;
+    margin-top:10px; 
+}
+.works-impression{
+    margin-top: 20px;
+    padding-left: 0.3125rem;
+}
+
+.van-field__control {
+    display: block;
+    box-sizing: border-box;
+    width: 94%;
+    margin: 3%;
+    padding: 5px;
+    color: #323233;
+    text-align: left;
+    background-color: #fff;
+    border: 0;
+    resize: none;
+}
+.ss-task .play-box {
+    width: 95%;
+    margin: 0.625rem auto;
+    border: 1px solid #ddd;
+    padding: 0.625rem;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: #f2574b;
+    color: #fff;
+    font-size: 0.8125rem;
+}
+
+.van-button {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    height: 2.75rem;
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    line-height: 2.625rem;
+    text-align: center;
+    border-radius: 2px;
+    -webkit-appearance: none;
+    -webkit-text-size-adjust: 100%;
+}
+.van-button--small {
+    min-width: 3.75rem;
+    height: 1.875rem;
+    padding: 0 0.5rem;
+    font-size: 0.75rem;
+    line-height: 1.75rem;
+}
+.van-button--danger {
+    color: #fff !important;
+    background-color: #f44 !important;
+    border: 1px solid #f44 !important;
+}
+.ss-task .act-btn .works-btn {
+    width: 6.25rem;
+    margin: 0 5px;
+}
+.act-btn{
+   display: flex;    /*设置显示样式**/
+    align-items: center;    /**子view垂直居中*/
+    vertical-align: center; /**垂直居中*/
+    justify-content: center; /**内容居中*/
+    flex-direction:row;
+}

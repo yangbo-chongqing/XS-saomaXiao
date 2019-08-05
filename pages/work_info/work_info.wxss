@@ -1,0 +1,286 @@
+.works-detail {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    height: 17.5rem;
+    color: #fff;
+}
+
+.works-detail .lyric-content {
+    height: 73%;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.works-detail .lyric {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    padding: 0rem 0.625rem;
+    height: 12.5rem;
+    overflow: auto;
+    color: #fff;
+}
+.lyric-content{
+   overflow: auto;
+   padding: 0rem 0.625rem;
+}
+
+.aplayer {
+    font-family: Arial,Helvetica,sans-serif;
+    color: #000;
+    background-color: #fff;
+    margin: 5px;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.07), 0 1px 5px 0 rgba(0,0,0,.1);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.07), 0 1px 5px 0 rgba(0,0,0,.1);
+    border-radius: 2px;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    line-height: normal;
+    position: relative;
+}
+.works-detail .aplayer {
+    box-shadow: none !important;
+    margin-left: 0.6875rem;
+    background-color: transparent;
+}
+.aplayer-body audio{
+    display: flex;    /*设置显示样式**/
+    align-items: center;    /**子view垂直居中*/
+    vertical-align: center; /**垂直居中*/
+    justify-content: center; /**内容居中*/
+    flex-direction:row;
+}
+.vux-flexbox {
+    width: 100%;
+    text-align: left;
+    display: -webkit-box;
+    display: flex;
+    display: -webkit-flex;
+    box-align: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+.vux-flex-row {
+    box-direction: row;
+    box-orient: horizontal;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+.ss-works-detail .user-info {
+    padding: 0.3125rem 3%;
+    margin-bottom: 0.3125rem;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+.vux-flexbox .vux-flexbox-item {
+    -webkit-box-flex: 1;
+    flex: 1;
+    -webkit-flex: 1;
+    min-width: 1.25rem;
+    width: 0%;
+}
+
+.user-avatar {
+    width: 2.1875rem;
+    height: 2.1875rem;
+    border-radius: 50%;
+}
+.vux-flex-col > .vux-flexbox-item {
+    width: 100%;
+}
+
+.user-name {
+    font-size: 0.8125rem;
+}
+
+.user-impression {
+    font-size: 0.625rem;
+    color: #666;
+}
+
+.user-time {
+    font-size: 0.625rem;
+    color: #999;
+    margin-bottom: 5px;
+}
+page{
+  background: #fff;
+}
+.class_view{
+  text-align: center;
+  line-height: 50px;
+  background: #f3f2f7;
+  height: 50px;
+  margin-top: 5px;
+  font-size: 0.8125rem;
+  color: #f2574b;
+}
+
+.works-record {
+    width: 95%;
+    margin: 1.25rem auto;
+}
+.works-record .works-record-title {
+    padding-left: 0.3125rem;
+    border-left: 2px solid #f2574b;
+    font-size: 0.8125rem;
+}
+
+
+.teacher-avatar {
+    width: 1.875rem;
+    height: 1.875rem;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.comment-time {
+    font-size: 0.625rem;
+    color: #999;
+    text-align: right;
+}
+
+ .comment-content{
+    font-size: 0.625rem;
+    color: #666;
+    white-space: pre-wrap;
+    text-align: justify;
+}
+.teacher-avatar {
+    width: 1.875rem;
+    height: 1.875rem;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.comment-item {
+    border-bottom: 1px solid #eee;
+    padding: 1.3125rem 0;
+}
+
+.comment-list {
+    margin: 0.625rem auto 1.25rem;
+    padding: 0.625rem 3%;
+    background-color: #fff;
+}
+.pf image{
+  width: 25px;
+  height: 25px;
+  float: left;
+}
+.van-overlay {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.7);
+}
+.van-popup {
+    position: fixed;
+    max-height: 100%;
+    overflow-y: auto;
+    background-color: #fff;
+    -webkit-transition: .3s ease-out;
+    transition: .3s ease-out;
+    -webkit-overflow-scrolling: touch;
+}
+.van-cell__title, .van-cell__value {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+.van-popup--bottom {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.van-cell {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.625rem 0.9375rem;
+    overflow: hidden;
+    color: #323233;
+    font-size: 0.875rem;
+    line-height: 2.6rem;
+    background-color: #fff;
+
+
+}
+.van-field__label {
+    -webkit-box-flex: 0;
+    -webkit-flex: none;
+    flex: none;
+    width: 5.625rem;
+}
+
+.van-cell__value {
+    position: relative;
+    overflow: hidden;
+    color: #969799;
+    text-align: left;
+    vertical-align: middle;
+}
+.van-field__body {
+    /* display: -webkit-box;
+    display: -webkit-flex;
+    display: flex; */
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.score{
+  float: right;
+  width: 30px;
+  height: 30px;
+  margin: 5px 5px 0 0;
+}
+
+
+.van-button1 {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    height: 2.75rem;
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    line-height: 2.625rem;
+    text-align: center;
+    border-radius: 2px;
+    -webkit-appearance: none;
+    -webkit-text-size-adjust: 100%;
+}
+.van-button1--danger {
+    color: #fff !important;
+    background-color: #f44 !important;
+    border: 1px solid #f44;
+}
+.van-button1--normal {
+    padding: 0 0.9375rem;
+    font-size: 0.875rem;
+}
+.van-button1--block {
+    display: block;
+    width: 100%;
+}
+.van-button1--round {
+    border-radius: 10em;
+}
+.aplayer{
+  background-color: rgba(0, 0, 0, 0.2) !important;
+  margin: 0px;
+  padding: 5px;
+  margin-left: 0px !important;
+}

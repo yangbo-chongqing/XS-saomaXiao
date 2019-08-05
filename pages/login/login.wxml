@@ -1,0 +1,19 @@
+<view class="loginbox" wx:if="{{!login_show}}">
+  <view class="font-size-24 wx_title mg-b-100 mg-t-100"></view>
+  <view class="w-100">
+    <button open-type="getUserInfo" bindgetuserinfo="onGotUserInfo">
+      <image class="w-10 wx_login" src="../../images/wx_login.png" />
+      <text>微信登录</text>
+    </button>
+  </view>
+</view>
+<view class="tel_bin_box" wx:if="{{is_tel}}">
+  <view class="font-size-24 wx_title mg-b-100 mg-t-100">
+
+  </view>
+  <button open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber">
+    <image class="w-10 wx_login" mode="widthFix" src="../../images/wx_login.png" />
+    <text>电话授权</text>
+  </button>
+</view>
+<button open-type="contact" session-from="weapp" id="service" style='display:none'></button>

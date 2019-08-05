@@ -1,0 +1,46 @@
+<view>
+  <view class="banner-img">
+      <image mode="widthFix" style="width:100%" src="http://resource.xunsheng.org.cn/20190731181352-task-cover-283.jpg"></image>
+  </view>
+
+  <view class="works-record" style="width:100%;height:30px;">
+      <view class="works-record-title" style="width:50%;float:left;">杉树伴读范读</view>
+  </view>    
+
+  <view class="van-list">
+      <view class="van-row van-row--flex van-row--align-center" wx:for="{{work_list}}">
+          <view class="van-col van-col--24">
+              <view class="homework-item van-row van-row--flex van-row--align-center">
+                  <view class="van-col van-col--6" style="width:25%;">
+                      <view class="aplayer aplayer-narrow">
+                          <view class="aplayer-body">
+                              <view class="aplayer-pic" style="background-image: url('{{item.cover_img}}'); background-color: rgb(65, 184, 131);background-size:100% 100%;height:66px;"></view>
+                          </view>
+                      </view>
+                  </view>
+                  <view class="van-col van-col--18" style="width:75%">
+                      <view class="van-row van-row--flex van-row--align-center">
+                          <view class="homework-name van-col van-col--17">{{item.task_name}}</view>
+                          <view class="time van-col van-col--7">{{item.create_time}}</view>
+                      </view>
+                      <view class="van-row van-row--flex van-row--align-center" style="margin-top:15px;">
+                          <view class="homework-desc van-col van-col--17">{{item.author}}    {{item.duration}}</view>
+                          <view class="time van-col van-col--7" style="float:rigth;">
+                              <button style="float:rigth" data-url="../release/release?class_id={{item.class_id}}&task_id={{item.task_id}}" bindtap="jump" class="homework-btn van-button van-button--warning van-button--mini">做作业</button>
+                          </view>
+                      </view>
+                      
+                  </view>
+              </view>
+          </view>
+      </view>
+      <view class="van-row van-row--flex van-row--align-center" style="height:60px;"></view>
+  </view>
+
+  <view class="footer_menu">
+    <view bindtap="jump" data-url="../report/report">统计报表</view>
+    <view class="font_coler">课程主页</view>
+    <view bindtap="jump" data-url="../index/index">个人中心</view>
+  </view>
+
+</view>
