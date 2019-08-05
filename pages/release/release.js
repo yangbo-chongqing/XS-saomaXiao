@@ -351,7 +351,7 @@ Page({
                         duration:2000
                     })
                     wx.redirectTo({
-                      url: '../work_info/work_info?work_id=' + res.data.data
+                      url: '../apply_for/apply_for?works_id=' + res.data.data
                     })
                 }else{
                     wx.showToast({

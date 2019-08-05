@@ -3962,10 +3962,10 @@ ul, ol, dl, dt, dd, li {
   list-style: none;
 }
 
-image {
+/* image {
   display: block;
   height: auto;
-}
+} */
 
 a {
   text-decoration: none;

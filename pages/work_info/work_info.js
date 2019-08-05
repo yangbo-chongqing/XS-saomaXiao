@@ -26,7 +26,10 @@ Page({
     form_yd:'', // 优点
     form_tsd:'',// 提升点
     form_xl:'', // 训练
-
+    is_apply:'',
+    apply_content:'',
+    apply_count:0,
+    next_apply:0
   },
   onLoad: function (options) {
       var token = wx.getStorageSync("token");
@@ -35,7 +38,7 @@ Page({
       if (!work_id){
         work_id = wx.getStorageSync("work_id")
       }
-      //work_id = 130238;
+     // work_id = 188533;
       wx.setStorageSync('work_id', work_id);
       if(!token){
           wx.redirectTo({
@@ -45,7 +48,7 @@ Page({
         this.getworkinfo();
         this.hasright();
         this.animation = wx.createAnimation()
-      
+        this.is_apply_work();
       }
   },
   // 获取作品详情
@@ -80,6 +83,16 @@ Page({
             that.setData({//存值
                  work_info: res.data.data.works_detail,
             })
+
+          if (res.data.data.works_detail.class_info && res.data.data.works_detail.member_id == wx.getStorageSync("member_id")){
+            that.setData({//存值
+              is_apply: 1,
+            })
+          }else{
+            that.setData({//存值
+              is_apply: 0,
+            })
+          }
         }
       }
     })
@@ -463,4 +476,60 @@ Page({
       }
     })
   },
+  // 判断当前作品是否是点评作品
+  is_apply_work:function(){
+      var that = this;
+      var ts = Date.parse(new Date());
+      var data = {
+        member_id: wx.getStorageSync("member_id"),
+        token: wx.getStorageSync("token"),
+        work_id: wx.getStorageSync("work_id") ,
+        ts: ts
+      };
+      var cs = app.encryption(data);
+      data.cs = cs;
+      wx.request({
+        url: config.URL + "fa/Xspaycomment/is_apply_work",
+        data: data,
+        method: 'post',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded',
+        },
+        success: function (res) {
+          if (res.data.code == 200) {
+            if (res.data.data.untreated_count > 0 ){
+              that.setData({//存值
+                apply_count: res.data.data.untreated_count,
+                next_apply: res.data.data.nep_work
+              })
+            }
+            var html = "";
+            for (var i = 0; i < res.data.data.tutor_info.length; i++) {
+              if (!html) {
+                html += "此作品申请" + res.data.data.tutor_info[i].name;
+              } else {
+                html += "," + res.data.data.tutor_info[i].name;
+              }
+
+            }
+            if (html) {
+              html += '老师进行点评指导';
+            }else{
+              html = "";
+            }
+            that.setData({//存值
+              apply_content: html
+            })
+          }
+        }
+      })
+  },
+  next_work:function(){
+    if (this.data.next_apply){
+      wx.setStorageSync('work_id', this.data.next_apply);
+    }
+    this.getworkinfo();
+    this.hasright();
+    this.is_apply_work();
+  }
 });

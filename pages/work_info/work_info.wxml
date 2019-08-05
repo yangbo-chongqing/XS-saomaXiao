@@ -11,8 +11,12 @@
             </view>
         </view>
     </view>
+    <view wx:if="{{apply_count > 0}}" bindtap="next_work" class="waiting">
+      <image src="/images/ld.png" style="width:20px;height:20px;"></image>
+      <text>待点评({{apply_count}})⋙</text>
+    </view>
     <!-- 用户信息 -->
-    <view class="vux-flexbox user-info vux-flex-row">
+    <view class="vux-flexbox user-info vux-flex-row" style="margin-bottom:5px;">
         <view class="vux-flexbox-item" style="margin-left: 8px; flex: 0 0 12.5%;">
           <image wx:if="{{work_info.avatar}}" src="{{work_info.avatar}}" class="user-avatar"></image>
           <image wx:else src="http://resource.xunsheng.org.cn/xsmatch/static/imgs/head.jpeg" class="user-avatar"></image>
@@ -20,7 +24,8 @@
         <view class="vux-flexbox-item" style="margin-left: 8px;margin-top: 10px;">
             <view class="vux-flexbox vux-flex-col">
                 <view class="vux-flexbox vux-flex-col user-name">{{work_info.author}}</view>
-                <button bindtap="jump"  data-url="../release/release?class_id={{work_info.class_info.class_id}}&task_id={{work_info.task_info.task_id}}"  style="float: right;margin-right:5px;" class="van-button van-button--default van-button--mini van-button--round">做作业</button>
+                <button wx:if="{{work_info.class_info}}" bindtap="jump"  data-url="../release/release?class_id={{work_info.class_info.class_id}}&task_id={{work_info.task_info.task_id}}"  style="float: right;margin-right:5px;" class="van-button van-button--default van-button--mini van-button--round">做作业</button>
+                  <button wx:if="{{!work_info.class_info}}" bindtap="jump"  data-url="../release/release?task_id={{work_info.task_info.task_id}}"  style="float: right;margin-right:5px;" class="van-button van-button--default van-button--mini van-button--round">做作业</button>
             </view>
             <view class="vux-flexbox-item" style="margin-top: 3px;width:100%;">
                 <view class="vux-flexbox vux-flex-row">
@@ -31,11 +36,15 @@
                               {{work_info.create_time}}       {{work_info.device_name}}
                         </view>
                     </view>
+                    <button wx:if="{{is_apply}}" bindtap="jump"  data-url="../apply_for/apply_for?works_id={{work_info.works_id}}"  style="float: right;margin-right:5px;" class="van-button van-button--default van-button--mini van-button--round">申请点评</button>
                 </view>
             </view>
         </view>
     </view>   
      <!--所在班级  -->
+     <view wx:if="{{apply_content}}" class="class_view">
+      {{apply_content}}
+     </view>
      <view class="class_view">
       所在班级{{work_info.class_info.class_name}}
      </view>

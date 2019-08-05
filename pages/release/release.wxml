@@ -9,7 +9,7 @@
         <view wx:if="{{task_info.example_url}}" class="works-record">
             <view class="works-record-title">寻声范读</view>
              <view class="vux-flexbox-item record-duration">
-                <image src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAAp0lEQVQokZWSsQ3CMBBFHxEwASgFowQoaBkgGSBpAg3DBFZgCyRgFiQUKkrSoI/OyBXkfnOy77+zbP/BM18TaQ5sgAUwBVrgAjTANdgSq0NryFAAM2BstYjAUTBLB6Dkt2obVOmkrAcQJF+W2B082gpaOaGloNQJTQTdndBD0MkJnQXp/T1qBOmn+4KfZIRE7ID9H0B9+b4x6qLMHYEb8LKqtfbV7wDeLjEegS8BbgAAAAAASUVORK5CYII="></image>
+                <!--image src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAAp0lEQVQokZWSsQ3CMBBFHxEwASgFowQoaBkgGSBpAg3DBFZgCyRgFiQUKkrSoI/OyBXkfnOy77+zbP/BM18TaQ5sgAUwBVrgAjTANdgSq0NryFAAM2BstYjAUTBLB6Dkt2obVOmkrAcQJF+W2B082gpaOaGloNQJTQTdndBD0MkJnQXp/T1qBOmn+4KfZIRE7ID9H0B9+b4x6qLMHYEb8LKqtfbV7wDeLjEegS8BbgAAAAAASUVORK5CYII="></image-->
                
             </view>
         </view> 

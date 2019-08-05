@@ -116,7 +116,7 @@ page{
   line-height: 50px;
   background: #f3f2f7;
   height: 50px;
-  margin-top: 5px;
+  /* margin-top: 5px; */
   font-size: 0.8125rem;
   color: #f2574b;
 }
@@ -283,4 +283,11 @@ page{
   margin: 0px;
   padding: 5px;
   margin-left: 0px !important;
+}
+.waiting{
+    position: absolute;
+    top: 0.625rem;
+    right: 0.625rem;
+    font-size: 0.75rem;
+    color: #f2574b;
 }

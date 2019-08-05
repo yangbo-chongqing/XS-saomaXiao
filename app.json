@@ -8,7 +8,8 @@
     "pages/work/work",
     "pages/report/report",
     "pages/release/release",
-    "pages/work_info/work_info"
+    "pages/work_info/work_info",
+    "pages/apply_for/apply_for"
   ],
   "window": {
     "backgroundTextStyle": "light",

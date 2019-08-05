@@ -1,0 +1,161 @@
+
+<view class="tip-info van-notice-bar">
+  <image src="/images/ts.png" class="van-icon"></image>
+  <view class="van-notice-bar__wrap">
+    <view class="van-notice-bar__content van-notice-bar__play--infinite gg">
+      申请范读导师点评服务将自动从您的点评包里扣除点数！
+    </view>
+  </view>
+</view>
+
+<view class="dropdown-menu van-dropdown-menu van-hairline--top-bottom">
+   <view class="van-dropdown-menu__item" data-type="1" bindtap="tab_switch">
+      <text>{{select_order_desc}}</text>
+   </view>
+   <view class="van-dropdown-menu__item" data-type="2" bindtap="tab_switch">
+      <text>{{select_sort_desc}}</text>
+   </view>
+   <!-- 切换 -->
+   <view wx:if="{{tab_type > 0}}" class="van-dropdown-item van-dropdown-item--down" style="z-index: 10;top: 91.4063px;" >
+      <view wx:if="{{tab_type == 1}}" class="van-popup van-popup--top van-dropdown-item__content" style="transition-duration: 0.2s; z-index: 2021;">
+          <view class="van-cell van-cell--clickable" data-type="1" data-value="score" bindtap="list_switch">
+              <view class="van-cell__title">按评分排序</view>
+              <view class="van-cell__value" wx:if='{{select_order == "score"}}'><image src="/images/j.png" style="width:24px;height:24px;"></image></view>
+          </view>
+          <view class="van-cell van-cell--clickable" data-type="1" data-value="price" bindtap="list_switch">
+              <view class="van-cell__title">按价格排序</view>
+              <view class="van-cell__value" wx:if='{{select_order == "price"}}'><image src="/images/j.png" style="width:24px;height:24px;"></image></view>
+          </view>
+          <view class="van-cell van-cell--clickable" data-type="1" data-value="comments_count" bindtap="list_switch">
+              <view class="van-cell__title">按点评数排序</view>
+              <view class="van-cell__value" wx:if='{{select_order == "comments_count"}}'><image src="/images/j.png" style="width:24px;height:24px;"></image></view>
+          </view>
+      </view>
+      <view wx:if="{{tab_type == 2}}" class="van-dropdown-item van-dropdown-item--down" style="z-index: 10;top: 91.4063px;transition-duration: 0.2s; z-index: 2021;">
+          <view class="van-cell van-cell--clickable" data-type="2" data-value="0" bindtap="list_switch">
+              <view class="van-cell__title">正序</view>
+              <view class="van-cell__value" wx:if="{{select_sort == 0}}"><image src="/images/j.png" style="width:24px;height:24px;"></image></view>
+          </view>
+          <view class="van-cell van-cell--clickable" data-type="2" data-value="1" bindtap="list_switch">
+              <view class="van-cell__title">倒序</view>
+              <view class="van-cell__value" wx:if="{{select_sort == 1}}"><image src="/images/j.png" style="width:24px;height:24px;"></image></view>
+          </view>
+      </view>
+      <view wx:if="{{tab_type != 0}}" data-type="0" bindtap="tab_switch"  class="van-overlay" style="z-index: 2018;position: absolute; "></view>
+   </view>
+</view>
+
+
+<view class="van-pull-refresh" style="margin-top:5px;">
+    <view class="van-list">
+        <view class="example-techer-list">
+           <view class="vux-checker-box">
+              <view class="vux-checker-item checker-item vux-tap-active">
+                  <view class="vux-flexbox vux-flex-row" data-id="{{item.example_reader_id}}" data-apply="{{item.apply}}" bindtap="select_tutor" style="flex-wrap: wrap;" wx:for="{{tutor_list}}" style="margin-bottom:15px;">
+                      <view class="vux-flexbox-item example-techer-list-item" >
+                          <view class="vux-flexbox vux-flex-row">
+                              <view class="vux-flexbox-item item-div" style="margin-left: 8px; flex: 0 0 35%;">
+                                <image src="{{item.member_url}}" class="teacher-avatar"></image>
+                              </view>
+                              <view class="vux-flexbox-item item-div" style="margin-left: 8px;">
+                                <view class="vux-flexbox vux-flex-col">
+                                    <view class="vux-flexbox-item teacher-info-item">
+                                        <view class="vux-flexbox vux-flex-row">
+                                            <view class="vux-flexbox-item teacher-name">{{item.name}}
+                                            <image  src="/images/rz.png" class="cert"></image></view>
+                                            <view class="vux-flexbox-item subtitle text-right"></view>
+                                        </view>
+                                    </view>
+                                    <view class="vux-flexbox-item teacher-intro teacher-info-item"></view>
+                                    <view class="vux-flexbox-item teacher-info-item">
+                                        <view class="vux-flexbox vux-flex-row">
+                                            <view class="vux-flexbox-item">
+                                                <view class="vux-flexbox vux-flex-col">
+                                                    <view class="vux-flexbox-item teacher-rank">{{item.ranking}}</view>
+                                                    <!-- 星星 -->
+                                                    <view class="vux-flexbox-item pf">
+                                                        <view wx:if="{{item.score == 5}}">
+                                                          <image src="/images/pfh.png"></image>
+                                                          <image src="/images/pfh.png"></image>
+                                                          <image src="/images/pfh.png"></image>
+                                                          <image src="/images/pfh.png"></image>
+                                                          <image src="/images/pfh.png"></image>
+                                                        </view>
+                                                        <view wx:if="{{item.score == 4}}">
+                                                          <image src="/images/pfh.png"></image>
+                                                          <image src="/images/pfh.png"></image>
+                                                          <image src="/images/pfh.png"></image>
+                                                          <image src="/images/pfh.png"></image>
+                                                          <image src="/images/pff.png"></image>
+                                                        </view>
+                                                        <view wx:if="{{item.score == 3}}">
+                                                          <image src="/images/pfh.png"></image>
+                                                          <image src="/images/pfh.png"></image>
+                                                          <image src="/images/pfh.png"></image>
+                                                          <image src="/images/pff.png"></image>
+                                                          <image src="/images/pff.png"></image>
+                                                        </view>
+                                                        <view wx:if="{{item.score == 2}}">
+                                                          <image src="/images/pfh.png"></image>
+                                                          <image src="/images/pfh.png"></image>
+                                                          <image src="/images/pff.png"></image>
+                                                          <image src="/images/pff.png"></image>
+                                                          <image src="/images/pff.png"></image>
+                                                        </view>
+                                                        <view wx:if="{{item.score == 1}}">
+                                                          <image src="/images/pfh.png"></image>
+                                                          <image src="/images/pff.png"></image>
+                                                          <image src="/images/pff.png"></image>
+                                                          <image src="/images/pff.png"></image>
+                                                          <image src="/images/pff.png"></image>
+                                                        </view>
+                                                        <view wx:if="{{item.score == 0}}">
+                                                          <image src="/images/pff.png"></image>
+                                                          <image src="/images/pff.png"></image>
+                                                          <image src="/images/pff.png"></image>
+                                                          <image src="/images/pff.png"></image>
+                                                          <image src="/images/pff.png"></image>
+                                                        </view>
+                                                    </view>
+                                                </view>
+                                            </view>
+                                            <view class="vux-flexbox-item text-right price"> 
+                                                {{item.price}}
+                                                <image mode="widthFix" src="/images/jb.png" class="coin"></image>
+                                            </view>
+                                        </view>
+                                    </view>
+                                    <view class="vux-flexbox-item teacher-info-item">
+                                        <view class="vux-flexbox vux-flex-row">
+                                            <view class="vux-flexbox-item">
+                                                <view class="vux-flexbox vux-flex-col">
+                                                    <view class="vux-flexbox-item subtitle">
+                                                      已点评<text class="comment-count">{{item.comments_count}}</text>个作品
+                                                    </view>
+                                                    <view class="vux-flexbox-item">
+                                                      <text class="teacher-tag van-tag van-tag--plain van-tag--round van-hairline--surround" style="color: rgb(25, 137, 250);" wx:for="{{item.tag}}" wx:for-item="val">{{val}}</text>
+                                                    </view>
+                                                    
+                                                </view>
+                                            </view>
+                                            <view class="vux-flexbox-item text-right">
+                                                <image wx:if="{{select_id == item.example_reader_id}}"  src="/images/xz.png" class="checker-icon"></image>
+                                                <image wx:if="{{select_id != item.example_reader_id && item.apply != 1}}"  src="/images/wxz.png" class="checker-icon"></image>
+                                                <image wx:if="{{item.apply == 1}}"  src="/images/ysq.png" class="checker-icon"></image>
+                                            </view>
+                                        </view>
+                                    </view>
+                                </view>
+                              </view>
+                          </view>
+                      </view>
+                  </view>
+              </view>
+           </view>
+        </view>
+        <view class="van-list__finished-text">
+        没有更多了
+        </view>
+    </view>
+    <button bindtap="adding_order" class="weui-btn submit-container weui-btn_warn">确定</button>
+</view>
