@@ -159,11 +159,12 @@
               <view class="van-cell__title van-field__label" style="width: 4.5rem;">语音点评:</view>
               <view class="van-cell__value" style="text-align: right;">
                   <view wx:if="{{miuse_state == 1}}" class="van-field__body" bindtap="openRecording">
-                      <text style="float:right;">开始录音</text>
+                      <text style="float:right;" wx:if="{{miuse_url}}">开始录音   {{minute}}:{{second}}</text>
+                      <text style="float:right;" wx:if="{{!miuse_url}}">开始录音</text>
                       <image src="/images/lz.png" style="width: 30px;height: 30px;margin:5px 5px 0 0;float: right;"></image>
                   </view>
                    <view wx:if="{{miuse_state != 1}}" class="van-field__body" bindtap="shutRecording">
-                      <text style="float:right;">停止录音{{recordingTimeqwe}}</text>
+                      <text style="float:right;">停止录音    {{minute}}:{{second}}</text>
                       <image src="/images/tz.png" style="width: 30px;height: 30px;margin:5px 5px 0 0;float: right;"></image>
                   </view>
               </view>

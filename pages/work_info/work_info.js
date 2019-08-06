@@ -30,6 +30,8 @@ Page({
     apply_content:'',
     apply_count:0,
     next_apply:0,
+    minute: '0' + 0,   // 分
+    second: '0' + 0,    // 秒
   },
   onLoad: function (options) {
       var token = wx.getStorageSync("token");
@@ -38,7 +40,7 @@ Page({
       if (!work_id){
         work_id = wx.getStorageSync("work_id")
       }
-     // work_id = 188533;
+      // work_id = 188533;
       wx.setStorageSync('work_id', work_id);
       if(!token){
           wx.redirectTo({
@@ -171,13 +173,13 @@ Page({
     if(id== "S"){
       score = 100;
     } else if (id == "A"){
-      score = 80;
+      score = 94;
     } else if (id == "B") {
-      score = 60;
+      score = 89;
     } else if (id == "C") {
-      score = 40;
+      score = 79;
     } else if (id == "D") {
-      score = 20;
+      score = 70;
     }
     this.setData({
       form_grade: id,
@@ -244,15 +246,15 @@ Page({
     } else if (id == "score"){
       var grade = "";
       value = parseInt(value);
-      if (value > 0 && value <= 20){
+      if (value > 0 && value <= 70){
          grade = "D"; 
-      } else if (value > 20 && value <= 40) {
+      } else if (value >= 71 && value <= 79) {
         grade = "C";
-      } else if(value > 40 && value <= 60){
+      } else if(value >= 80 && value <= 89){
         grade = "B";
-      } else if(value > 60 && value <= 80){
+      } else if(value >= 90 && value <= 94){
         grade = "A";
-      } else if(value > 80 && value <= 100){
+      } else if(value >= 95 && value <= 100){
         grade = "S";
       } else if (value > 100){
         grade = "S";
@@ -283,14 +285,17 @@ Page({
     //开始录音
     recorderManager.start(options);
     recorderManager.onStart(() => {
-      //开始录音计时
-      that.recordingTimer();
       that.setData({//存值
         miuse_state: 2,
         strat: true,
         miuse_url: '',
-        recordingTimeqwe:0
+        recordingTimeqwe:0,
+        minute: '0' + 0,   // 分
+        second: '0' + 0,    // 秒
       })
+      //开始录音计时
+      that.recordingTimer();
+      that.timesetInterval();
       wx.showToast({
         title: '开始录音',
         icon: 'none',
@@ -330,8 +335,9 @@ Page({
       icon: 'none',
       duration: 1500,
     })
-    //结束录音计时
+    //结束录音计时 
     clearInterval(that.data.setInter);
+    clearInterval(that.data.setInter1);
     recorderManager.stop();
     recorderManager.onStop((res) => {
       this.tempFilePath = res.tempFilePath;
@@ -396,12 +402,19 @@ Page({
   get_qiniu_info: function () {
     var that = this;
     if (!that.data.miuse_url){
-      wx.showToast({
-        title: '请先停止录音',
-        icon: 'none',
-        duration: 1500,
-      });
-      return;
+      //结束录音计时 
+      clearInterval(that.data.setInter);
+      clearInterval(that.data.setInter1);
+      recorderManager.stop();
+      recorderManager.onStop((res) => {
+        this.tempFilePath = res.tempFilePath;
+        that.setData({//存值
+          miuse_url: res.tempFilePath,
+          strat: false,
+          miuse_state: 1,
+          tempFilePath: res
+        })
+      })
     }
     if (!that.data.form_yd && !that.data.form_tsd && !that.data.form_xl) {
       wx.showToast({
@@ -535,5 +548,40 @@ Page({
     this.getworkinfo();
     this.hasright();
     this.is_apply_work();
+  },
+  timesetInterval() {
+    const that = this
+    var second = that.data.second
+    var minute = that.data.minute
+    that.data.setInter1 = setInterval(function () {  // 设置定时器
+      second++
+      if (second >= 60) {
+        second = 0  //  大于等于60秒归零
+        minute++
+        if (minute >= 60) {
+          minute = 0  //  大于等于60分归零
+        }
+        if (minute < 10) {
+          // 少于10补零
+          that.setData({
+            minute: '0' + minute
+          })
+        } else {
+          that.setData({
+            minute: minute
+          })
+        }
+      }
+      if (second < 10) {
+        // 少于10补零
+        that.setData({
+          second: '0' + second
+        })
+      } else {
+        that.setData({
+          second: second
+        })
+      }
+    }, 1000)
   }
 });

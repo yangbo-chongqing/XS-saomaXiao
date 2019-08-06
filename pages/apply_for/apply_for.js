@@ -35,7 +35,6 @@ Page({
     if (!works_id) { // 当前分享页的类型
       works_id = wx.getStorageSync("works_id");
     }
-    works_id = 188580;
     wx.setStorageSync('works_id', works_id);
     if (!token) {
       wx.redirectTo({
