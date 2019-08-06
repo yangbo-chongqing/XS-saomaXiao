@@ -25,8 +25,11 @@
             </view>
             <view class="vux-flexbox-item" style="margin-top: 8px;">
                 <view class="vux-flexbox play-box vux-flex-row">
-                    <view bindtap="recordingAndPlaying" class="vux-flexbox-item" style="margin-left: 8px; flex: 0 0 12.5%;">
+                    <view wx:if="{{!audition}}" bindtap="recordingAndPlaying" class="vux-flexbox-item" style="margin-left: 8px; flex: 0 0 12.5%;">
                         <image src='/images/bf.png' style="width:32px;height:32px;"></image>
+                    </view>
+                    <view wx:if="{{audition}}" bindtap="recordingAndPlayingzt" class="vux-flexbox-item" style="margin-left: 8px; flex: 0 0 12.5%;">
+                        <image src='/images/zt.png' style="width:32px;height:32px;"></image>
                     </view>
                     <view class="vux-flexbox-item">
                        <text style="color:#fff;">录音音频</text>

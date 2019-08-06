@@ -16,9 +16,15 @@ Page({
     select_sort_desc: '正序',
     tutor_list:[],
     select_id:'',
-
+  },
+  onUnload: function () {
+    wx.setStorageSync('work_id',wx.getStorageSync("works_id"));
+    wx.redirectTo({
+      url: '../work_info/work_info'
+    });
   },
   onLoad: function (options) {
+    
     var token = wx.getStorageSync("token");
     var member_id = wx.getStorageSync("member_id");
     if (options.parent_id) { // 上级信息
@@ -29,6 +35,7 @@ Page({
     if (!works_id) { // 当前分享页的类型
       works_id = wx.getStorageSync("works_id");
     }
+    works_id = 188580;
     wx.setStorageSync('works_id', works_id);
     if (!token) {
       wx.redirectTo({
@@ -149,6 +156,19 @@ Page({
       success: function (res) {
         app.hide_l(that);
         if(res.data.code == 200){
+            var list = res.data.data.tutor_list;
+            var arr = [];
+            for (var i = 0; i < list.length;i++){
+              if (list[i].apply != 1){
+                arr.push(list[i].example_reader_id);
+              }
+            }
+            if (arr){
+              var index = Math.floor((Math.random() * arr.length));
+              that.setData({
+                select_id: arr[index],
+              })
+            }
             that.setData({
               tutor_list: res.data.data.tutor_list,
             })
@@ -197,17 +217,20 @@ Page({
         success: function (res) {
           app.hide_l(that);
           if (res.data.code == 200) {
+            this.setData({
+              loading: true,
+            })
             wx.showToast({
               title: res.data.msg,
               icon: 'none',
-              duration: 3000,
+              duration: 4000,
             })
             wx.setStorageSync('work_id', data.works_id);
             setTimeout(function(){
               wx.redirectTo({
                 url: '../work_info/work_info'
               });
-            },300);
+            },3000);
           }else{
             wx.showToast({
               title: res.data.msg,
