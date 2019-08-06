@@ -12,7 +12,7 @@
 }
 
 .works-detail .lyric {
-    font-size: 1rem;
+    font-size: 28rpx;
     line-height: 1.5rem;
     padding: 0rem 0.625rem;
     height: 12.5rem;
@@ -21,7 +21,9 @@
 }
 .lyric-content{
    overflow: auto;
-   padding: 0rem 0.625rem;
+    padding: 15rpx 0.625rem 0;
+    box-sizing: border-box;
+
 }
 
 .aplayer {
@@ -65,10 +67,10 @@
 
 .ss-task .record-box {
     text-align: center;
-    width: 95%;
+    width: 82%;
     margin: 0.625rem auto;
     border: 1px solid #ddd;
-    padding: 0.625rem 0;
+    padding: 35rpx 0;
     border-radius: 8px;
 }
 .vux-flex-row {
@@ -130,8 +132,6 @@
     display: inline-block;
     width: 1.5625rem;
     height: 1.5625rem;
-    border-radius: 50%;
-    border: 2px solid #eee;
     text-align: center;
     line-height: 1.5625rem;
 }
@@ -172,8 +172,8 @@
 .van-field__control {
     display: block;
     box-sizing: border-box;
-    width: 94%;
-    margin: 3%;
+    width: 82%;
+    margin: 3% auto;
     padding: 5px;
     color: #323233;
     text-align: left;
@@ -182,10 +182,10 @@
     resize: none;
 }
 .ss-task .play-box {
-    width: 95%;
+    width: 82%;
     margin: 0.625rem auto;
     border: 1px solid #ddd;
-    padding: 0.625rem;
+    padding: 25rpx 10rpx;
     box-sizing: border-box;
     border-radius: 8px;
     background-color: #f2574b;
@@ -229,4 +229,9 @@
     vertical-align: center; /**垂直居中*/
     justify-content: center; /**内容居中*/
     flex-direction:row;
+}
+.no-content{
+    text-align: center;
+    color:#999;
+    margin-bottom: 20rpx;
 }

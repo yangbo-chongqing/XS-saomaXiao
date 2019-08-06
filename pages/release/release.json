@@ -1,4 +1,6 @@
 {
   "enablePullDownRefresh":false,
-  "navigationBarTitleText": "作业"
+  "navigationBarTitleText": "作业",
+  "usingComponents": {
+  }
 }

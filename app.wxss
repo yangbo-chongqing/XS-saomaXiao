@@ -777,7 +777,7 @@ image.aui- img-round {
 
 /*按钮样式*/
 
-button, .aui-btn {
+ .aui-btn {
   position: relative;
   display: inline-block;
   font-weight: 400;

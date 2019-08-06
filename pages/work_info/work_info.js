@@ -13,6 +13,7 @@ Page({
     share_url:"",
     share_image:"http://resource.xunsheng.org.cn/20190727175250-task-cover-283.JPG",
     audioCtx:[],
+    grade_arr:['','D','C','B','A','S'],
     is_play: 0,
     play_miuse_id: '',
     form_grade : '',
@@ -168,21 +169,22 @@ Page({
   },
   // 选择评星
   select_score(e){
-    var id = e.currentTarget.dataset.id;
-    var score = 0;
-    if(id== "S"){
-      score = 100;
-    } else if (id == "A"){
-      score = 94;
-    } else if (id == "B") {
-      score = 89;
-    } else if (id == "C") {
-      score = 79;
-    } else if (id == "D") {
-      score = 70;
-    }
+    var id = e.detail;  //星星数
+    var score = id*20;
+    let form_grade=this.data.grade_arr[id];
+//    if(id== "S"){
+//      score = 100;
+//    } else if (id == "A"){
+//      score = 80;
+//    } else if (id == "B") {
+//      score = 60;
+//    } else if (id == "C") {
+//      score = 40;
+//    } else if (id == "D") {
+//      score = 20;
+//    }
     this.setData({
-      form_grade: id,
+      form_grade: form_grade,
       form_score: score
     })
   },

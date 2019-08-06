@@ -266,11 +266,11 @@ button.weui-btn, input.weui-btn {
 }
 
 .teacher-info-item {
-    line-height: 1.125rem;
+    line-height: 50rpx;
 }
 
 .teacher-name {
-    font-size: 0.8125rem;
+    font-size: 28rpx;
     /* font-weight: 600; */
     overflow: hidden;
     text-overflow: ellipsis;
@@ -278,12 +278,12 @@ button.weui-btn, input.weui-btn {
 }
 
 .cert {
-    width: 1.5rem;
-    height:0.8rem;
+    width: 50rpx;
+    height:25rpx;
     vertical-align: middle;
 }
 .teacher-rank {
-    font-size: 0.625rem;
+    font-size: 24rpx;
     color: #f2574b;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -297,7 +297,7 @@ button.weui-btn, input.weui-btn {
     text-align: right;
 }
 .price{
-    font-size: 0.8125rem;
+    font-size: 26rpx;
 }
 
 .coin {
@@ -310,14 +310,14 @@ button.weui-btn, input.weui-btn {
 }
 
 .subtitle {
-    font-size: 0.625rem;
+    font-size: 24rpx;
     color: #999;
 }
 .van-tag {
     display: inline-block;
     padding: .2em .5em;
     color: #fff;
-    font-size: 0.625rem;
+    font-size: 24rpx;
     line-height: normal;
     border-radius: .2em;
 }
@@ -328,7 +328,7 @@ button.weui-btn, input.weui-btn {
     /* margin-right: 0.1875rem; */
     border:0.8px solid rgb(25, 137, 250);
     float: left;
-    font-size: 0.525rem;
+    font-size: 18rpx;
 
 }
 .checker-icon {

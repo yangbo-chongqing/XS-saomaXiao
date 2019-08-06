@@ -12,7 +12,7 @@
 }
 
 .works-detail .lyric {
-    font-size: 1rem;
+    font-size: 28rpx;
     line-height: 1.5rem;
     padding: 0rem 0.625rem;
     height: 12.5rem;
@@ -21,7 +21,8 @@
 }
 .lyric-content{
    overflow: auto;
-   padding: 0rem 0.625rem;
+    padding: 15rpx 0.625rem 0;
+    box-sizing: border-box;
 }
 
 .aplayer {
@@ -86,25 +87,26 @@
 }
 
 .user-avatar {
-    width: 2.1875rem;
-    height: 2.1875rem;
+    width: 90rpx;
+    height: 90rpx;
     border-radius: 50%;
+    vertical-align: middle;
 }
 .vux-flex-col > .vux-flexbox-item {
     width: 100%;
 }
 
 .user-name {
-    font-size: 0.8125rem;
+    font-size: 30rpx;
 }
 
 .user-impression {
-    font-size: 0.625rem;
+    font-size: 24rpx;
     color: #666;
 }
 
 .user-time {
-    font-size: 0.625rem;
+    font-size: 24rpx;
     color: #999;
     margin-bottom: 5px;
 }
@@ -133,29 +135,23 @@ page{
 
 
 .teacher-avatar {
-    width: 1.875rem;
-    height: 1.875rem;
+    width: 80rpx;
+    height: 80rpx;
     border-radius: 50%;
     vertical-align: middle;
 }
 
 .comment-time {
-    font-size: 0.625rem;
+    font-size: 22rpx;
     color: #999;
     text-align: right;
 }
 
  .comment-content{
-    font-size: 0.625rem;
+    font-size: 24rpx;
     color: #666;
     white-space: pre-wrap;
     text-align: justify;
-}
-.teacher-avatar {
-    width: 1.875rem;
-    height: 1.875rem;
-    border-radius: 50%;
-    vertical-align: middle;
 }
 
 .comment-item {
