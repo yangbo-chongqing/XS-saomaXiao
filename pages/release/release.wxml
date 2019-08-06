@@ -44,7 +44,8 @@
         <!-- 录制 -->
         <view wx:if="{{miuse_state != 4}}" class="vux-flexbox record-box vux-flex-row">
             <view class="vux-flexbox-item record-duration">
-             {{recordingTimeqwe}}
+             {{minute}}:{{second}}
+             
             </view>
             <view wx:if="{{miuse_state == 2}}" class="vux-flexbox-item record-btn-content">
                 <view class="record-btn" style="width:60px;color:red;" bindtap="shutRecording">

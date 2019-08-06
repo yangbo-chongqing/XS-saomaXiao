@@ -20,8 +20,8 @@
                   </view>
                   <view class="van-col van-col--18" style="width:75%">
                       <view class="van-row van-row--flex van-row--align-center">
-                          <view class="homework-name van-col van-col--17">{{item.task_name}}</view>
-                          <view class="time van-col van-col--7">{{item.create_time}}</view>
+                          <view class="homework-name van-col van-col--17" style="width:60%;">{{item.task_name}}</view>
+                          <view class="time van-col van-col--7" style="width:40%;">{{item.create_time}}</view>
                       </view>
                       <view class="van-row van-row--flex van-row--align-center" style="margin-top:15px;">
                           <view class="homework-desc van-col van-col--17">{{item.author}}    {{item.duration}}</view>

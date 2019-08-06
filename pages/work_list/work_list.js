@@ -12,6 +12,7 @@ Page({
     share_image:"http://resource.xunsheng.org.cn/20190727175250-task-cover-283.JPG",
   },
   onLoad: function (options) {
+      console.log(app.formatSeconds(120));
       var token = wx.getStorageSync("token");
       var member_id = wx.getStorageSync("member_id");
       if(options.parent_id){ // 上级信息
@@ -80,8 +81,12 @@ Page({
           header: { "Content-Type": "application/x-www-form-urlencoded" },
           success: function (res) {
             if(res.data.code == 200){
+                var list = res.data.data;
+                for (var i = 0; i < list.length;i++){
+                    list[i].duration = app.formatSeconds(list[i].duration);
+                }
                 that.setData({//存值
-                    work_list:res.data.data,
+                    work_list: list,
                 });
                 app.hide_l(that);
             }
