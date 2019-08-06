@@ -99,11 +99,16 @@
 }
 
 .works-record {
-    width: 95%;
-    margin: 1.25rem auto;
+    margin: 20rpx auto 10rpx;
+    padding-left: 33rpx;
 }
 .works-record .works-record-title {
     padding-left: 0.3125rem;
     border-left: 2px solid #f2574b;
     font-size: 0.8125rem;
+}
+.homework-btn{
+    background-color: #FCAE03 !important;
+    color:#fff !important;
+    border-color:#FCAE03;
 }
