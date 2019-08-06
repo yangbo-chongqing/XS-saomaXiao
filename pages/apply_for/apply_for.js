@@ -216,7 +216,7 @@ Page({
         success: function (res) {
           app.hide_l(that);
           if (res.data.code == 200) {
-            this.setData({
+            that.setData({
               loading: true,
             })
             wx.showToast({
