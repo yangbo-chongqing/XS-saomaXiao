@@ -1,13 +1,12 @@
 <view wx:if="{{loading}}" class="loading_background"></view>
 <view class="tip-info van-notice-bar">
-  <image src="/images/ts.png" class="van-icon"></image>
+  <image src="../../images/ts.png" class="van-icon"></image>
   <view class="van-notice-bar__wrap">
     <view class="van-notice-bar__content van-notice-bar__play--infinite gg">
       申请范读导师点评服务将自动从您的点评包里扣除点数！
     </view>
   </view>
 </view>
-
 <view class="dropdown-menu van-dropdown-menu van-hairline--top-bottom">
    <view class="van-dropdown-menu__item" data-type="1" bindtap="tab_switch">
       <text>{{select_order_desc}}</text>

@@ -3,233 +3,240 @@
     <view class="works-detail" style="background-image: url('{{work_info.cover_img}}');">
         <!-- 顶部文档 -->
         <view class="lyric-content">
-          <text class="lyric">{{work_info.lyric_text}}</text>
-          <view class="vux-flexbox vux-flex-row"></view>
+            <text class="lyric">{{work_info.lyric_text}}</text>
+            <view class="vux-flexbox vux-flex-row"></view>
         </view>
         <view class="aplayer" style="transform: translate(0px, 0px);">
             <view class="aplayer-body">
-                <audio  src="{{work_info.video_url}}" name="{{work_info.works_name}}" poster="{{work_info.cover_img}}" author="{{work_info.reader_name}}" bindtap="play_miuse" bindended="end_play" id="myAudio" controls></audio>  
+                <audio src="{{work_info.video_url}}" name="{{work_info.works_name}}" poster="{{work_info.cover_img}}"
+                       author="{{work_info.reader_name}}" bindtap="play_miuse" bindended="end_play" id="myAudio"
+                       controls></audio>
             </view>
         </view>
     </view>
     <view wx:if="{{apply_count > 0}}" bindtap="next_work" class="waiting">
-      <image src="/images/ld.png" style="width:20px;height:20px;"></image>
-      <text>待点评({{apply_count}})⋙</text>
+        <image src="/images/ld.png" style="width:20px;height:20px;"></image>
+        <text>待点评({{apply_count}})⋙</text>
     </view>
     <!-- 用户信息 -->
     <view class="vux-flexbox user-info vux-flex-row" style="margin-bottom:5px;">
         <view class="vux-flexbox-item" style="margin-left: 8px; flex: 0 0 12.5%;">
-          <image wx:if="{{work_info.avatar}}" src="{{work_info.avatar}}" class="user-avatar"></image>
-          <image wx:else src="http://resource.xunsheng.org.cn/xsmatch/static/imgs/head.jpeg" class="user-avatar"></image>
+            <image wx:if="{{work_info.avatar}}" src="{{work_info.avatar}}" class="user-avatar"></image>
+            <image wx:else src="http://resource.xunsheng.org.cn/xsmatch/static/imgs/head.jpeg"
+                   class="user-avatar"></image>
         </view>
         <view class="vux-flexbox-item" style="margin-left: 8px;margin-top: 10px;">
             <view class="vux-flexbox vux-flex-col">
                 <view class="vux-flexbox vux-flex-col user-name">{{work_info.author}}</view>
-                <button wx:if="{{work_info.class_info}}" bindtap="jump"  data-url="../release/release?class_id={{work_info.class_info.class_id}}&task_id={{work_info.task_info.task_id}}"  style="float: right;margin-right:5px;" class="van-button van-button--default van-button--mini van-button--round">做作业</button>
-                  <button wx:if="{{!work_info.class_info}}" bindtap="jump"  data-url="../release/release?task_id={{work_info.task_info.task_id}}"  style="float: right;margin-right:5px;" class="van-button van-button--default van-button--mini van-button--round">做作业</button>
+                <!--<button wx:if="{{work_info.class_info}}" bindtap="jump"-->
+                        <!--data-url="../release/release?class_id={{work_info.class_info.class_id}}&task_id={{work_info.task_info.task_id}}"-->
+                        <!--style="float: right;margin-right:5px;"-->
+                        <!--class="van-button van-button&#45;&#45;default van-button&#45;&#45;mini van-button&#45;&#45;round">做作业-->
+                <!--</button>-->
+                <van-button wx:if="{{work_info.class_info}}" bindtap="jump"
+                            data-url="../release/release?class_id={{work_info.class_info.class_id}}&task_id={{work_info.task_info.task_id}}"
+                            round type="danger" size="mini">做作业</van-button>
+                <!--<button wx:if="{{!work_info.class_info}}" bindtap="jump"-->
+                        <!--data-url="../release/release?task_id={{work_info.task_info.task_id}}"-->
+                        <!--style="float: right;margin-right:5px;"-->
+                        <!--class="van-button van-button&#45;&#45;default van-button&#45;&#45;mini van-button&#45;&#45;round">做作业-->
+                <!--</button>-->
+                <!--<van-button wx:if="{{!work_info.class_info}}" bindtap="jump"-->
+                            <!--data-url="../release/release?task_id={{work_info.task_info.task_id}}"-->
+                            <!--round type="danger" size="mini">做作业</van-button>-->
+
             </view>
             <view class="vux-flexbox-item" style="margin-top: 3px;width:100%;">
                 <view class="vux-flexbox vux-flex-row">
                     <view class="vux-flexbox-item" style="width:100%;">
                         <view class="vux-flexbox-item user-impression" style="margin-top: 3px;width:100%;">
-                        {{work_info.impression}}</view>
+                            {{work_info.impression}}
+                        </view>
                         <view class="vux-flexbox-item user-time" style="margin-top: 3px;width:100%;">
-                              {{work_info.create_time}}       {{work_info.device_name}}
+                            {{work_info.create_time}} {{work_info.device_name}}
                         </view>
                     </view>
-                    <button wx:if="{{is_apply}}" bindtap="jump"  data-url="../apply_for/apply_for?works_id={{work_info.works_id}}"  style="float: right;margin-right:5px;" class="van-button van-button--default van-button--mini van-button--round">申请点评</button>
+                    <!--<van-button  wx:if="{{is_apply}}" bindtap="jump"-->
+                                 <!--data-url="../apply_for/apply_for?works_id={{work_info.works_id}}"-->
+                                <!--round type="danger" size="mini">申请点评</van-button>-->
+                    <van-button bindtap="jump"
+                                 data-url="../apply_for/apply_for?works_id={{work_info.works_id}}"
+                                round type="danger" size="mini">申请点评</van-button>
                 </view>
             </view>
         </view>
-    </view>   
-     <!--所在班级  -->
-     <view wx:if="{{apply_content}}" class="class_view">
-      {{apply_content}}
-     </view>
-     <view class="class_view">
-      所在班级{{work_info.class_info.class_name}}
-     </view>
-     <!-- 老师评论 -->
-      <view class="works-record">
-          <view class="works-record-title" style="width:50%;float:left;">老师评论</view>
-          <button wx:if="{{hasright == 1}}" class="van-button van-button--danger van-button--mini van-button--round" bindtap="comment_show" style="float:right">点评</button>
-      </view>    
-      <!-- 老师评论列表 -->
-      <view class="comment-list">
-          <view class="vux-flexbox comment-item vux-flex-row" style="align-items: flex-start;" wx:for="{{work_info.teacher_comment_list}}">
-              <view class="vux-flexbox-item" style="margin-left: 5px; flex: 0 0 10%;">
-                  <image src="{{item.teacher_avatar}}" class="teacher-avatar"></image>
-              </view>    
-              <view class="vux-flexbox-item" style="margin-left: 5px;">
-                  <view class="vux-flexbox vux-flex-col">
-                      <view class="vux-flexbox-item teacher-name">
-                          <view class="vux-flexbox vux-flex-row">
-                              <view class="vux-flexbox-item" style="margin-left: 8px;">{{item.teacher_name}}</view>
-                              <view class="vux-flexbox-item comment-time" style="margin-left: 8px;">
-                              {{item.comment_time}}</view>
-                          </view>
-                      </view>
-                  </view>
-                  <view class="vux-flexbox-item pf" style="margin-top: 10px;width: 100%;height:35px;">
-                    
-                      <view wx:if="{{item.grade == 'S'}}">
-                        <image src="/images/pfh.png"></image>
-                        <image src="/images/pfh.png"></image>
-                        <image src="/images/pfh.png"></image>
-                        <image src="/images/pfh.png"></image>
-                        <image src="/images/pfh.png"></image>
-                      </view>
-                       <view wx:if="{{item.grade == 'D'}}">
-                        <image src="/images/pff.png"></image>
-                        <image src="/images/pfh.png"></image>
-                        <image src="/images/pfh.png"></image>
-                        <image src="/images/pfh.png"></image>
-                        <image src="/images/pfh.png"></image>
-                      </view>
-                      <view wx:if="{{item.grade == 'C'}}">
-                        <image src="/images/pfh.png"></image>
-                        <image src="/images/pfh.png"></image>
-                        <image src="/images/pff.png"></image>
-                        <image src="/images/pff.png"></image>
-                        <image src="/images/pff.png"></image>
-                      </view>
-                       <view wx:if="{{item.grade == 'B'}}">
-                        <image src="/images/pfh.png"></image>
-                        <image src="/images/pfh.png"></image>
-                        <image src="/images/pfh.png"></image>
-                        <image src="/images/pff.png"></image>
-                        <image src="/images/pff.png"></image>
-                      </view>
-                       <view wx:if="{{item.grade == 'A'}}">
-                        <image src="/images/pfh.png"></image>
-                        <image src="/images/pfh.png"></image>
-                        <image src="/images/pfh.png"></image>
-                        <image src="/images/pfh.png"></image>
-                        <image src="/images/pff.png"></image>
-                      </view>
-                       <view wx:if="{{item.grade == ''}}">
-                        <image src="/images/pff.png"></image>
-                        <image src="/images/pff.png"></image>
-                        <image src="/images/pff.png"></image>
-                        <image src="/images/pff.png"></image>
-                        <image src="/images/pff.png"></image>
-                      </view>
-                      
-                  </view>
-                  <view wx:if="{{item.voice_comment}}" class="vux-flexbox-item" style="margin-top: 5px;width: 100%;">
-                      <audio  src="{{item.voice_comment}}" name="老师点评" poster="{{work_info.cover_img}}"  bindtap="play_miuse" author="{{work_info.teacher_name}}"  bindended="end_play" id="miuse{{item.comment_id}}" controls></audio>  
-                  </view>
-                  <view class="vux-flexbox-item" style="margin-top: 5px;width: 100%;">
-                      <view class="vux-flexbox vux-flex-col">
-                          <text class="comment-content">{{item.teacher_comment}}</text>
-                      </view>
-                  </view>
-              </view>          
-              
-          </view>
-      </view>
-      <!-- 点评弹框 -->
-      <view animation="{{animation}}" class="van-popup van-popup--bottom dp_info" style="height: 26rem;z-index: 2041; transition: transform 300ms linear 0ms; transform: translateY(800px); transform-origin: 50% 50% 0px;">
-          <view class="van-cell van-field">
-              <view class="van-cell__title van-field__label" style="width: 4.5rem;">优点:</view>
-              <view class="van-cell__value">
-                  <view class="van-field__body">
-                      <input type="text" value="" bindinput="get_form_info" id="yd" placeholder="请输入优点"></input>
-                  </view>
-              </view>
-          </view>
-          <view class="van-cell van-field">
-              <view class="van-cell__title van-field__label" style="width: 4.5rem;">提升点:</view>
-              <view class="van-cell__value">
-                  <view class="van-field__body">
-                      <input type="text" bindinput="get_form_info" id="tsd" placeholder="请输入提升点"></input>
-                  </view>
-              </view>
-          </view>
-          <view class="van-cell van-field">
-              <view class="van-cell__title van-field__label" style="width: 4.5rem;">训练方法:</view>
-              <view class="van-cell__value">
-                  <view class="van-field__body">
-                      <!-- <textarea class="van-field__control" maxlength="-1" auto-height placeholder="请输入训练方法"></textarea> -->
-                      <input type="text" bindinput="get_form_info" id="xl" placeholder="请输入训练方法"></input>
-                  </view>
-              </view>
-          </view>
-          <view class="van-cell van-field">
-              <view class="van-cell__title van-field__label" style="width: 4.5rem;">语音点评:</view>
-              <view class="van-cell__value" style="text-align: right;">
-                  <view wx:if="{{miuse_state == 1}}" class="van-field__body" bindtap="openRecording">
-                      <text style="float:right;">开始录音</text>
-                      <image src="/images/lz.png" style="width: 30px;height: 30px;margin:5px 5px 0 0;float: right;"></image>
-                  </view>
-                   <view wx:if="{{miuse_state != 1}}" class="van-field__body" bindtap="shutRecording">
-                      <text style="float:right;">停止录音{{recordingTimeqwe}}</text>
-                      <image src="/images/tz.png" style="width: 30px;height: 30px;margin:5px 5px 0 0;float: right;"></image>
-                  </view>
-              </view>
-          </view>
-          <view class="van-cell van-field">
-              <view class="van-cell__title van-field__label" style="width: 4.5rem;">星级:</view>
-              <view class="van-cell__value">
-                  <view class="van-field__body">
-                       <view wx:if="{{form_grade == 'S'}}">
-                        <image data-id="S" bindtap="select_score" class="score" src="/images/pfh.png"></image>
-                        <image data-id="A" bindtap="select_score" class="score" src="/images/pfh.png"></image>
-                        <image data-id="B" bindtap="select_score" class="score" src="/images/pfh.png"></image>
-                        <image data-id="C" bindtap="select_score" class="score" src="/images/pfh.png"></image>
-                        <image data-id="D" bindtap="select_score" class="score" src="/images/pfh.png"></image>
-                      </view>
-                       <view wx:if="{{form_grade == 'A'}}">
-                        <image data-id="S" bindtap="select_score" class="score" src="/images/pff.png"></image>
-                        <image data-id="A" bindtap="select_score" class="score" src="/images/pfh.png"></image>
-                        <image data-id="B" bindtap="select_score" class="score" src="/images/pfh.png"></image>
-                        <image data-id="C" bindtap="select_score" class="score" src="/images/pfh.png"></image>
-                        <image data-id="D" bindtap="select_score" class="score" src="/images/pfh.png"></image>
-                      </view>
-                      <view wx:if="{{form_grade == 'B'}}">
-                        <image data-id="S" bindtap="select_score" class="score" src="/images/pff.png"></image>
-                        <image data-id="A" bindtap="select_score" class="score" src="/images/pff.png"></image>
-                        <image data-id="B" bindtap="select_score" class="score" src="/images/pfh.png"></image>
-                        <image data-id="C" bindtap="select_score" class="score" src="/images/pfh.png"></image>
-                        <image data-id="D" bindtap="select_score" class="score" src="/images/pfh.png"></image>
-                      </view>
-                       <view wx:if="{{form_grade == 'C'}}">
-                        <image data-id="S" bindtap="select_score" class="score" src="/images/pff.png"></image>
-                        <image data-id="A" bindtap="select_score" class="score" src="/images/pff.png"></image>
-                        <image data-id="B" bindtap="select_score" class="score" src="/images/pff.png"></image>
-                        <image data-id="C" bindtap="select_score" class="score" src="/images/pfh.png"></image>
-                        <image data-id="D" bindtap="select_score" class="score" src="/images/pfh.png"></image>
-                      </view>
-                       <view wx:if="{{form_grade == 'D'}}">
-                        <image data-id="S" bindtap="select_score" class="score" src="/images/pff.png"></image>
-                        <image data-id="A" bindtap="select_score" class="score" src="/images/pff.png"></image>
-                        <image data-id="B" bindtap="select_score" class="score" src="/images/pff.png"></image>
-                        <image data-id="C" bindtap="select_score" class="score" src="/images/pff.png"></image>
-                        <image data-id="D" bindtap="select_score" class="score" src="/images/pfh.png"></image>
-                      </view>
-                       <view wx:if="{{form_grade == ''}}">
-                        <image data-id="S" bindtap="select_score" class="score" src="/images/pff.png"></image>
-                        <image data-id="A" bindtap="select_score" class="score" src="/images/pff.png"></image>
-                        <image data-id="B" bindtap="select_score" class="score" src="/images/pff.png"></image>
-                        <image data-id="C" bindtap="select_score" class="score" src="/images/pff.png"></image>
-                        <image data-id="D" bindtap="select_score" class="score" src="/images/pff.png"></image>
-                      </view>
-                  </view>
-              </view>
-          </view>
-          <view class="van-cell van-field">
-              <view class="van-cell__title van-field__label" style="width: 4.5rem;">评分:</view>
-              <view class="van-cell__value">
-                  <view class="van-field__body">
-                     <input type="number" style="margin-top: 0.7rem;" bindinput="get_form_info" id="score" value="{{form_score}}" placeholder="请输入评分"></input>
-                  </view>
-              </view>
-          </view>
-          <view class="van-cell van-field">
-              <view class="van-cell__value van-cell__value--alone">
-                  <button bindtap="get_qiniu_info" class="van-button1 van-button1--danger van-button1--normal van-button1--block van-button1--round">提交</button>
-              </view>
-          </view>
-      </view>
-      <view animation="{{animation}}" class="van-overlay" style="z-index: 2040; transition: transform 300ms linear 0ms; transform: translateY(800px); transform-origin: 50% 50% 0px;" bindtap="comment_hide"></view>
+    </view>
+    <!--所在班级  -->
+    <view wx:if="{{apply_content}}" class="class_view">
+        {{apply_content}}
+    </view>
+    <view class="class_view">
+        所在班级：{{work_info.class_info.class_name}}
+    </view>
+    <!-- 老师评论 -->
+    <view class="works-record">
+        <view class="works-record-title" style="width:50%;float:left;">老师评论</view>
+        <van-button wx:if="{{hasright == 1}}"
+                     bindtap="comment_show"
+                     style="float:right"
+                     round type="danger" size="mini">点评</van-button>
+    </view>
+    <!-- 老师评论列表 -->
+    <view class="comment-list">
+        <block wx:if="{{work_info.teacher_comment_list&&work_info.teacher_comment_list.length>0}}">
+            <view class="vux-flexbox comment-item vux-flex-row" style="align-items: flex-start;"
+                  wx:for="{{work_info.teacher_comment_list}}">
+                <view class="vux-flexbox-item" style="margin-left: 5px; flex: 0 0 10%;">
+                    <image src="{{item.teacher_avatar}}" class="teacher-avatar"></image>
+                </view>
+                <view class="vux-flexbox-item" style="margin-left: 5px;">
+                    <view class="vux-flexbox vux-flex-col">
+                        <view class="vux-flexbox-item teacher-name">
+                            <view class="vux-flexbox vux-flex-row">
+                                <view class="vux-flexbox-item" style="margin-left: 8px;">{{item.teacher_name}}</view>
+                                <view class="vux-flexbox-item comment-time" style="margin-left: 8px;">
+                                    {{item.comment_time}}
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="vux-flexbox-item pf" style="margin-top: 10px;width: 100%;height:35px;">
+                        <van-rate
+                                value="{{item.grade == 'S'?5:item.grade == 'A'?4:item.grade == 'B'?3:item.grade == 'C'?2:item.grade == 'D'?1:item.grade == ''?0:0}}"
+                                readonly>
+                        </van-rate>
+                    </view>
+                    <view wx:if="{{item.voice_comment}}" class="vux-flexbox-item" style="margin-top: 5px;width: 100%;">
+                        <audio src="{{item.voice_comment}}" name="老师点评" poster="{{work_info.cover_img}}"
+                               bindtap="play_miuse" author="{{work_info.teacher_name}}" bindended="end_play"
+                               id="miuse{{item.comment_id}}" controls></audio>
+                    </view>
+                    <view class="vux-flexbox-item" style="margin-top: 5px;width: 100%;">
+                        <view class="vux-flexbox vux-flex-col">
+                            <text class="comment-content">{{item.teacher_comment}}</text>
+                        </view>
+                    </view>
+                </view>
+
+            </view>
+        </block>
+        <view wx:else style="text-align: center;padding-top: 40rpx;color:#999;">暂无老师点评</view>
+    </view>
+    <!-- 点评弹框 -->
+    <view animation="{{animation}}" class="van-popup van-popup--bottom dp_info"
+          style="height: 26rem;z-index: 2041; transition: transform 300ms linear 0ms; transform: translateY(800px); transform-origin: 50% 50% 0px;">
+        <view class="van-cell van-field">
+            <view class="van-cell__title van-field__label" style="width: 4.5rem;">优点:</view>
+            <view class="van-cell__value">
+                <view class="van-field__body">
+                    <input type="text" value="" bindinput="get_form_info" id="yd" placeholder="请输入优点"></input>
+                </view>
+            </view>
+        </view>
+        <view class="van-cell van-field">
+            <view class="van-cell__title van-field__label" style="width: 4.5rem;">提升点:</view>
+            <view class="van-cell__value">
+                <view class="van-field__body">
+                    <input type="text" bindinput="get_form_info" id="tsd" placeholder="请输入提升点"></input>
+                </view>
+            </view>
+        </view>
+        <view class="van-cell van-field">
+            <view class="van-cell__title van-field__label" style="width: 4.5rem;">训练方法:</view>
+            <view class="van-cell__value">
+                <view class="van-field__body">
+                    <!-- <textarea class="van-field__control" maxlength="-1" auto-height placeholder="请输入训练方法"></textarea> -->
+                    <input type="text" bindinput="get_form_info" id="xl" placeholder="请输入训练方法"></input>
+                </view>
+            </view>
+        </view>
+        <view class="van-cell van-field">
+            <view class="van-cell__title van-field__label" style="width: 4.5rem;">语音点评:</view>
+            <view class="van-cell__value" style="text-align: right;">
+                <view wx:if="{{miuse_state == 1}}" class="van-field__body" bindtap="openRecording">
+                    <text style="float:right;">开始录音</text>
+                    <image src="/images/lz.png"
+                           style="width: 30px;height: 30px;margin:5px 5px 0 0;float: right;"></image>
+                </view>
+                <view wx:if="{{miuse_state != 1}}" class="van-field__body" bindtap="shutRecording">
+                    <text style="float:right;">停止录音{{recordingTimeqwe}}</text>
+                    <image src="/images/tz.png"
+                           style="width: 30px;height: 30px;margin:5px 5px 0 0;float: right;"></image>
+                </view>
+            </view>
+        </view>
+        <view class="van-cell van-field">
+            <view class="van-cell__title van-field__label" style="width: 4.5rem;">星级:</view>
+            <view class="van-cell__value">
+                <view class="van-field__body">
+                    <van-rate
+                            value="{{form_grade}}" bind:change="select_score" size="{{25}}">
+                    </van-rate>
+
+                    <!--<view wx:if="{{form_grade == 'S'}}">-->
+                        <!--<image data-id="S" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                        <!--<image data-id="A" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                        <!--<image data-id="B" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                        <!--<image data-id="C" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                        <!--<image data-id="D" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                    <!--</view>-->
+                    <!--<view wx:if="{{form_grade == 'A'}}">-->
+                        <!--<image data-id="S" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                        <!--<image data-id="A" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                        <!--<image data-id="B" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                        <!--<image data-id="C" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                        <!--<image data-id="D" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                    <!--</view>-->
+                    <!--<view wx:if="{{form_grade == 'B'}}">-->
+                        <!--<image data-id="S" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                        <!--<image data-id="A" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                        <!--<image data-id="B" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                        <!--<image data-id="C" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                        <!--<image data-id="D" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                    <!--</view>-->
+                    <!--<view wx:if="{{form_grade == 'C'}}">-->
+                        <!--<image data-id="S" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                        <!--<image data-id="A" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                        <!--<image data-id="B" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                        <!--<image data-id="C" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                        <!--<image data-id="D" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                    <!--</view>-->
+                    <!--<view wx:if="{{form_grade == 'D'}}">-->
+                        <!--<image data-id="S" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                        <!--<image data-id="A" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                        <!--<image data-id="B" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                        <!--<image data-id="C" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                        <!--<image data-id="D" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                    <!--</view>-->
+                    <!--<view wx:if="{{form_grade == ''}}">-->
+                        <!--<image data-id="S" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                        <!--<image data-id="A" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                        <!--<image data-id="B" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                        <!--<image data-id="C" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                        <!--<image data-id="D" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                    <!--</view>-->
+                </view>
+            </view>
+        </view>
+        <view class="van-cell van-field">
+            <view class="van-cell__title van-field__label" style="width: 4.5rem;">评分:</view>
+            <view class="van-cell__value">
+                <view class="van-field__body">
+                    <input type="number" style="margin-top: 0.7rem;" bindinput="get_form_info" id="score"
+                           value="{{form_score}}" placeholder="请输入评分"></input>
+                </view>
+            </view>
+        </view>
+        <view class="van-cell van-field">
+            <view class="van-cell__value van-cell__value--alone">
+                <button bindtap="get_qiniu_info"
+                        class="van-button1 van-button1--danger van-button1--normal van-button1--block van-button1--round">
+                    提交
+                </button>
+            </view>
+        </view>
+    </view>
+    <view animation="{{animation}}" class="van-overlay"
+          style="z-index: 2040; transition: transform 300ms linear 0ms; transform: translateY(800px); transform-origin: 50% 50% 0px;"
+          bindtap="comment_hide"></view>
 </view>
