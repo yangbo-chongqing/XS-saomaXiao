@@ -1,4 +1,7 @@
 {
   "enablePullDownRefresh":false,
-  "navigationBarTitleText": "杉树伴读"
+  "navigationBarTitleText": "杉树伴读",
+  "usingComponents": {
+    "van-button": "/components/vant-weapp/dist/button/index"
+  }
 }

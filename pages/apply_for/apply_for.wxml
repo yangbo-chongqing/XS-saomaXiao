@@ -53,7 +53,7 @@
                   <view class="vux-flexbox vux-flex-row" data-id="{{item.example_reader_id}}" data-apply="{{item.apply}}" bindtap="select_tutor" style="flex-wrap: wrap;" wx:for="{{tutor_list}}" style="margin-bottom:15px;">
                       <view class="vux-flexbox-item example-techer-list-item" >
                           <view class="vux-flexbox vux-flex-row">
-                              <view class="vux-flexbox-item item-div" style="margin-left: 8px; flex: 0 0 35%;">
+                              <view class="vux-flexbox-item item-div" style="margin-left: 8px; flex: 0 0 32%;">
                                 <image src="{{item.member_url}}" class="teacher-avatar"></image>
                               </view>
                               <view class="vux-flexbox-item item-div" style="margin-left: 8px;">
@@ -68,7 +68,7 @@
                                     <view class="vux-flexbox-item teacher-intro teacher-info-item"></view>
                                     <view class="vux-flexbox-item teacher-info-item">
                                         <view class="vux-flexbox vux-flex-row">
-                                            <view class="vux-flexbox-item">
+                                            <view class="vux-flexbox-item" style="flex: 0 0 70%;">
                                                 <view class="vux-flexbox vux-flex-col">
                                                     <view class="vux-flexbox-item teacher-rank">{{item.ranking}}</view>
                                                     <!-- 星星 -->

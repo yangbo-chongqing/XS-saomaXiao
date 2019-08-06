@@ -3,6 +3,7 @@
   "navigationBarTitleText": "作品详情",
   "usingComponents": {
     "van-rate": "/components/vant-weapp/dist/rate/index",
-    "van-button": "/components/vant-weapp/dist/button/index"
+    "van-button": "/components/vant-weapp/dist/button/index",
+    "imt-audio": "/components/imt-audio/imt-audio"
   }
 }
