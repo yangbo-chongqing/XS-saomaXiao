@@ -15,8 +15,6 @@ Page({
 	},
 	onLoad: function (options) {
 		var parent_id = wx.getStorageSync('parent_id');
-		console.log(11111);
-		console.log(parent_id);
 		var that = this;
 		var type = options.type;
 		that.setData({
@@ -72,6 +70,7 @@ Page({
 			wx.login({
 				success: function (res) {
 					var code = res.code;
+          app.show_l(that);
 					wx.request({
 						url: config.URL + "/fa/Xseechatmini/login",
 						data: {
@@ -83,7 +82,7 @@ Page({
 							'content-type': 'application/x-www-form-urlencoded',
 						},
 						success: function (res) {
-							console.log(res);
+							app.hide_l(that);
 							if (!res.data.data.is_tel) {
 								that.setData({
 									is_tel: true,
@@ -152,14 +151,14 @@ Page({
 				v: 2
 			}
 		}
-		console.log(datas);
-		console.log(that.data.type);
+    app.show_l(that);
 		wx.request({
 			url: config.URL + '/fa/Xseechatmini/login_user_phone',
 			method: 'post',
 			header: { "Content-Type": "application/x-www-form-urlencoded" },
 			data: datas,
 			success: function (res) {
+        app.hide_l(that);
 				if (res.data.code == 200) {
 					var member_id = res.data.data.member_id;
 					var token = res.data.data.token;

@@ -3,6 +3,9 @@ var config = require('config.js');
 var md5 = require('utils/md5.js');
 
 App({
+  data:{
+    loading:false
+  },
   onLaunch: function () {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
@@ -50,5 +53,19 @@ App({
       }
     }
     return md5.hexMD5(code);
+  },
+  show_l(e){
+    wx.showLoading({
+      title: '请稍后...',
+    });
+    e.setData({
+      loading: true
+    })
+  },
+  hide_l(e) {
+    wx.hideLoading();
+    e.setData({
+      loading: false
+    })
   }
 });

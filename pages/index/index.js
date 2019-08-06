@@ -235,7 +235,7 @@ Page({
           console.log(that.data.miuse_url);
             //上传录音
             wx.uploadFile({
-              url: 'http://up.qiniu.com',//这是你自己后台的连接
+              url: config.QIUNIU_URL,//这是你自己后台的连接
               filePath: that.data.miuse_url,
               name:"file",//后台要绑定的名称
               header: {

@@ -24,10 +24,11 @@ Page({
         task_id: 0,
         audioCtx:[],
         is_play:0,
-        play_miuse_id:''
+        play_miuse_id:'',
+        minute: '0' + 0,   // 分
+        second: '0' + 0,    // 秒
     },
     onLoad: function (options) {
-      console.log(options);
         // 用户信息
         var token = wx.getStorageSync("token");
         var member_id = wx.getStorageSync("member_id");
@@ -75,6 +76,7 @@ Page({
     // 文稿详情
     get_tast_info:function(){
         var that = this;
+        app.show_l(that);
         var ts = Date.parse(new Date());
         var data = {
             task_id:  wx.getStorageSync("task_id"),
@@ -92,6 +94,7 @@ Page({
                   that.setData({
                     task_info: res.data.data.task_detail
                   })
+                  app.hide_l(that);
               }
             }
         })
@@ -99,6 +102,7 @@ Page({
     // 历史作品列表
     get_classworkslist:function(){
         var that = this;
+        app.show_l(that);
         var ts = Date.parse(new Date());
         var data = {
             member_id:  wx.getStorageSync("member_id"),
@@ -118,11 +122,11 @@ Page({
             method: 'post',
             header: { "Content-Type": "application/x-www-form-urlencoded" },
             success: function (res) {
+                app.hide_l(that);
                 if(res.data.code == 200){
                     that.setData({
                         work_list: res.data.data
                     })
-                    console.log(111);
                 }
             }
         })
@@ -143,6 +147,7 @@ Page({
         recorderManager.onStart(() => {
             //开始录音计时
             that.recordingTimer();
+            //that.timesetInterval();
             that.setData({//存值
                 miuse_state:2,
                 strat:true
@@ -282,7 +287,7 @@ Page({
                 if(res.data.code == 200){
                     //上传录音
                     wx.uploadFile({
-                        url: 'http://up.qiniu.com',//这是你自己后台的连接
+                        url: config.QIUNIU_URL,//这是你自己后台的连接
                         filePath: that.data.miuse_url,
                         name:"file",//后台要绑定的名称
                         header: {
@@ -301,7 +306,6 @@ Page({
                                 duration:2000
                             })
                             var data = JSON.parse(ress.data);
-                            console.log(ress);
                             that.setData({//存值
                                 q_url:data.key,
                             })
@@ -336,6 +340,7 @@ Page({
         };
         var cs = app.encryption(data);
         data.cs = cs;
+        app.show_l(that);
         wx.request({
             url: config.URL + "muse/works/savev2",
             data: data,
@@ -344,6 +349,7 @@ Page({
                 'content-type': 'application/x-www-form-urlencoded',
             },
             success: function (res) {
+                app.hide_l();
                 if(res.data.code == 200){
                     wx.showToast({
                         title: "发布成功",
@@ -425,5 +431,40 @@ Page({
         })
       }
       
+    },
+    timesetInterval(){
+      const that = this
+      var second = that.data.second
+      var minute = that.data.minute
+      setInterval(function () {  // 设置定时器
+        second++
+        if (second >= 60) {
+          second = 0  //  大于等于60秒归零
+          minute++
+          if (minute >= 60) {
+            minute = 0  //  大于等于60分归零
+          }
+          if (minute < 10) {
+            // 少于10补零
+            that.setData({
+              minute: '0' + minute
+            })
+          } else {
+            that.setData({
+              minute: minute
+            })
+          }
+        }
+        if (second < 10) {
+          // 少于10补零
+          that.setData({
+            second: '0' + second
+          })
+        } else {
+          that.setData({
+            second: second
+          })
+        }
+      }, 1000)
     }
 });

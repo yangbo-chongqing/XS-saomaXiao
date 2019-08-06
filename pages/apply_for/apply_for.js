@@ -5,6 +5,7 @@ const md5 = require('../../utils/md5.js');
 const app = getApp();
 Page({
   data: {
+    loading:true,
     work_list: [],
     page:1,
     page_size:20,
@@ -15,6 +16,7 @@ Page({
     select_sort_desc: '正序',
     tutor_list:[],
     select_id:'',
+
   },
   onLoad: function (options) {
     var token = wx.getStorageSync("token");
@@ -123,6 +125,7 @@ Page({
   get_list(){
     var that = this;
     var ts = Date.parse(new Date());
+    app.show_l(that);
     var data = {
       member_id: wx.getStorageSync("member_id"),
       token: wx.getStorageSync("token"),
@@ -144,6 +147,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded',
       },
       success: function (res) {
+        app.hide_l(that);
         if(res.data.code == 200){
             that.setData({
               tutor_list: res.data.data.tutor_list,
@@ -182,6 +186,7 @@ Page({
     }else{
       var cs = app.encryption(data);
       data.cs = cs;
+      app.show_l(that);
       wx.request({
         url: config.URL + "/fa/Xspaycomment/adding_order",
         data: data,
@@ -190,6 +195,7 @@ Page({
           'content-type': 'application/x-www-form-urlencoded',
         },
         success: function (res) {
+          app.hide_l(that);
           if (res.data.code == 200) {
             wx.showToast({
               title: res.data.msg,

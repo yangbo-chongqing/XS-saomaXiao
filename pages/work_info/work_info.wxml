@@ -1,3 +1,4 @@
+<view wx:if="{{loading}}" class="loading_background"></view>
 <view class="ss-task" style="backgroud:#fff;">
     <view class="works-detail" style="background-image: url('{{work_info.cover_img}}');">
         <!-- 顶部文档 -->
