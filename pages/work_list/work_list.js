@@ -59,10 +59,13 @@ Page({
   },
   getHomeWork:function(){
       var that = this;
+      app.show_l(that);
       var ts = Date.parse(new Date());
       var data = {
-          member_id: 283,
-          token: "2fc9c9ace50b382d6f57676d05a7306c",
+          // member_id: wx.getStorageSync("member_id"),
+          // token: wx.getStorageSync("token"),
+          member_id : 283,
+          token:'2fc9c9ace50b382d6f57676d05a7306c',
           class_id: 9698,
           page:1,
           page_size:15,
@@ -79,7 +82,8 @@ Page({
             if(res.data.code == 200){
                 that.setData({//存值
                     work_list:res.data.data,
-                })
+                });
+                app.hide_l(that);
             }
           }
       })

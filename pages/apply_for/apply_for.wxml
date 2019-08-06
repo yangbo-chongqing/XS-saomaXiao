@@ -1,4 +1,4 @@
-
+<view wx:if="{{loading}}" class="loading_background"></view>
 <view class="tip-info van-notice-bar">
   <image src="/images/ts.png" class="van-icon"></image>
   <view class="van-notice-bar__wrap">

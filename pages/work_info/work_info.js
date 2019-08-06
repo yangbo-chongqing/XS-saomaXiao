@@ -29,7 +29,7 @@ Page({
     is_apply:'',
     apply_content:'',
     apply_count:0,
-    next_apply:0
+    next_apply:0,
   },
   onLoad: function (options) {
       var token = wx.getStorageSync("token");
@@ -54,6 +54,7 @@ Page({
   // 获取作品详情
   getworkinfo:function(){
     var that = this;
+    app.show_l(that);
     var ts = Date.parse(new Date());
     var data = {
       member_id: wx.getStorageSync("member_id"),
@@ -71,6 +72,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded',
       },
       success: function (res) {
+        app.hide_l(that);
         if (res.data.code == 200) {
             var works_detail = res.data.data.works_detail;
             var date = new Date();
@@ -196,7 +198,7 @@ Page({
   },
   // 查询当前用户是否有评论权限
   hasright(){
-    var that = this;
+    var that = this;  
     var ts = Date.parse(new Date());
     var data = {
       member_id: wx.getStorageSync("member_id"),
@@ -343,6 +345,7 @@ Page({
   },
   submit_from(qiniu_url){
     var that = this;
+    app.show_l(that);
     var ts = Date.parse(new Date());
     var data = {
       member_id: wx.getStorageSync("member_id"),
@@ -365,6 +368,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded',
       },
       success: function (res) {
+        app.hide_l(that);
         if (res.data.code == 200) {
           wx.showToast({
             title: '点评成功',
@@ -444,7 +448,7 @@ Page({
         if (res.data.code == 200) {
           //上传录音
           wx.uploadFile({
-            url: 'http://up.qiniu.com',//这是你自己后台的连接
+            url: config.QIUNIU_URL,//这是你自己后台的连接
             filePath: that.data.miuse_url,
             name: "file",//后台要绑定的名称
             header: {

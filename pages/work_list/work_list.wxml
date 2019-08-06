@@ -44,3 +44,5 @@
   </view>
 
 </view>
+
+<view wx:if="{{loading}}" class="loading_background"></view>

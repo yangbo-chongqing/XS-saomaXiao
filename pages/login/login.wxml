@@ -1,3 +1,4 @@
+<view wx:if="{{loading}}" class="loading_background"></view>
 <view class="loginbox" wx:if="{{!login_show}}">
   <view class="font-size-24 wx_title mg-b-100 mg-t-100"></view>
   <view class="w-100">

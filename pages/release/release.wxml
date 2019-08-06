@@ -73,3 +73,4 @@
         <view wx:else class="no-content">暂无朗读记录</view>
     </view>
 </view>
+<view wx:if="{{loading}}" class="loading_background"></view>

@@ -18122,3 +18122,14 @@ button::after {
   margin: 0 auto
 }
 
+.loading_background{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top:0;
+  left: 0;
+  z-index: 5000;
+  background:#000;
+  opacity:0.2;  
+}
+
