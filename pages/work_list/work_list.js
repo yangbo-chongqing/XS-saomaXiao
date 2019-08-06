@@ -12,7 +12,6 @@ Page({
     share_image:"http://resource.xunsheng.org.cn/20190727175250-task-cover-283.JPG",
   },
   onLoad: function (options) {
-      console.log(app.formatSeconds(120));
       var token = wx.getStorageSync("token");
       var member_id = wx.getStorageSync("member_id");
       if(options.parent_id){ // 上级信息
@@ -96,7 +95,6 @@ Page({
   onShareAppMessage: function(res) {
 
     var share_url = "/pages/work_list/work_list?&parent_id="+wx.getStorageSync("member_id");
-    console.log(share_url);
     return {
       title: this.data.share_title,
       imageUrl: this.data.share_image,

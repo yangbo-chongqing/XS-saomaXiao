@@ -11,6 +11,7 @@
     "pages/release/release",
 
     "pages/apply_for/apply_for"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

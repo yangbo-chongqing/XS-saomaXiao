@@ -28,6 +28,7 @@ Page({
         play_miuse_id:'',
         minute: '0' + 0,   // 分
         second: '0' + 0,    // 秒
+        audition:false
     },
     onLoad: function (options) {
         // 用户信息
@@ -63,7 +64,7 @@ Page({
     onShareAppMessage: function(res) {
         var share_url = "/pages/release/release?class_id="+wx.getStorageSync("class_id")+"&task_id="+wx.getStorageSync("task_id")+"&parent_id="+wx.getStorageSync("member_id");
         return {
-            title: "1234564564645646465456544656464444444444444444444444464646455555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555",
+            title: "寻声朗读",
             imageUrl: this.data.share_image,
             path: share_url,
             success: function(res) {
@@ -134,6 +135,9 @@ Page({
     },
     //开始录音
     openRecording: function() {
+        if (this.data.play_miuse_id) { // 当前正在播放的音频
+          this.data.audioCtx[this.data.play_miuse_id].pause();
+        }
         var that = this;
         const options = {
             duration: 600000,//指定录音的时长，单位 ms
@@ -208,20 +212,32 @@ Page({
     },
     //录音播放
     recordingAndPlaying: function(eve) {
+        if (this.data.play_miuse_id) { // 当前正在播放的音频
+          this.data.audioCtx[this.data.play_miuse_id].pause();
+        }
         wx.showToast({
             title: '开始播放',
             icon: 'none',
             duration: 1500,
         })
+        this.setData({
+          audition:true
+        });
         innerAudioContext.autoplay = true
         innerAudioContext.src = this.tempFilePath,
-            innerAudioContext.onPlay(() => {
-                console.log('开始播放')
-            });
+        innerAudioContext.onPlay(() => {
+            console.log('开始播放')
+        });
         innerAudioContext.onError((res) => {
             console.log(res.errMsg);
             console.log(res.errCode);
         })
+    },
+    recordingAndPlayingzt:function(){
+      this.setData({
+        audition: false
+      });
+      innerAudioContext.stop();
     },
     //录音暂停
     suspendRecording: function(eve) {
@@ -279,6 +295,7 @@ Page({
         };
         var cs = app.encryption(data);
         data.cs = cs;
+        app.show_l(that);
         wx.request({
             url: config.URL + "/voice/qiniu/uploadtoken",
             data: data,
@@ -287,9 +304,10 @@ Page({
                 'content-type': 'application/x-www-form-urlencoded',
             },
             success: function (res) {
-                console.log(res);
+                app.hide_l(that);
                 if(res.data.code == 200){
                     //上传录音
+                    app.show_l(that);
                     wx.uploadFile({
                         url: config.QIUNIU_URL,//这是你自己后台的连接
                         filePath: that.data.miuse_url,
@@ -304,11 +322,7 @@ Page({
                         },
                         dataType:'JSON',
                         success:function(ress){
-                            wx.showToast({
-                                title: '保存完成',
-                                icon:'success',
-                                duration:2000
-                            })
+                            app.hide_l(that);
                             var data = JSON.parse(ress.data);
                             that.setData({//存值
                                 q_url:data.key,
@@ -316,7 +330,11 @@ Page({
                             that.release_work(data.key);
                         },
                         fail: function(ress){
-                            console.log("。。录音保存失败。。");
+                            wx.showToast({
+                              title: "。。录音保存失败。。",
+                              icon: 'success',
+                              duration: 2000
+                            })
                         }
                     })
                 }
@@ -413,7 +431,12 @@ Page({
         })
     },
     play_miuse(e){
-      console.log(this.data.audioCtx);
+      if (this.data.audition){
+        this.setData({
+          audition: false
+        });
+        innerAudioContext.stop();
+      }
       var miuse_id = e.target.id;
       if (miuse_id == this.data.play_miuse_id){ // 当前音频正在播放
         this.data.audioCtx[miuse_id].pause();

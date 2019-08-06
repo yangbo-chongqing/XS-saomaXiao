@@ -30,21 +30,22 @@
             <view class="vux-flexbox vux-flex-col">
                 <view class="vux-flexbox vux-flex-col user-name">{{work_info.author}}</view>
                 <!--<button wx:if="{{work_info.class_info}}" bindtap="jump"-->
-                        <!--data-url="../release/release?class_id={{work_info.class_info.class_id}}&task_id={{work_info.task_info.task_id}}"-->
-                        <!--style="float: right;margin-right:5px;"-->
-                        <!--class="van-button van-button&#45;&#45;default van-button&#45;&#45;mini van-button&#45;&#45;round">做作业-->
+                <!--data-url="../release/release?class_id={{work_info.class_info.class_id}}&task_id={{work_info.task_info.task_id}}"-->
+                <!--style="float: right;margin-right:5px;"-->
+                <!--class="van-button van-button&#45;&#45;default van-button&#45;&#45;mini van-button&#45;&#45;round">做作业-->
                 <!--</button>-->
                 <van-button wx:if="{{work_info.class_info}}" bindtap="jump"
                             data-url="../release/release?class_id={{work_info.class_info.class_id}}&task_id={{work_info.task_info.task_id}}"
-                            round type="danger" size="mini">做作业</van-button>
+                            round type="danger" size="mini">做作业
+                </van-button>
                 <!--<button wx:if="{{!work_info.class_info}}" bindtap="jump"-->
-                        <!--data-url="../release/release?task_id={{work_info.task_info.task_id}}"-->
-                        <!--style="float: right;margin-right:5px;"-->
-                        <!--class="van-button van-button&#45;&#45;default van-button&#45;&#45;mini van-button&#45;&#45;round">做作业-->
+                <!--data-url="../release/release?task_id={{work_info.task_info.task_id}}"-->
+                <!--style="float: right;margin-right:5px;"-->
+                <!--class="van-button van-button&#45;&#45;default van-button&#45;&#45;mini van-button&#45;&#45;round">做作业-->
                 <!--</button>-->
                 <!--<van-button wx:if="{{!work_info.class_info}}" bindtap="jump"-->
-                            <!--data-url="../release/release?task_id={{work_info.task_info.task_id}}"-->
-                            <!--round type="danger" size="mini">做作业</van-button>-->
+                <!--data-url="../release/release?task_id={{work_info.task_info.task_id}}"-->
+                <!--round type="danger" size="mini">做作业</van-button>-->
 
             </view>
             <view class="vux-flexbox-item" style="margin-top: 3px;width:100%;">
@@ -58,11 +59,12 @@
                         </view>
                     </view>
                     <!--<van-button  wx:if="{{is_apply}}" bindtap="jump"-->
-                                 <!--data-url="../apply_for/apply_for?works_id={{work_info.works_id}}"-->
-                                <!--round type="danger" size="mini">申请点评</van-button>-->
+                    <!--data-url="../apply_for/apply_for?works_id={{work_info.works_id}}"-->
+                    <!--round type="danger" size="mini">申请点评</van-button>-->
                     <van-button bindtap="jump"
-                                 data-url="../apply_for/apply_for?works_id={{work_info.works_id}}"
-                                round type="danger" size="mini">申请点评</van-button>
+                                data-url="../apply_for/apply_for?works_id={{work_info.works_id}}"
+                                round type="danger" size="mini">申请点评
+                    </van-button>
                 </view>
             </view>
         </view>
@@ -78,9 +80,10 @@
     <view class="works-record">
         <view class="works-record-title" style="width:50%;float:left;">老师评论</view>
         <van-button wx:if="{{hasright == 1}}"
-                     bindtap="comment_show"
-                     style="float:right"
-                     round type="danger" size="mini">点评</van-button>
+                    bindtap="comment_show"
+                    style="float:right"
+                    round type="danger" size="mini">点评
+        </van-button>
     </view>
     <!-- 老师评论列表 -->
     <view class="comment-list">
@@ -155,12 +158,13 @@
             <view class="van-cell__title van-field__label" style="width: 4.5rem;">语音点评:</view>
             <view class="van-cell__value" style="text-align: right;">
                 <view wx:if="{{miuse_state == 1}}" class="van-field__body" bindtap="openRecording">
-                    <text style="float:right;">开始录音</text>
+                    <text style="float:right;" wx:if="{{miuse_url}}">开始录音 {{minute}}:{{second}}</text>
+                    <text style="float:right;" wx:if="{{!miuse_url}}">开始录音</text>
                     <image src="/images/lz.png"
                            style="width: 30px;height: 30px;margin:5px 5px 0 0;float: right;"></image>
                 </view>
                 <view wx:if="{{miuse_state != 1}}" class="van-field__body" bindtap="shutRecording">
-                    <text style="float:right;">停止录音{{recordingTimeqwe}}</text>
+                    <text style="float:right;">停止录音 {{minute}}:{{second}}</text>
                     <image src="/images/tz.png"
                            style="width: 30px;height: 30px;margin:5px 5px 0 0;float: right;"></image>
                 </view>
@@ -175,46 +179,46 @@
                     </van-rate>
 
                     <!--<view wx:if="{{form_grade == 'S'}}">-->
-                        <!--<image data-id="S" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
-                        <!--<image data-id="A" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
-                        <!--<image data-id="B" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
-                        <!--<image data-id="C" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
-                        <!--<image data-id="D" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                    <!--<image data-id="S" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                    <!--<image data-id="A" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                    <!--<image data-id="B" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                    <!--<image data-id="C" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                    <!--<image data-id="D" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
                     <!--</view>-->
                     <!--<view wx:if="{{form_grade == 'A'}}">-->
-                        <!--<image data-id="S" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
-                        <!--<image data-id="A" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
-                        <!--<image data-id="B" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
-                        <!--<image data-id="C" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
-                        <!--<image data-id="D" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                    <!--<image data-id="S" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                    <!--<image data-id="A" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                    <!--<image data-id="B" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                    <!--<image data-id="C" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                    <!--<image data-id="D" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
                     <!--</view>-->
                     <!--<view wx:if="{{form_grade == 'B'}}">-->
-                        <!--<image data-id="S" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
-                        <!--<image data-id="A" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
-                        <!--<image data-id="B" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
-                        <!--<image data-id="C" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
-                        <!--<image data-id="D" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                    <!--<image data-id="S" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                    <!--<image data-id="A" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                    <!--<image data-id="B" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                    <!--<image data-id="C" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                    <!--<image data-id="D" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
                     <!--</view>-->
                     <!--<view wx:if="{{form_grade == 'C'}}">-->
-                        <!--<image data-id="S" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
-                        <!--<image data-id="A" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
-                        <!--<image data-id="B" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
-                        <!--<image data-id="C" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
-                        <!--<image data-id="D" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                    <!--<image data-id="S" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                    <!--<image data-id="A" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                    <!--<image data-id="B" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                    <!--<image data-id="C" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                    <!--<image data-id="D" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
                     <!--</view>-->
                     <!--<view wx:if="{{form_grade == 'D'}}">-->
-                        <!--<image data-id="S" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
-                        <!--<image data-id="A" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
-                        <!--<image data-id="B" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
-                        <!--<image data-id="C" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
-                        <!--<image data-id="D" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
+                    <!--<image data-id="S" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                    <!--<image data-id="A" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                    <!--<image data-id="B" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                    <!--<image data-id="C" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                    <!--<image data-id="D" bindtap="select_score" class="score" src="/images/pfh.png"></image>-->
                     <!--</view>-->
                     <!--<view wx:if="{{form_grade == ''}}">-->
-                        <!--<image data-id="S" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
-                        <!--<image data-id="A" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
-                        <!--<image data-id="B" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
-                        <!--<image data-id="C" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
-                        <!--<image data-id="D" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                    <!--<image data-id="S" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                    <!--<image data-id="A" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                    <!--<image data-id="B" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                    <!--<image data-id="C" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
+                    <!--<image data-id="D" bindtap="select_score" class="score" src="/images/pff.png"></image>-->
                     <!--</view>-->
                 </view>
             </view>
