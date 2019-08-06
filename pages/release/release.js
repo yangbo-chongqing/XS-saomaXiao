@@ -18,6 +18,7 @@ Page({
         miuse_state:1,
         miuse_url:'',
         setInter:"",//录音名称
+        setInter1: "",//录音名称
         strat:false,
         impression:"",
         class_id: 0,
@@ -62,7 +63,7 @@ Page({
     onShareAppMessage: function(res) {
         var share_url = "/pages/release/release?class_id="+wx.getStorageSync("class_id")+"&task_id="+wx.getStorageSync("task_id")+"&parent_id="+wx.getStorageSync("member_id");
         return {
-            title: this.data.share_title,
+            title: "1234564564645646465456544656464444444444444444444444464646455555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555",
             imageUrl: this.data.share_image,
             path: share_url,
             success: function(res) {
@@ -147,7 +148,7 @@ Page({
         recorderManager.onStart(() => {
             //开始录音计时
             that.recordingTimer();
-            //that.timesetInterval();
+            that.timesetInterval();
             that.setData({//存值
                 miuse_state:2,
                 strat:true
@@ -193,6 +194,7 @@ Page({
         })
         //结束录音计时
         clearInterval(that.data.setInter);
+        clearInterval(that.data.setInter1);
         recorderManager.stop();
         recorderManager.onStop((res) => {
             this.tempFilePath = res.tempFilePath;
@@ -259,7 +261,9 @@ Page({
         var that = this;
         that.setData({//存值
             miuse_state:1,
-            recordingTimeqwe:0
+            recordingTimeqwe:0,
+            minute: '0' + 0,   // 分
+            second: '0' + 0,    // 秒
         })
     },
     // 获取七牛云参数
@@ -436,7 +440,7 @@ Page({
       const that = this
       var second = that.data.second
       var minute = that.data.minute
-      setInterval(function () {  // 设置定时器
+      that.data.setInter1 = setInterval(function () {  // 设置定时器
         second++
         if (second >= 60) {
           second = 0  //  大于等于60秒归零
