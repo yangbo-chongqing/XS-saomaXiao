@@ -58,10 +58,7 @@
                             {{work_info.create_time}} {{work_info.device_name}}
                         </view>
                     </view>
-                    <!--<van-button  wx:if="{{is_apply}}" bindtap="jump"-->
-                    <!--data-url="../apply_for/apply_for?works_id={{work_info.works_id}}"-->
-                    <!--round type="danger" size="mini">申请点评</van-button>-->
-                    <van-button bindtap="jump"
+                    <van-button wx:if="{{is_apply}}" bindtap="jump"
                                 data-url="../apply_for/apply_for?works_id={{work_info.works_id}}"
                                 round type="danger" size="mini">申请点评
                     </van-button>
