@@ -343,7 +343,7 @@ Page({
   shutRecording: function () {
     var that = this;
     wx.showToast({
-      title: '停止录音',
+      title: '录制完成',
       icon: 'none',
       duration: 1500,
     })

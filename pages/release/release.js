@@ -47,6 +47,7 @@ Page({
         if(!task_id){ // 当前分享页的类型
             task_id =  wx.getStorageSync("task_id");
         }
+        // task_id = 314;
         wx.setStorageSync('task_id',task_id);
         if(!token){ // 用户未登录 则跳转到授权登录
             wx.redirectTo({
@@ -165,7 +166,7 @@ Page({
         });
         //错误回调
         recorderManager.onError((res) => {
-            console.log(res);
+  
             wx.showToast({
                 title: '没有权限',
                 icon: 'none',
@@ -192,7 +193,7 @@ Page({
     shutRecording: function() {
         var that = this;
         wx.showToast({
-            title: '停止录音',
+            title: '录制完成',
             icon: 'none',
             duration: 1500,
         })
@@ -493,5 +494,52 @@ Page({
           })
         }
       }, 1000)
+    },
+    //播放老师点评
+    play_comment(e){
+      console.log(this.data.audioCtx);
+      if (this.data.audition) {
+        this.setData({
+          audition: false
+        });
+        innerAudioContext.stop();
+      }
+      var miuse_id = e.currentTarget.dataset.id;
+      var url = e.currentTarget.dataset.url;
+      if (miuse_id == this.data.play_miuse_id) { // 当前音频正在播放
+        this.data.audioCtx[miuse_id].pause();
+        this.setData({
+          is_play: 0,
+          play_miuse_id: ''
+        })
+      } else {
+        if (this.data.play_miuse_id) { // 当前正在播放的音频
+          this.data.audioCtx[this.data.play_miuse_id].pause();
+        }
+        if (!this.data.audioCtx[miuse_id]) { // 当前音频未进行播放过
+          this.data.audioCtx[miuse_id] = wx.createInnerAudioContext(miuse_id);
+          this.data.audioCtx[miuse_id].src = url;
+          console.log(url);
+        }
+        this.data.audioCtx[miuse_id].play();
+        this.setData({
+          is_play: 1,
+          play_miuse_id: miuse_id
+        })
+        this.data.audioCtx[miuse_id].onPlay(() => {
+          console.log('开始播放')
+        });
+        this.data.audioCtx[miuse_id].onError((res) => {
+          console.log(res.errMsg);
+          console.log(res.errCode);
+        })
+        this.data.audioCtx[miuse_id].onEnded(() => {
+          console.log('112233')
+          this.setData({
+            play_miuse_id:'',
+            is_play:0,
+          });
+        });
+      }
     }
 });

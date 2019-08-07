@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="ss-task" style="backgroud:#fff;">
+<view class="ss-task">
     <view class="works-detail" style="background-image: url('{{task_info.cover_img}}');">
         <!-- 顶部文档 -->
         <view class="lyric-content">
@@ -47,7 +47,7 @@
             </view>
         </view>
         <!-- 录制 -->
-        <view wx:if="{{miuse_state != 4}}" class="vux-flexbox record-box vux-flex-row">
+        <view style="background-color:#fff;" wx:if="{{miuse_state != 4}}" class="vux-flexbox record-box vux-flex-row">
             <view class="vux-flexbox-item record-duration">
              {{minute}}:{{second}}
              
@@ -64,14 +64,31 @@
             </view>
         </view>
         <!-- 朗读记录 -->
-        <view class="works-record">
+        <view class="works-record" style="background-color:#fff;">
             <view class="works-record-title">朗读记录<text style="float:right;color:#0068b7;" bindtap="jump">成就报表</text></view>
         </view> 
-        <view class="van-list" wx:if="{{work_list.length>0}}">
+        <view class="van-list" wx:if="{{work_list.length>0}}" style="background-color:#fff;">
             <view class="vux-flexbox1 works-item vux-flex-col" wx:for="{{work_list}}">
                 <view class="vux-flexbox-item works-impression" bindtap="jump_data" data-url="../work_info/work_info?work_id={{item.works_id}}">听听我的新作品吧！</view>
                 <view class="vux-flexbox-item audio-content">
                     <audio src="{{item.video_url}}" name="{{item.works_name}}" poster="{{item.cover_img}}" author="{{item.author_name}}" bindtap="play_miuse" id="miuse{{item.works_id}}"  controls></audio>  
+                </view>
+                <view class="comment_list" wx:if="{{item.teacher_comment_list[0]}}">老师点评</view>
+                <view class="comment_info" wx:for="{{item.teacher_comment_list}}"  wx:for-item="val">
+                    <view class="comment_image"><image src="{{val.teacher_avatar}}"></image></view>
+                    <view class="comment_content">
+                      <view>
+                          <view class="comment_name">{{val.teacher_name}}</view>
+                          <view class="comment_time">{{val.comment_time}}</view>
+                      </view>
+                      <view style="margin-top:10px;">
+                          <view wx:if="{{val.comment_id != play_miuse_id}}" class="comment_bf" data-id="{{val.comment_id}}" data-url="{{val.voice_comment}}" bindtap="play_comment"><image src="/images/cbf.png"></image></view>
+                          <view wx:if="{{val.comment_id == play_miuse_id}}" class="comment_bf" data-id="{{val.comment_id}}" data-url="{{val.voice_comment}}" bindtap="play_comment"><image src="/images/czt.png"></image></view>
+                          <view class="comment_c">
+                              <text>{{val.teacher_comment}}</text>
+                          </view>
+                      </view>
+                    </view>
                 </view>
             </view>
         </view>
