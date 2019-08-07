@@ -65,13 +65,21 @@ Component({
         }
     },
     attached() {
-        audio.src = this.data.src;
+//        audio.src = this.data.src;
+//        audio.obeyMuteSwitch = true;
+//        audio.autoplay = this.data.autoplay;
+//        audio.onCanplay(() => {
+//
+//        });
+//        console.log(audio.src);
         this.setData({
             current: 0,
+//            durationTime: this.format(audio.duration)
             durationTime: this.format(this.data.duration)
         });
-        audio.obeyMuteSwitch = false;
-        audio.autoplay = this.data.autoplay;
+        audio.onCanplay(() => {
+
+        });
         //音频进度更新事件
         audio.onTimeUpdate(() => {
             if (!this.data.seek) {
@@ -84,7 +92,8 @@ Component({
         audio.onPlay(() => {
             this.setData({
                 paused: false,
-                loading: false
+                loading: false,
+                durationTime: this.format(audio.duration)
             })
         });
         //音频暂停事件
@@ -111,9 +120,22 @@ Component({
             })
         })
     },
+    detached(){
+        audio.destroy();
+    },
     observers: {
         //监听音频地址更改
-//        src(e) {
+        src(e) {
+            audio.src = e;
+            audio.obeyMuteSwitch = true;
+            audio.autoplay = this.data.autoplay;
+
+            console.log(e);
+            this.setData({
+                current: 0,
+                durationTime: this.format(this.data.duration)
+//            durationTime: this.format(this.data.duration)
+            });
 //            audio.src = e;
 //            this.setData({
 //                current: 0
@@ -122,13 +144,13 @@ Component({
 //            this.setData({
 //                loading: true
 //            })
-//        },
-        //监听总时长改变
-        duration(e) {
-            this.setData({
-                durationTime: this.format(e)
-            })
         },
+        //监听总时长改变
+//        duration(e) {
+//            this.setData({
+//                durationTime: this.format(e)
+//            })
+//        },
         //监听当前进度改变
         current(e) {
             this.setData({

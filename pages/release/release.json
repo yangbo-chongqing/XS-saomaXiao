@@ -2,5 +2,6 @@
   "enablePullDownRefresh":false,
   "navigationBarTitleText": "作业",
   "usingComponents": {
+    "imt-audio": "/components/imt-audio/imt-audio"
   }
 }

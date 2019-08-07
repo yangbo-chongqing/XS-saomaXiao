@@ -1,5 +1,7 @@
 {
   "pages": [
+
+    "pages/work_list/work_list",
     "pages/index/index",
     "pages/work_info/work_info",
     "pages/logs/logs",
