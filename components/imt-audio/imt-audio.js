@@ -65,13 +65,13 @@ Component({
         }
     },
     attached() {
-        audio.src = this.data.src;
-        this.setData({
-            current: 0,
-            durationTime: this.format(this.data.duration)
-        });
-        audio.obeyMuteSwitch = false;
-        audio.autoplay = this.data.autoplay;
+//        audio.src = this.data.src;
+//        this.setData({
+//            current: 0,
+//            durationTime: this.format(this.data.duration)
+//        });
+//        audio.obeyMuteSwitch = false;
+//        audio.autoplay = this.data.autoplay;
         //音频进度更新事件
         audio.onTimeUpdate(() => {
             if (!this.data.seek) {
@@ -84,7 +84,8 @@ Component({
         audio.onPlay(() => {
             this.setData({
                 paused: false,
-                loading: false
+                loading: false,
+                durationTime: this.format(audio.duration)
             })
         });
         //音频暂停事件
@@ -113,7 +114,15 @@ Component({
     },
     observers: {
         //监听音频地址更改
-//        src(e) {
+        src(e) {
+            audio.src = e;
+            audio.obeyMuteSwitch = false;
+            audio.autoplay = this.data.autoplay;
+            this.setData({
+                current: 0,
+                durationTime: this.format(this.data.duration)
+            });
+
 //            audio.src = e;
 //            this.setData({
 //                current: 0
@@ -122,7 +131,7 @@ Component({
 //            this.setData({
 //                loading: true
 //            })
-//        },
+        },
         //监听总时长改变
         duration(e) {
             this.setData({
