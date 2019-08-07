@@ -84,8 +84,7 @@ Component({
         audio.onPlay(() => {
             this.setData({
                 paused: false,
-                loading: false,
-                durationTime: this.format(audio.duration)
+                loading: false
             })
         });
         //音频暂停事件
@@ -122,15 +121,6 @@ Component({
                 current: 0,
                 durationTime: this.format(this.data.duration)
             });
-
-//            audio.src = e;
-//            this.setData({
-//                current: 0
-//            })
-//            audio.play();
-//            this.setData({
-//                loading: true
-//            })
         },
         //监听总时长改变
         duration(e) {

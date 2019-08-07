@@ -14,7 +14,7 @@
             </view>
         </view>
     </view>
-    <imt-audio wx:if="{{work_info.video_url}}" src="{{work_info.video_url}}" duration="{{work_info.duration}}"></imt-audio>
+    <imt-audio src="{{work_info.video_url}}" duration="{{work_info.duration}}"></imt-audio>
     <view wx:if="{{apply_count > 0}}" bindtap="next_work" class="waiting">
         <image src="/images/ld.png" style="width:20px;height:20px;"></image>
         <text>待点评({{apply_count}})⋙</text>
