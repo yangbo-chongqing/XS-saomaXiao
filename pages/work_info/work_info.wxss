@@ -2,12 +2,12 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    height: 17.5rem;
+    height: 600rpx;
     color: #fff;
 }
 
 .works-detail .lyric-content {
-    height: 73%;
+    height: 500rpx;
     background-color: rgba(0, 0, 0, 0.2);
 }
 
@@ -24,7 +24,6 @@
     padding: 15rpx 0.625rem 0;
     box-sizing: border-box;
 }
-
 .aplayer {
     font-family: Arial,Helvetica,sans-serif;
     color: #000;
@@ -52,6 +51,9 @@
     vertical-align: center; /**垂直居中*/
     justify-content: center; /**内容居中*/
     flex-direction:row;
+}
+.audio-class .audio-number{
+    color:red;
 }
 .vux-flexbox {
     width: 100%;
@@ -286,4 +288,7 @@ page{
     right: 0.625rem;
     font-size: 0.75rem;
     color: #f2574b;
+}
+.act-btn{
+    margin-right: 10rpx;
 }

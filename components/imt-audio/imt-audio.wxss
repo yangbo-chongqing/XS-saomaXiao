@@ -9,9 +9,9 @@
 		url('//at.alicdn.com/t/font_1104838_fxzimc34xw.svg#iconfont') format('svg');
 }
 .imt-audio {
-	padding: 30rpx;
-	background: #fff;
-	border-radius: 20rpx;
+	padding: 10rpx;
+	background: transparent;
+	box-sizing: border-box;
 }
 .audio-wrapper {
 	display: -webkit-box;
@@ -33,7 +33,7 @@
 .audio-number {
 	font-size: 24rpx;
 	/*line-height: 1;*/
-	color: #333;
+	color: #fff;
 }
 .audio-slider {
 	-webkit-box-flex: 1;
@@ -71,7 +71,8 @@
 	        transform: rotate(180deg);
 }
 .audio-control-switch {
-	font-size: 40rpx;
+	font-size: 30rpx;
+	background-color:#fff;
 	/*margin: 0 80rpx;*/
 }
 .audioLoading {

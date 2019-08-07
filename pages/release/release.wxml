@@ -3,22 +3,23 @@
     <view class="works-detail" style="background-image: url('{{task_info.cover_img}}');">
         <!-- 顶部文档 -->
         <view class="lyric-content">
-          <text class="lyric">{{task_info.lyric_text}}</text>
-          <view class="vux-flexbox vux-flex-row"></view>
-        </view>
-        <view wx:if="{{task_info.example_url}}" class="works-record">
-            <view class="works-record-title">寻声范读</view>
-             <view class="vux-flexbox-item record-duration">
-                <!--image src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAAp0lEQVQokZWSsQ3CMBBFHxEwASgFowQoaBkgGSBpAg3DBFZgCyRgFiQUKkrSoI/OyBXkfnOy77+zbP/BM18TaQ5sgAUwBVrgAjTANdgSq0NryFAAM2BstYjAUTBLB6Dkt2obVOmkrAcQJF+W2B082gpaOaGloNQJTQTdndBD0MkJnQXp/T1qBOmn+4KfZIRE7ID9H0B9+b4x6qLMHYEb8LKqtfbV7wDeLjEegS8BbgAAAAAASUVORK5CYII="></image-->
-               
+            <view class="lyric">
+                <text >{{task_info.lyric_text}}</text>
             </view>
-        </view> 
-        <view class="aplayer" style="transform: translate(0px, 0px);">
-            <view class="aplayer-body">
-                <audio wx:if="{{task_info.example_url}}"  name="{{task_info.task_name}}" poster="{{task_info.cover_img}}" src="{{task_info.example_url}}" bindtap="play_miuse" author="{{task_info.reader_name}}" id="myAudio" controls></audio>  
-            </view>
+            <imt-audio wx:if="{{task_info.example_url}}" src="{{task_info.example_url}}" duration="{{task_info.duration||0}}"></imt-audio>
         </view>
-        <imt-audio></imt-audio>
+        <!--<view wx:if="{{task_info.example_url}}" class="works-record">-->
+            <!--<view class="works-record-title">寻声范读</view>-->
+             <!--<view class="vux-flexbox-item record-duration">-->
+                <!--&lt;!&ndash;image src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAAp0lEQVQokZWSsQ3CMBBFHxEwASgFowQoaBkgGSBpAg3DBFZgCyRgFiQUKkrSoI/OyBXkfnOy77+zbP/BM18TaQ5sgAUwBVrgAjTANdgSq0NryFAAM2BstYjAUTBLB6Dkt2obVOmkrAcQJF+W2B082gpaOaGloNQJTQTdndBD0MkJnQXp/T1qBOmn+4KfZIRE7ID9H0B9+b4x6qLMHYEb8LKqtfbV7wDeLjEegS8BbgAAAAAASUVORK5CYII="></image&ndash;&gt;-->
+               <!---->
+            <!--</view>-->
+        <!--</view> -->
+        <!--<view class="aplayer" style="transform: translate(0px, 0px);">-->
+            <!--<view class="aplayer-body">-->
+                <!--&lt;!&ndash;<audio wx:if="{{task_info.example_url}}"  name="{{task_info.task_name}}" poster="{{task_info.cover_img}}" src="{{task_info.example_url}}" bindtap="play_miuse" author="{{task_info.reader_name}}" id="myAudio" controls></audio>&ndash;&gt;-->
+            <!--</view>-->
+        <!--</view>-->
         <!-- 录制成功 -->
         <view wx:if="{{miuse_state == 4}}" class="vux-flexbox1 vux-flex-col">
             <view class="vux-flexbox-item" style="margin-top: 8px;">
@@ -64,7 +65,7 @@
         </view>
         <!-- 朗读记录 -->
         <view class="works-record">
-            <view class="works-record-title">朗读记录<text style="float:right;color:blue;" bindtap="jump">成就报表</text></view>
+            <view class="works-record-title">朗读记录<text style="float:right;color:#0068b7;" bindtap="jump">成就报表</text></view>
         </view> 
         <view class="van-list" wx:if="{{work_list.length>0}}">
             <view class="vux-flexbox1 works-item vux-flex-col" wx:for="{{work_list}}">

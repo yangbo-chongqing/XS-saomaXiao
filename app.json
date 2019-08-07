@@ -1,7 +1,6 @@
 {
   "pages": [
-    "pages/work_info/work_info",
-    "pages/work_list/work_list",
+
     "pages/index/index",
     "pages/logs/logs",
     "pages/login/login",
@@ -9,6 +8,7 @@
     "pages/work/work",
     "pages/report/report",
     "pages/release/release",
+    "pages/work_info/work_info",
     "pages/apply_for/apply_for"
     
   ],
