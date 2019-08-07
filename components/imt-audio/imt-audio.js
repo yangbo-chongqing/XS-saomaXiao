@@ -25,7 +25,7 @@ Component({
         },//播放完成后是否继续播放下一首，需定义@next事件
         color: {
             type: String,
-            default: '#169af3'
+            default: '#f00'
         } //主色调
     },
     methods: {
@@ -84,7 +84,8 @@ Component({
         audio.onPlay(() => {
             this.setData({
                 paused: false,
-                loading: false
+                loading: false,
+                durationTime: this.format(audio.duration), //总时长
             })
         });
         //音频暂停事件
@@ -110,6 +111,14 @@ Component({
                 seek: false
             })
         })
+    },
+    detached(){
+        audio.destroy();
+    },
+    pageLifetimes: {
+        hide: function() {
+            audio.destroy();
+        }
     },
     observers: {
         //监听音频地址更改

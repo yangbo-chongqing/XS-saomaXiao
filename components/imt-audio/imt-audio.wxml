@@ -4,13 +4,13 @@
             <view class="audio-control-wrapper" style="{{'color:'+(color)+';'}}">
                 <view data-event-opts="{{[['tap',[['operation',['$event']]]]]}}"
                       class="{{['audio-control audio-control-switch',(loading)?'audioLoading':'']}}"
-                      style="{{'border-color:'+(color)+';'}}" bindtap="operation">{{loading?'':paused?'':''}}
+                      style="border-color:#fff;" bindtap="operation">{{loading?'':paused?'':''}}
                 </view>
             </view>
         </view>
         <view class="voice-bar">
             <view class="audio-number">{{currentTime}}</view>
-            <slider class="audio-slider" activeColor="{{color}}" block-size="16" value="{{current}}" max="{{duration}}"
+            <slider class="audio-slider" activeColor="{{color}}" block-size="12" value="{{current}}" max="{{duration}}"
                     data-event-opts="{{[['changing',[['e0',['$event']]]],['change',[['change',['$event']]]]]}}"
                     bindchanging="changing" bindchange="change"></slider>
             <view class="audio-number">{{durationTime}}</view>
