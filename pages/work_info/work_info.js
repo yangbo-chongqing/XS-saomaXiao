@@ -399,6 +399,7 @@ Page({
             form_tsd: '',
             form_xl: '',
             form_grade: '',
+            form_star_count:0,
             miuse_state: 2,
             strat: true,
             miuse_url: '',

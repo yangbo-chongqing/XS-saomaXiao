@@ -18,7 +18,7 @@
                           </view>
                       </view>
                   </view>
-                  <view class="van-col van-col--18" style="width:75%">
+                  <view class="van-col van-col--18" style="width:75%" data-url="../release/release?class_id={{item.class_id}}&task_id={{item.task_id}}" bindtap="jump">
                       <view class="van-row van-row--flex van-row--align-center">
                           <view class="homework-name van-col van-col--17" style="width:60%;">{{item.task_name}}</view>
                           <view class="time van-col van-col--7" style="width:40%;">{{item.create_time}}</view>
@@ -27,7 +27,7 @@
                           <view class="homework-desc van-col van-col--17">{{item.author}}    {{item.duration}}</view>
                           <view class="time">
                               <!--<button style="float:right" data-url="../release/release?class_id={{item.class_id}}&task_id={{item.task_id}}" bindtap="jump" class="homework-btn van-button van-button&#45;&#45;warning van-button&#45;&#45;mini">做作业</button>-->
-                              <van-button size="mini" style="float:right" data-url="../release/release?class_id={{item.class_id}}&task_id={{item.task_id}}" bindtap="jump" custom-class="homework-btn">做作业</van-button>
+                              <van-button size="mini" style="float:right" custom-class="homework-btn">做作业</van-button>
                           </view>
                       </view>
                       
