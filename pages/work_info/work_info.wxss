@@ -7,7 +7,7 @@
 }
 
 .works-detail .lyric-content {
-    height: 500rpx;
+    height: 460rpx;
     background-color: rgba(0, 0, 0, 0.2);
 }
 

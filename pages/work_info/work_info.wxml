@@ -7,14 +7,14 @@
             <view class="vux-flexbox vux-flex-row"></view>
         </view>
 
-        <imt-audio wx:if="{{work_info.video_url}}" src="{{work_info.video_url}}" duration="{{work_info.duration}}"></imt-audio>
-        <!--<view class="aplayer" style="transform: translate(0px, 0px);">-->
-            <!--<view class="aplayer-body">-->
-                <!--<audio src="{{work_info.video_url}}" name="{{work_info.works_name}}" poster="{{work_info.cover_img}}"-->
-                       <!--author="{{work_info.reader_name}}" bindtap="play_miuse" bindended="end_play" id="myAudio"-->
-                       <!--controls></audio>-->
-            <!--</view>-->
-        <!--</view>-->
+        <!--<imt-audio wx:if="{{work_info.video_url}}" src="{{work_info.video_url}}" duration="{{work_info.duration}}"></imt-audio>-->
+        <view class="aplayer" style="transform: translate(0px, 0px);">
+            <view class="aplayer-body">
+                <audio src="{{work_info.video_url}}" name="{{work_info.works_name}}" poster="{{work_info.cover_img}}"
+                       author="{{work_info.reader_name}}" bindtap="play_miuse" bindended="end_play" id="myAudio"
+                       controls></audio>
+            </view>
+        </view>
     </view>
 
     <view wx:if="{{apply_count > 0}}" bindtap="next_work" class="waiting">

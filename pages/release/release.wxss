@@ -15,7 +15,7 @@
     font-size: 28rpx;
     line-height: 1.5rem;
     padding: 0rem 0.625rem;
-    height: 490rpx;
+    height: 460rpx;
     overflow: auto;
     color: #fff;
 }
