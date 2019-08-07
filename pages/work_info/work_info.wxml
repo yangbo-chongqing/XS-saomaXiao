@@ -119,7 +119,7 @@
             <view class="van-cell__title van-field__label" style="width: 4.5rem;">优点:</view>
             <view class="van-cell__value">
                 <view class="van-field__body">
-                    <input type="text" value="" bindinput="get_form_info" id="yd" placeholder="请输入优点"></input>
+                    <input type="text" value="{{form_yd}}" bindinput="get_form_info" id="yd" placeholder="请输入优点"></input>
                 </view>
             </view>
         </view>
@@ -127,7 +127,7 @@
             <view class="van-cell__title van-field__label" style="width: 4.5rem;">提升点:</view>
             <view class="van-cell__value">
                 <view class="van-field__body">
-                    <input type="text" bindinput="get_form_info" id="tsd" placeholder="请输入提升点"></input>
+                    <input type="text" bindinput="get_form_info" value="{{form_tsd}}" id="tsd" placeholder="请输入提升点"></input>
                 </view>
             </view>
         </view>
@@ -136,7 +136,7 @@
             <view class="van-cell__value">
                 <view class="van-field__body">
                     <!-- <textarea class="van-field__control" maxlength="-1" auto-height placeholder="请输入训练方法"></textarea> -->
-                    <input type="text" bindinput="get_form_info" id="xl" placeholder="请输入训练方法"></input>
+                    <input type="text" bindinput="get_form_info" value="{{form_xl}}" id="xl" placeholder="请输入训练方法"></input>
                 </view>
             </view>
         </view>
