@@ -180,18 +180,18 @@ Page({
   // 选择评星
   select_score(e){
     var id = e.detail;  //星星数
-    var score = id*20;
-//    if(id== "S"){
-//      score = 100;
-//    } else if (id == "A"){
-//      score = 80;
-//    } else if (id == "B") {
-//      score = 60;
-//    } else if (id == "C") {
-//      score = 40;
-//    } else if (id == "D") {
-//      score = 20;
-//    }
+     var score = id*20;
+    if (this.data.grade_arr[id]== "S"){
+      score = 100;
+    } else if (this.data.grade_arr[id] == "A"){
+      score = 94;
+    } else if (this.data.grade_arr[id] == "B") {
+      score = 89;
+    } else if (this.data.grade_arr[id] == "C") {
+      score = 79;
+    } else if (this.data.grade_arr[id] == "D") {
+      score = 70;
+    }
     this.setData({
       form_grade: this.data.grade_arr[id],
       form_score: score,
@@ -200,7 +200,6 @@ Page({
   },
   // 隐藏点评框
   comment_hide(){
-    console.log(0);
     this.animation.translateY(800).step({ duration: 300 })
     this.setData({ animation: this.animation.export() })
   },
@@ -432,6 +431,7 @@ Page({
       clearInterval(that.data.setInter1);
       recorderManager.stop();
       recorderManager.onStop((res) => {
+        app.hide_l(that);
         this.tempFilePath = res.tempFilePath;
         that.setData({//存值
           miuse_url: res.tempFilePath,
@@ -439,7 +439,10 @@ Page({
           miuse_state: 1,
           tempFilePath: res
         })
+        app.show_l(that);
+        that.get_qiniu_info();
       })
+      return false;
     }
     if (!that.data.form_yd && !that.data.form_tsd && !that.data.form_xl) {
       wx.showToast({
@@ -472,7 +475,6 @@ Page({
       suffix: "MP3",
       ts: ts
     };
-    console.log(that.data.miuse_url);
     var cs = app.encryption(data);
     data.cs = cs;
     wx.request({
@@ -500,7 +502,6 @@ Page({
             dataType: 'JSON',
             success: function (ress) {
               var data = JSON.parse(ress.data);
-              console.log(ress);
               that.setData({//存值
                 q_url: data.key,
               })

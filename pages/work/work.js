@@ -9,7 +9,7 @@ Page({
     link: "",
     share_title:"寻声朗读",
     share_url:"",
-    share_image:"http://resource.xunsheng.org.cn/20190727175250-task-cover-283.JPG",
+    share_image:"https://resource.xunsheng.org.cn/ds_banner.png",
     
   },
   onLoad: function (options) {
