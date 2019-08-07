@@ -11,7 +11,7 @@ Page({
     work_info:[],
     share_title:"寻声朗读",
     share_url:"",
-    share_image:"http://resource.xunsheng.org.cn/20190727175250-task-cover-283.JPG",
+    share_image:"",
     audioCtx:[],
     grade_arr:['','D','C','B','A','S'],
     is_play: 0,
@@ -33,13 +33,17 @@ Page({
     next_apply:0,
     minute: '0' + 0,   // 分
     second: '0' + 0,    // 秒
+    my_work:false
   },
   onLoad: function (options) {
+      console.log(this.data.share_image);
       var token = wx.getStorageSync("token");
       var member_id = wx.getStorageSync("member_id");
-      var work_id = options.work_id;
-      if (!work_id){
-        work_id = wx.getStorageSync("work_id")
+      var work_id = '';
+      if (!options.work_id){
+        var work_id = wx.getStorageSync("work_id");
+      }else{
+        var work_id = options.work_id;
       }
       // work_id = 188533;
       wx.setStorageSync('work_id', work_id);
@@ -80,7 +84,7 @@ Page({
             var works_detail = res.data.data.works_detail;
             var date = new Date();
             works_detail.create_time = util.formatTimeTwo(works_detail.create_time,'Y-M-D h:m:s');
-            if (works_detail.cover_img){
+            if (works_detail.cover_img && !that.data.share_image){
                 that.setData({//存值
                   share_image: works_detail.cover_img,
                 })
@@ -97,6 +101,11 @@ Page({
             that.setData({//存值
               is_apply: 0,
             })
+          }
+          if (works_detail.member_id == wx.getStorageSync("member_id")){ // 当前作品是我的作品
+            that.setData({
+              my_work: true
+            });
           }
         }
       }
@@ -196,7 +205,6 @@ Page({
   },
   // 显示点评框
   comment_show(){
-      console.log(1);
       this.animation.translateY(0).step({ duration: 300 })
       this.setData({ animation: this.animation.export() })
   },
@@ -383,12 +391,24 @@ Page({
             icon: 'none',
             duration: 1500,
           });
-          that.getworkinfo();
-          that.onLoad();
-          that.comment_hide();
-          wx.redirectTo({
-            url: '../work_info/work_info'
+          that.setData({//存值
+            share_image: 'https://resource.xunsheng.org.cn/dpwb.png',
+            form_yd: '',
+            form_tsd: '',
+            form_xl: '',
+            form_grade: '',
+            miuse_state: 2,
+            strat: true,
+            miuse_url: '',
+            recordingTimeqwe: 0,
+            minute: '0' + 0,   // 分
+            second: '0' + 0,    // 秒
+            form_score: 0
           })
+          that.getworkinfo();
+          that.onLoad({ work_id: wx.getStorageSync("work_id") });
+          that.comment_hide();
+
         }else{
           wx.showToast({
             title: res.data.error,
@@ -539,6 +559,11 @@ Page({
             that.setData({//存值
               apply_content: html
             })
+            if (html && that.data.my_work){
+                that.setData({//存值
+                  share_image: 'https://resource.xunsheng.org.cn/sqdp.png'
+                })
+            }
           }
         }
       })
@@ -585,5 +610,5 @@ Page({
         })
       }
     }, 1000)
-  }
+  },
 });
