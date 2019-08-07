@@ -72,7 +72,7 @@ Page({
 					var code = res.code;
           app.show_l(that);
 					wx.request({
-						url: config.URL + "/fa/Xseechatmini/login",
+						url: config.URL + "fa/Xseechatmini/login",
 						data: {
 							code: code,
 							v: 1
@@ -153,7 +153,7 @@ Page({
 		}
     app.show_l(that);
 		wx.request({
-			url: config.URL + '/fa/Xseechatmini/login_user_phone',
+			url: config.URL + 'fa/Xseechatmini/login_user_phone',
 			method: 'post',
 			header: { "Content-Type": "application/x-www-form-urlencoded" },
 			data: datas,
