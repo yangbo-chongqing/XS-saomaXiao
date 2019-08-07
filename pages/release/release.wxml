@@ -70,8 +70,9 @@
         <view class="van-list" wx:if="{{work_list.length>0}}" style="background-color:#fff;">
             <view class="vux-flexbox1 works-item vux-flex-col" wx:for="{{work_list}}">
                 <view class="vux-flexbox-item works-impression" bindtap="jump_data" data-url="../work_info/work_info?work_id={{item.works_id}}">听听我的新作品吧！</view>
-                <view class="vux-flexbox-item audio-content">
-                    <audio src="{{item.video_url}}" name="{{item.works_name}}" poster="{{item.cover_img}}" author="{{item.author_name}}" bindtap="play_miuse" id="miuse{{item.works_id}}"  controls></audio>  
+                <view class="audio-content">
+                    <audio src="{{item.video_url}}" name="{{item.works_name}}" poster="{{item.cover_img}}" author="{{item.author_name}}" bindtap="play_miuse" id="miuse{{item.works_id}}"  controls></audio>
+                    <text class="works-record-duration">{{item.duration>=60?(Math.floor(item.duration/60)+':'+(item.duration%60)):'00:'+item.duration}}</text>
                 </view>
                 <view class="comment_list" wx:if="{{item.teacher_comment_list[0]}}">老师点评</view>
                 <view class="comment_info" wx:for="{{item.teacher_comment_list}}"  wx:for-item="val">

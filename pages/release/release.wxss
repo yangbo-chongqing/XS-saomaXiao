@@ -150,10 +150,6 @@
     font-size: 0.625rem;
     color: #999;
 }
-.audio-content {
-     position: relative;
-    margin-top: 5px; 
-}
 
 .vux-flexbox .vux-flexbox-item:first-child {
     margin-left: 0!important;
@@ -161,12 +157,23 @@
 }
 
 .audio-content{
-    display: flex;    
+    /* display: flex;    
     align-items: center;    
     vertical-align: center; 
     justify-content: center;
     flex-direction:row; 
-    margin-top:10px; 
+    margin-top:10px;  */
+    position: relative;
+    margin-top: 10px;
+    width: 304px;
+    margin: 20rpx auto 0;
+}
+.works-record-duration{
+    position: absolute;
+    right: 17px;
+    bottom: 10px;
+    color: #888;
+    font-size: 12px;
 }
 .works-impression{
     margin-top: 5rpx;
