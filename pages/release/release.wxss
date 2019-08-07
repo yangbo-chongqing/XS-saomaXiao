@@ -2,12 +2,12 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    height: 600rpx;
+    height: 17.5rem;
     color: #fff;
 }
 
 .works-detail .lyric-content {
-    height: 450rpx;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.2);
 }
 

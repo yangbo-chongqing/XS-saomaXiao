@@ -5,7 +5,6 @@
         <view class="lyric-content">
           <text class="lyric">{{task_info.lyric_text}}</text>
           <view class="vux-flexbox vux-flex-row"></view>
-            <imt-audio style="width:96%;" wx:if="{{task_info.example_url}}" src="{{task_info.example_url}}" duration="{{task_info.duration||0}}"></imt-audio>
         </view>
         <view wx:if="{{task_info.example_url}}" class="works-record">
             <view class="works-record-title">寻声范读</view>
@@ -19,7 +18,7 @@
                 <audio wx:if="{{task_info.example_url}}"  name="{{task_info.task_name}}" poster="{{task_info.cover_img}}" src="{{task_info.example_url}}" bindtap="play_miuse" author="{{task_info.reader_name}}" id="myAudio" controls></audio>  
             </view>
         </view>
-
+        <imt-audio></imt-audio>
         <!-- 录制成功 -->
         <view wx:if="{{miuse_state == 4}}" class="vux-flexbox1 vux-flex-col">
             <view class="vux-flexbox-item" style="margin-top: 8px;">
