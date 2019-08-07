@@ -1,15 +1,13 @@
 {
   "pages": [
-    "pages/work_info/work_info",
-    "pages/work_list/work_list",
     "pages/index/index",
+    "pages/work_info/work_info",
     "pages/logs/logs",
     "pages/login/login",
     "pages/user/user",
     "pages/work/work",
     "pages/report/report",
     "pages/release/release",
-
     "pages/apply_for/apply_for"
     
   ],
