@@ -81,10 +81,11 @@
                           <view class="comment_name">{{val.teacher_name}}</view>
                           <view class="comment_time">{{val.comment_time}}</view>
                       </view>
-                      <view style="margin-top:10px;">
-                          <view wx:if="{{val.comment_id != play_miuse_id}}" class="comment_bf" data-id="{{val.comment_id}}" data-url="{{val.voice_comment}}" bindtap="play_comment"><image src="/images/cbf.png"></image></view>
-                          <view wx:if="{{val.comment_id == play_miuse_id}}" class="comment_bf" data-id="{{val.comment_id}}" data-url="{{val.voice_comment}}" bindtap="play_comment"><image src="/images/czt.png"></image></view>
-                          <view class="comment_c">
+                      <view style="margin-top:20px;">
+                          <!-- <view wx:if="{{val.comment_id != play_miuse_id}}" class="comment_bf" data-id="{{val.comment_id}}" data-url="{{val.voice_comment}}" bindtap="play_comment"><image src="/images/cbf.png"></image></view>
+                          <view wx:if="{{val.comment_id == play_miuse_id}}" class="comment_bf" data-id="{{val.comment_id}}" data-url="{{val.voice_comment}}" bindtap="play_comment"><image src="/images/czt.png"></image></view> -->
+                          <view style="width:67px;height:67px;overflow:hidden;float:left;margin-left:15%;"><audio src="{{val.voice_comment}}" bindtap="play_miuse" id="common{{val.comment_id}}" poster="{{item.cover_img}}" name="老师点评" controls></audio></view>
+                          <view class="comment_c" style="min-height:67px;">
                               <text>{{val.teacher_comment}}</text>
                           </view>
                       </view>

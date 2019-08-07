@@ -284,7 +284,7 @@
 }
 .comment_c{
   width: 65%;
-  padding-left: 33%;
+  padding-left: 35%;
   margin-bottom: 5px;
 }
 .comment_content{

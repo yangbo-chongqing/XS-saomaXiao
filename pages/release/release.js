@@ -28,7 +28,8 @@ Page({
         play_miuse_id:'',
         minute: '0' + 0,   // 分
         second: '0' + 0,    // 秒
-        audition:false
+        audition:false,
+        bf_src:'',
     },
     onLoad: function (options) {
         // 用户信息
@@ -517,10 +518,12 @@ Page({
           this.data.audioCtx[this.data.play_miuse_id].pause();
         }
         if (!this.data.audioCtx[miuse_id]) { // 当前音频未进行播放过
-          this.data.audioCtx[miuse_id] = wx.createInnerAudioContext(miuse_id);
+          this.data.audioCtx[miuse_id] = wx.createInnerAudioContext();
+          this.data.audioCtx[miuse_id].autoplay  = true;
           this.data.audioCtx[miuse_id].src = url;
-          console.log(url);
+          
         }
+        console.log(url);
         this.data.audioCtx[miuse_id].play();
         this.setData({
           is_play: 1,
@@ -541,5 +544,6 @@ Page({
           });
         });
       }
-    }
+    },
+  
 });
