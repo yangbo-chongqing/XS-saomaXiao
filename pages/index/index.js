@@ -11,6 +11,7 @@ Page({
     share_title:"寻声朗读",
     share_url:"",
     share_image:"http://resource.xunsheng.org.cn/20190727175250-task-cover-283.JPG",
+    banner_img:'',
   },
   onLoad: function (options) {
       var token = wx.getStorageSync("token");
@@ -77,7 +78,7 @@ Page({
           token: wx.getStorageSync("token"),
           // member_id : 283,
           // token:'2fc9c9ace50b382d6f57676d05a7306c',
-          class_id: 9698,
+          class_id: that.data.class_id,
           page:1,
           page_size:15,
           ts:ts
@@ -146,7 +147,7 @@ Page({
       success: function (res) {
         if (res.data.code == 200) {
           var class_id = res.data.data.class_id;
-          var banner_img = res.data.data.class_info.banner_img;
+          var banner_img = res.data.data.class_info.head_img;
         
           that.setData({//存值
             class_id: class_id,
