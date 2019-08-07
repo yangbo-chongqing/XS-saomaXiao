@@ -58,6 +58,10 @@
 	        align-items: center;
 	font-family: "icon" !important;
 }
+.audio-control-wrapper.audio-control-wrapper-cover{
+	width: 100rpx;
+	height: 100rpx;
+}
 .audio-control {
 	font-size: 32rpx;
 	line-height: 1;
@@ -94,5 +98,43 @@ to {
 		-webkit-transform: rotate(360deg);
 		        transform: rotate(360deg);
 }
+}
+
+.audio-control-wrapper.audio-control-wrapper-cover .audio-control-switch {
+	font-size: 20rpx;
+	background-color:#fff;
+	/*margin: 0 80rpx;*/
+}
+.voice-bar.voice-bar-cover{
+	flex-direction: column;
+	padding-left: 30rpx;
+	box-sizing: border-box;
+}
+.voice-bar.voice-bar-cover .audio-info {
+	flex: 1;
+	margin-bottom: 15rpx;
+	/*margin: 0 80rpx;*/
+}
+.voice-bar.voice-bar-cover .audio-info .title {
+	font-size: 28rpx;
+	margin-right: 15rpx;
+}
+.voice-bar.voice-bar-cover .audio-info .author {
+	font-size: 24rpx;
+	color:#666;
+}
+.voice-bar.voice-bar-cover .audio-info {
+	flex: 1;
+	/*margin: 0 80rpx;*/
+}
+.voice-bar.voice-bar-cover .audio-bar {
+	flex: 1;
+	display: flex;
+	/*margin: 0 80rpx;*/
+}
+.voice-bar.voice-bar-cover .audio-bar .audio-number {
+	font-size: 24rpx;
+	/*line-height: 1;*/
+	color: #ccc;
 }
 

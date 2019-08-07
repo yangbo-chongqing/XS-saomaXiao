@@ -29,7 +29,14 @@ Component({
         color: {
             type: String,
             default: '#f00'
-        } //主色调
+        }, //主色调
+        atype:{
+            type: String,
+            default: 'sample'
+        },
+        pic:String,
+        title:String,
+        author:String
     },
     methods: {
         //返回prev事件
@@ -75,6 +82,15 @@ Component({
 //        });
 //        audio.obeyMuteSwitch = false;
 //        audio.autoplay = this.data.autoplay;
+        audio.onCanplay(()=>{
+            audio.duration
+            setTimeout(()=>{
+                this.setData({
+                    durationTime: this.format(audio.duration), //总时长
+                    duration:audio.duration
+                })
+            },1000)
+        })
         //音频进度更新事件
         audio.onTimeUpdate(() => {
             if (!this.data.seek) {
@@ -87,8 +103,7 @@ Component({
         audio.onPlay(() => {
             this.setData({
                 paused: false,
-                loading: false,
-                durationTime: this.format(audio.duration), //总时长
+                loading: false
             })
         });
         //音频暂停事件
@@ -135,11 +150,11 @@ Component({
             });
         },
         //监听总时长改变
-        duration(e) {
-            this.setData({
-                durationTime: this.format(e)
-            })
-        },
+//        duration(e) {
+//            this.setData({
+//                durationTime: this.format(e)
+//            })
+//        },
         //监听当前进度改变
         current(e) {
             this.setData({

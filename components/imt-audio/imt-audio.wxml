@@ -1,14 +1,33 @@
 <view class="imt-audio">
     <view class="audio-wrapper">
         <view class="controller-btn">
-            <view class="audio-control-wrapper" style="{{'color:'+(color)+';'}}">
+            <view wx:if="{{atype==='cover'}}" class="audio-control-wrapper audio-control-wrapper-cover" style="{{'background:url('+pic+') no-repeat center center;background-size:cover;'}}">
+                <view data-event-opts="{{[['tap',[['operation',['$event']]]]]}}"
+                      class="{{['audio-control audio-control-switch',(loading)?'audioLoading':'']}}"
+                      style="border-color:#fff;" bindtap="operation">{{loading?'':paused?'':''}}
+                </view>
+            </view>
+            <view wx:else class="audio-control-wrapper">
                 <view data-event-opts="{{[['tap',[['operation',['$event']]]]]}}"
                       class="{{['audio-control audio-control-switch',(loading)?'audioLoading':'']}}"
                       style="border-color:#fff;" bindtap="operation">{{loading?'':paused?'':''}}
                 </view>
             </view>
         </view>
-        <view class="voice-bar">
+        <view class="voice-bar voice-bar-cover" wx:if="{{atype==='cover'}}">
+            <view class="audio-info">
+                <text class="title" wx:if="{{title}}">{{title}}</text>
+                <text class="author" wx:if="{{author}}">{{author}}</text>
+            </view>
+            <view class="audio-bar">
+                <view class="audio-number">{{currentTime}}</view>
+                <slider class="audio-slider" disabled="{{true}}" activeColor="#f00" block-size="12" value="{{current}}" max="{{duration}}"
+                        data-event-opts="{{[['changing',[['e0',['$event']]]],['change',[['change',['$event']]]]]}}"
+                        bindchanging="changing" bindchange="change"></slider>
+                <view class="audio-number">{{durationTime}}</view>
+            </view>
+        </view>
+        <view class="voice-bar" wx:else>
             <view class="audio-number">{{currentTime}}</view>
             <slider class="audio-slider" disabled="{{true}}" activeColor="#f00" block-size="12" value="{{current}}" max="{{duration}}"
                     data-event-opts="{{[['changing',[['e0',['$event']]]],['change',[['change',['$event']]]]]}}"

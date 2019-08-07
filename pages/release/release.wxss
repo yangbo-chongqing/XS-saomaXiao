@@ -137,7 +137,8 @@
 .works-item{
   border-bottom: 1px solid #ccc;
   padding: 20rpx 0;
-
+  width: 95%;
+  margin: auto;
 }
 .ss-task .works-record .works-item .audio-content {
     position: relative;
@@ -149,10 +150,6 @@
     font-size: 0.625rem;
     color: #999;
 }
-.audio-content {
-    position: relative;
-    margin-top: 5px;
-}
 
 .vux-flexbox .vux-flexbox-item:first-child {
     margin-left: 0!important;
@@ -160,16 +157,28 @@
 }
 
 .audio-content{
-    display: flex;    /*设置显示样式**/
-    align-items: center;    /**子view垂直居中*/
-    vertical-align: center; /**垂直居中*/
-    justify-content: center; /**内容居中*/
-    flex-direction:row;
-    margin-top:10px; 
+    /* display: flex;    
+    align-items: center;    
+    vertical-align: center; 
+    justify-content: center;
+    flex-direction:row; 
+    margin-top:10px;  */
+    position: relative;
+    margin-top: 10px;
+    width: 304px;
+    margin: 20rpx auto 0;
+}
+.works-record-duration{
+    position: absolute;
+    right: 17px;
+    bottom: 10px;
+    color: #888;
+    font-size: 12px;
 }
 .works-impression{
     margin-top: 5rpx;
-    padding-left: 60rpx;
+    padding-left: calc(50% - 152px);
+
     box-sizing: border-box;
 }
 
