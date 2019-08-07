@@ -1,3 +1,6 @@
+wx.setInnerAudioOption({
+    mixWithOther: false,
+})
 const audio = wx.createInnerAudioContext(); //创建音频
 Component({
     data: {
@@ -57,10 +60,10 @@ Component({
         change(e) {
             audio.seek(e.detail.value)
         },
-        changing(e){
+        changing(e) {
             this.setData({
-                seek:true,
-                current:e.detail.value
+                seek: true,
+                current: e.detail.value
             })
         }
     },
@@ -112,11 +115,11 @@ Component({
             })
         })
     },
-    detached(){
+    detached() {
         audio.destroy();
     },
     pageLifetimes: {
-        hide: function() {
+        hide: function () {
             audio.destroy();
         }
     },

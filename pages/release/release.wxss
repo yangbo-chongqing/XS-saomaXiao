@@ -15,16 +15,14 @@
     font-size: 28rpx;
     line-height: 1.5rem;
     padding: 0rem 0.625rem;
-    height: 500rpx;
-    max-height: 500rpx;
-    overflow: scroll;
+    height: 490rpx;
+    overflow: auto;
     color: #fff;
 }
 .lyric-content{
    overflow: auto;
     padding: 15rpx 0.625rem 0;
     box-sizing: border-box;
-
 }
 
 .aplayer {
@@ -58,7 +56,7 @@
 
 .ss-task .works-record {
     width: 95%;
-    margin: 1.25rem auto;
+    margin: 30rpx auto 0;
 }
 .ss-task .works-record .works-record-title {
     padding-left: 0.3125rem;
@@ -136,7 +134,11 @@
     text-align: center;
     line-height: 1.5625rem;
 }
+.works-item{
+  border-bottom: 1px solid #ccc;
+  padding: 20rpx 0;
 
+}
 .ss-task .works-record .works-item .audio-content {
     position: relative;
 }
@@ -166,8 +168,8 @@
     margin-top:10px; 
 }
 .works-impression{
-    margin-top: 20px;
-    padding-left: 0.3125rem;
+    margin-top: 5rpx;
+    padding-left: 60rpx;
 }
 
 .van-field__control {

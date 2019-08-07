@@ -161,7 +161,7 @@
             <view class="van-cell__value">
                 <view class="van-field__body">
                     <van-rate
-                            value="{{form_grade}}" bind:change="select_score" size="{{25}}">
+                            value="{{form_star_count}}" bind:change="select_score" size="{{25}}">
                     </van-rate>
 
                     <!--<view wx:if="{{form_grade == 'S'}}">-->

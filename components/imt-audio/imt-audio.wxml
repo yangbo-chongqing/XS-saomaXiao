@@ -10,7 +10,7 @@
         </view>
         <view class="voice-bar">
             <view class="audio-number">{{currentTime}}</view>
-            <slider class="audio-slider" activeColor="{{color}}" block-size="12" value="{{current}}" max="{{duration}}"
+            <slider class="audio-slider" disabled="{{true}}" activeColor="#f00" block-size="12" value="{{current}}" max="{{duration}}"
                     data-event-opts="{{[['changing',[['e0',['$event']]]],['change',[['change',['$event']]]]]}}"
                     bindchanging="changing" bindchange="change"></slider>
             <view class="audio-number">{{durationTime}}</view>

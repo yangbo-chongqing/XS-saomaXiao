@@ -18,6 +18,7 @@ Page({
     play_miuse_id: '',
     form_grade : '',
     form_score :0,
+    form_star_count:0, //星星数量
     hasright:0,
     recordingTimeqwe: 0,
     miuse_state: 1,
@@ -180,7 +181,6 @@ Page({
   select_score(e){
     var id = e.detail;  //星星数
     var score = id*20;
-    let form_grade=this.data.grade_arr[id];
 //    if(id== "S"){
 //      score = 100;
 //    } else if (id == "A"){
@@ -193,8 +193,9 @@ Page({
 //      score = 20;
 //    }
     this.setData({
-      form_grade: form_grade,
-      form_score: score
+      form_grade: this.data.grade_arr[id],
+      form_score: score,
+      form_star_count:id
     })
   },
   // 隐藏点评框
@@ -269,15 +270,16 @@ Page({
       } else if (value > 100){
         grade = "S";
         value = 100;
-      } else if (value < 0) {
-        grade = "D";
+      } else if (value <= 0) {
+        grade = "";
         value = 0;
       }else{
         return;
       }
       this.setData({
         form_score: value,
-        form_grade: grade
+        form_grade: grade,
+        form_star_count:this.data.grade_arr.indexOf(grade)
       });
     }
   },

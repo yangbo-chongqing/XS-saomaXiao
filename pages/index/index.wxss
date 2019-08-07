@@ -93,6 +93,13 @@
 .homework-item .homework-desc {
     font-size: 0.75rem;
     color: #666;
+    width: 75%;
+}
+.homework-btn {
+    background-color: #FCAE03 !important;
+    border-radius: 5px !important;
+    border-color: #FCAE03 !important;
+    color:#fff !important;
 }
 .van-col--24 {
     width: 100%;
@@ -100,10 +107,12 @@
 
 .works-record {
     width: 95%;
-    margin: 1.25rem auto;
+    margin: 30rpx auto 20rpx;
+    padding-left: 30rpx;
+    box-sizing: border-box;
 }
 .works-record .works-record-title {
-    padding-left: 0.3125rem;
+    padding-left: 20rpx;
     border-left: 2px solid #f2574b;
     font-size: 0.8125rem;
 }
