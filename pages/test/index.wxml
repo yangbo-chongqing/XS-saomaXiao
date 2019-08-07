@@ -1,0 +1,41 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view wx:if="{{miuse_state == 1}}" class="" style="margin-top:20px;">
+	    <button open-type="openRecording" bindtap="openRecording">点击录制</button>
+  </view>
+  <view wx:if="{{miuse_state == 2}}" class="" style="margin-top:20px;">
+	   <button open-type="suspendRecording" bindtap="suspendRecording" style="margin-right:10px;">暂停</button>
+      <button open-type="shutRecording" bindtap="shutRecording">停止</button>
+  </view>
+  <view wx:if="{{miuse_state == 3}}" class="" style="margin-top:20px;">
+	   <button open-type="continueRecording" bindtap="continueRecording">继续录制</button>
+  </view>
+  <view wx:if="{{miuse_state == 4}}" class="" style="margin-top:20px;">
+	    <button open-type="recordingAndPlaying" bindtap="recordingAndPlaying" style="margin-right:10px;">播放</button>
+	    <button open-type="get_qiniu_info" bindtap="get_qiniu_info" style="margin-right:10px;">上传</button>
+	    <button open-type="reset" bindtap="reset">重录</button>
+  </view>
+  <view class="" style="margin-top:20px;">
+     <text class="userinfo-nickname">录音时长：{{recordingTimeqwe}}</text>
+  </view>
+  <view class="" style="margin-top:20px;">
+   <text wx:if="{{miuse_state == 4}}" class="userinfo-nickname">音频：{{miuse_url}}</text>
+  </view>
+    <view class="" style="margin-top:20px;">
+     <text wx:if="{{miuse_state == 4}}" class="userinfo-nickname">七牛云地址：{{q_url}}</text>
+    </view>
+  <view class="" style="margin-top:20px;">
+        <button data-url="../user/user" bindtap="jump" style="margin-right:10px;">个人中心</button>
+        <button data-url="../work/work?type=SsWorksDetail&work_id=53261" bindtap="jump">作品详情</button>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view>

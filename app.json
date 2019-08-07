@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/work_list/work_list",
     "pages/index/index",
     "pages/logs/logs",
     "pages/login/login",
@@ -10,7 +9,6 @@
     "pages/release/release",
     "pages/work_info/work_info",
     "pages/apply_for/apply_for"
-    
   ],
   "window": {
     "backgroundTextStyle": "light",
