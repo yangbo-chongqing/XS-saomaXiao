@@ -170,6 +170,7 @@
 .works-impression{
     margin-top: 5rpx;
     padding-left: 60rpx;
+    box-sizing: border-box;
 }
 
 .van-field__control {
