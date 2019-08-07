@@ -1,6 +1,6 @@
 <view>
   <view class="banner-img">
-      <image mode="widthFix" style="width:100%" src="http://resource.xunsheng.org.cn/20190731181352-task-cover-283.jpg"></image>
+      <image mode="widthFix" style="width:100%" src="{{banner_img}}"></image>
   </view>
 
   <view class="works-record" style="width:100%;height:30px;">
