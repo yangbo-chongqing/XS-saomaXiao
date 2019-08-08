@@ -41,7 +41,7 @@
   <view class="footer_menu">
     <view bindtap="jump" data-url="../report/report">统计报表</view>
     <view class="font_coler">课程主页</view>
-    <!-- <view bindtap="jump" data-url="../index/index">个人中心</view> -->
+    <view bindtap="jump" data-url="../user/user">个人中心</view>
   </view>
 
 </view>

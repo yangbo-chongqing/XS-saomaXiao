@@ -1,13 +1,14 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/user/user",
     "pages/logs/logs",
     "pages/login/login",
-    "pages/user/user",
+    "pages/apply_list/apply_list",
     "pages/work/work",
     "pages/report/report",
-    "pages/release/release",
     "pages/work_info/work_info",
+    "pages/release/release",
     "pages/apply_for/apply_for"
     
   ],

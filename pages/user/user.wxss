@@ -1,257 +1,108 @@
-/**index.wxss**/
-.fl_l{
-  float: left;
+.footer_menu{
+	width:100%;
+	height:60px;
+  position: fixed;
+  bottom: 0px;
+  background: #fff;
+  box-shadow:1 0 1px #000 inset;
 }
-.fl_r{
-  float: right;
-}
-.ov_hidden{
-  overflow: hidden;
-}
-.back_white{
-  background: #ffffff;
-}
-.w_100{
-  width: 100%;
-}
-.po_rel{
-  position: relative;
-}
-.user_head{
-  position: absolute;
-  bottom: 0;
-  left: 0px;
-  right: 0px;
-  width: 100%;
-  color: #ffffff;
-  display: flex;
-  display: -webkit-flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items:center;
-
-}
-.tou_img{
-    width: 20%;
-    min-width: 120rpx;
-    min-height: 120rpx;
-    border-radius: 50%;
-    float: left;
-}
-.user_name_box{
-  font-size: 30rpx;
-  line-height: 60rpx
-}
-.referrer_box{
-  border-radius: 25rpx;
-  padding: 10rpx 20rpx;
-  border: 1rpx solid #e6e6e6;
-}
-.menu_list{
-  text-align: center;
+.footer_menu view{
   width: 33.33%;
   float: left;
-  font-size: 30rpx;
-}
-.color_green{
-  color: #7eac0e;
-}
-.w-75{
-  width: 75%;
-}
-.bang_img{
-  width: 40%;
-  margin: 0 auto;
-}
-.ma_img{
-  width: 27%;
-  margin: 0 auto;
-}
-.text-c{
-  display: block;
+  height:60px;
   text-align: center;
+  line-height: 60px;
 }
-.tou_box{
-  width: calc(100% - 80rpx);
-  margin: 0 auto;
-  background: #fff;
-  padding: 20rpx;
-  border-radius: 20rpx;
+.font_coler{
+  color: red;
 }
-.bang_box{
-  width: 20%;
 
+
+.bannerContent{
+    height: 250px;
+    background-color: #64c0ab;
+    background-size: 100% 100%;
 }
-.user_title navigator{
-  display: inline-block;
+
+.myKcount{
+    padding-top:12px;
+    color: #cae7e0;
+    font-size: 16px;
+    line-height: 1.2rem;
+    padding-left: 1rem;
+    width: 100%;
+    height: 30px;
 }
-.user_title .span_btn{
-  border: 1px solid #cecece;
-  background: #cf4646;
-  color: #ffffff;
-  padding: 2px 5px;
-  font-size: 12px;
-  border-radius: 3px;
-  display: inline-block;
-  margin-right: 10px;
+
+.user-avator{
+    text-align: center;
 }
-.user_order{
-  margin: 10px;
-  padding: 10px;
-  font-size: 30rpx;
-  border-bottom: 1px solid #f3f2f2;
+#app {
+    font-family: Avenir,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+    font-size: 140%;
 }
-.user_order .fl_r .more_ico{
-  display: block;
-  width: 40rpx;
-  float: right;
-  margin-left: 10rpx;
+
+.nick-name {
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    margin-top: 10px;
 }
-.order_list{
-  overflow: hidden;
-  background: #ffffff;
-  /* border-bottom: 5px solid #f3f2f2; */
+.kCountContent {
+    color: #fff;
+    font-size: 1.3rem;
+    padding-left: 1rem;
+    text-align: center;
 }
-.order_list .order_every{
-  float: left;
-  width: 25%;
-  position: relative;
-  font-size: 28rpx;
-  text-align: center;
-  padding: 20rpx 0;
+.kCountContent image {
+    vertical-align: bottom;
+    width:100px;
+    height: 100px;
 }
-.order_list .order_every image{
-  width: 50rpx;
-  height: 50rpx;
-  margin: 10rpx auto;
-  display: block;
+.user-avator image{
+    margin-top: 60px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
 }
-.order_number{
-  display: block;
-  position: absolute;
-  z-index: 1;
-  text-align: center;
-  margin: 0 auto;
-  top: 15rpx;
-  right:30%;
-  border-radius: 100%;
-  min-width: 13px;
-  height: 13px;
-  padding: 2px;
-  line-height: 13px;
-  background: #ef2e2c;
-  color: #fff;
-  font-size: 22rpx;
+.myKcount image{
+    width: 19px;
+    height: 19px;
+    float: left;
+    margin-left:5px;
 }
-.order_max .order_list{border-bottom: none;}
-.order_max .order_list .order_every{
-  float: left;
-  width: 25%;
-  position: relative;
-  font-size: 26rpx;
-  text-align: center;
-  padding: 30rpx 0;
+
+.weui-cells {
+    /* margin-top: 1.17647059em; */
+    background-color: #fff;
+    line-height: 1.41176471;
+    font-size: 17px;
+    overflow: hidden;
+    position: relative;
 }
-.order_max .order_list .order_every image{
-  width: 45rpx;
-  margin: 0px auto 5px;
+
+.weui-cell {
+    padding: 8px 15px;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    
+    border-top: 1px solid #d9d9d9
 }
-.order_max .order_list navigator:nth-child(3n) .order_every{
-  border-right:none;
+.title{
+    font-size: 14px;
+    margin-left: 20px;
+    color: #64c0ab;
 }
-.loginbox{
-  width: 100%;
-  height: 100vh;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 1;
-  background: #fff;
-}
-.wx_login{
-  display: inline-block;
-  height: 30px;
-}
-.loginbox button{
-  width: 80%;
-  border-radius: 30px;
-  display: block;
-  margin: 0 auto;
-  height: 35px;
-  line-height: 35px;
-  background: #0bb20c!important;
-  text-align: center;
-}
-.loginbox text{
-  color: #fff;
-  position: relative;
-  top: -10px;
-  margin-left: 10px;
-}
-.wx_title{
-  text-align: center;
-}
-.user_tel{
-  font-size: 14px;
-  text-align: left;
-}
-.tel_bin_box{
-  width: 100%;
-  height: 100vh;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 1;
-  background: #fff;
-}
-.tel_bin_box button{
-  width: 80%;
-  border-radius: 30px;
-  display: block;
-  height: 35px;
-  line-height: 44px;
-  background: #0bb20c!important;
-  text-align: center;
-  margin: 0 auto;
-}
-.tel_bin_box .user_tel{
-  width: 70%;
-  float: left;
-}
-.tel_bin_box .user_send{
-  width: 25%;
-  height: 30px;
-  line-height: 30px;
-  color: #fff;
-  border-radius: 3px;
-  background: #0bb20c;
-  float: right;
-  font-size: 14px;
-}
-.tel_bin_box text{
-  color: #fff;
-  position: relative;
-  top: -10px;
-  margin-left: 10px;
-}
-.user_send.disable{
-  background: #ccc;
-}
-.module_box{
-  margin: 20rpx;
-  border-radius: 20rpx;
-  overflow: hidden;
-}
-.font-size-15{
-  font-size: 30rpx;
-}
-.recharge{
-  padding: 0rpx 20rpx;
-  background: #fff;
-  border-radius: 20rpx;
-  border:1px solid #7eac0e;
-  color: #7eac0e;
-}
-.w-25{
-  width: 25%;
+.weui-cell__hd image{
+  width: 19px;
+  height: 19px;
+  padding-top:3px; 
 }
