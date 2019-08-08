@@ -7,7 +7,7 @@
   box-shadow:1 0 1px #000 inset;
 }
 .footer_menu view{
-  width: 33.33%;
+  width: 50%;
   float: left;
   height:60px;
   text-align: center;
