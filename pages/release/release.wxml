@@ -23,6 +23,13 @@
                 <!--<audio wx:if="{{task_info.example_url}}"  name="{{task_info.task_name}}" poster="{{task_info.cover_img}}" src="{{task_info.example_url}}" bindtap="play_miuse" author="{{task_info.reader_name}}" id="myAudio" controls></audio>-->
             <!--</view>-->
         <!--</view>-->
+        <!--提示-->
+        <van-notice-bar
+                left-icon="info-o"
+                color="#1989FA"
+                backgroundColor="#ECF9FF"
+                text="多朗读几次，进步会更明显哦！"
+        />
         <!-- 录制成功 -->
         <view wx:if="{{miuse_state == 4}}" class="vux-flexbox1 vux-flex-col">
             <view class="vux-flexbox-item" style="margin-top: 8px;">
@@ -68,8 +75,12 @@
         </view>
         <!-- 朗读记录 -->
         <view class="works-record" style="background-color:#fff;">
-            <view class="works-record-title">朗读记录<text style="float:right;color:#0068b7;" bindtap="jump">成就报表</text></view>
-        </view> 
+            <view class="works-record-title">朗读记录</view>
+            <view class="works-ss-report" bindtap="jump">
+                <image src="/images/ss_report.png"></image>
+                成就报表
+            </view>
+        </view>
         <view class="van-list" wx:if="{{work_list.length>0}}" style="background-color:#fff;">
             <view class="vux-flexbox1 works-item vux-flex-col" wx:for="{{work_list}}">
                 <view class="vux-flexbox-item works-impression" bindtap="jump_data" data-url="../work_info/work_info?work_id={{item.works_id}}">听听我的新作品吧！</view>

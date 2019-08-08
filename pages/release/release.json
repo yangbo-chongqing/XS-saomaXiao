@@ -2,6 +2,7 @@
   "enablePullDownRefresh":false,
   "navigationBarTitleText": "作业",
   "usingComponents": {
-    "imt-audio": "/components/imt-audio/imt-audio"
+    "imt-audio": "/components/imt-audio/imt-audio",
+    "van-notice-bar": "/components/vant-weapp/dist/notice-bar/index"
   }
 }

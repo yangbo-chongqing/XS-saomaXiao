@@ -5,6 +5,7 @@
 
   <view class="works-record" style="width:100%;height:30px;">
       <view class="works-record-title" style="width:50%;float:left;">杉树伴读范读</view>
+      <view bindtap="jump" data-url="../report/report" style="float: right;padding-right: 5%;color:#0068b7;">统计报表</view>
   </view>    
 
   <view class="van-list">

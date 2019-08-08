@@ -97,7 +97,7 @@
                         </van-rate>
                     </view>
                     <view wx:if="{{item.voice_comment}}" class="vux-flexbox-item" style="margin-top: 5px;width: 100%;">
-                        <audio src="{{item.voice_comment}}" name="老师点评" poster="https://resource.xunsheng.org.cn/ds_img.png"
+                        <audio src="{{item.voice_comment}}" name="老师点评" poster="https://resource.xunsheng.org.cn/20190808115253-task-cover-283.jpg"
                                bindtap="play_miuse" author="{{work_info.teacher_name}}" bindended="end_play"
                                id="miuse{{item.comment_id}}" controls></audio>
                     </view>

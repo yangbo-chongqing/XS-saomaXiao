@@ -3,7 +3,6 @@
     background-position: center center;
     background-size: cover;
     height: 600rpx;
-    color: #fff;
 }
 
 .works-detail .lyric-content {
@@ -57,11 +56,26 @@
 .ss-task .works-record {
     width: 95%;
     margin: 30rpx auto 0;
+    display: flex;
+    align-items: center;
 }
+
 .ss-task .works-record .works-record-title {
+    flex:1;
     padding-left: 0.3125rem;
     border-left: 2px solid #f2574b;
     font-size: 0.8125rem;
+}
+
+.ss-task .works-record .works-ss-report {
+    flex:1;
+    color:#0068b7;
+    text-align: right;
+}
+.ss-task .works-record .works-ss-report image {
+    width: 43rpx;
+    height: 33rpx;
+    vertical-align: text-bottom;
 }
 
 .ss-task .record-box {

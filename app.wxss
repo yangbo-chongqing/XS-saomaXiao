@@ -37,7 +37,6 @@ time, mark, code, figcaption, figure, textarea, h1, h2, h3, h4, h5, h6, p, view 
   margin: 0;
   border: 0;
   padding: 0;
-  color: #050505;
   font-style: normal;
 }
 
