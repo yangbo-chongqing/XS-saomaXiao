@@ -1,0 +1,94 @@
+<view wx:if="{{loading}}" class="loading_background"></view>
+<view>
+    <view wx:if="{{select_type == 1}}" class="tip-info van-notice-bar">
+      <image src="../../images/ts.png" class="van-icon"></image>
+      <view class="van-notice-bar__wrap">
+        <view class="van-notice-bar__content van-notice-bar__play--infinite gg">
+          在线表示你当前可以为学生提供点评服务；离线表示你当前不能为学生提供点评服务。
+        </view>
+      </view>
+    </view>
+    
+    <view class="apply_radio">
+        
+        <text style="float:left">点评服务状态: </text>
+        <radio-group class="radio-group" bindchange="radioChange" >
+          <label class="radio" wx:for="{{items}}">
+            <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+          </label>
+        </radio-group>
+    </view>
+    <view>
+    
+    </view>
+    <view class="apply_list">
+        <view class="weui-cells vux-no-group-title" wx:for="{{apply_list}}" style="background-color:#fff;margin-top:5px;">
+            <view class="vux-cell-box weui-cell">
+                <view class="vux-flexbox vux-flex-col">
+                    <view class="vux-flexbox-item" style="margin-top: 8px;">
+                        <view class="vux-flexbox vux-flex-row" wx:if="{{select_type == 1}}">
+                            <view class="vux-flexbox-item" style="margin-left: 8px; flex: 0 0 16.6667%;">
+                                <image class="avatar" src="{{item.student_info.avatar}}">
+                                </image>
+                            </view>
+                            <view class="vux-flexbox-item" style="margin-left: 8px;">
+                                <view class="user-name">{{item.class_info.name}}</view>
+                                <view class="apply-time">{{item.maturity_time}}</view>
+                            </view>
+                        </view>
+                        <view class="vux-flexbox vux-flex-row" wx:if="{{select_type == 2}}">
+                            <view class="vux-flexbox-item" style="margin-left: 8px; flex: 0 0 16.6667%;">
+                                <image class="avatar" src="{{item.tour_info.member_url}}">
+                                </image>
+                            </view>
+                            <view class="vux-flexbox-item" style="margin-left: 8px;">
+                                <view class="user-name">{{item.tour_info.name}}</view>
+                                <view class="apply-time">{{item.maturity_time}}</view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="vux-flexbox-item" style="margin-top: 8px;">
+                        <view class="works-cell">
+                            <view class="vux-flexbox vux-flex-row" style="align-items: flex-start;">
+                                <view class="vux-flexbox-item" style="margin-left: 8px; flex: 0 0 14.2857%;"></view>
+                                <view class="vux-flexbox-item" bindtap="jump" data-url="../work_info/work_info?work_id={{item.work_info.works_id}}" >
+                                    <view class="vux-flexbox vux-flex-col">        
+                                        <view class="vux-flexbox-item">
+                                            <view class="vux-flexbox works-list vux-flex-row">
+                                                <view class="vux-flexbox-item" style="margin-left: 8px; flex: 0 0 30%; overflow: hidden;">
+                                                    <image src="{{item.work_info.cover_img}}"  class="cover_img" mode="scaleToFill">
+                                                     </image>
+                                                </view>
+                                                <view class="vux-flexbox-item" style="margin-left: 8px;">
+                                                    <view class="vux-flexbox vux-flex-col">
+                                                        <view class="vux-flexbox-item works-name" style="margin-top: 20px;">{{item.work_info.works_name}}</view>
+                                                        <view class="vux-flexbox-item" style="margin-top: 20px;">
+                                                            <view class="works-info">收听 {{item.work_info.listen_num}}   评论 {{item.work_info.comment_num}}   点赞 {{item.work_info.like_num}}</view>
+                                                        </view>
+                                                    </view>
+                                                    
+                                                </view>
+                                            </view>
+                                        </view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="vux-flexbox-item" style="margin-top: 8px;">
+                        <view class="vux-flexbox vux-flex-row">
+                            <view class="vux-flexbox-item" style="margin-left: 8px;" bindtap="jump" data-url="../work/work?type=CommentOrder&apply_id={{item.apply_id}}" class="router">
+                                <text class="router-link">查看申请详情</text>
+                            </view>
+                            <view class="vux-flexbox-item" style="margin-left: 8px; text-align: right;">
+                                <button wx:if="{{select_type == 1}}" bindtap="jump" data-url="../work_info/work_info?work_id={{item.work_info.works_id}}" class="act-btn bg-red van-button van-button--danger van-button--mini van-button--round">立即点评</button>
+                                <text class="text-red comment-status" wx:if="{{select_type == 2}}">点评中...</text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+
