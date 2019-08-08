@@ -86,7 +86,7 @@
                 <view class="vux-flexbox-item works-impression" bindtap="jump_data" data-url="../work_info/work_info?work_id={{item.works_id}}">听听我的新作品吧！</view>
                 <view class="audio-content">
                     <audio src="{{item.video_url}}" name="{{item.works_name}}" poster="{{item.cover_img}}" author="{{item.author_name}}" bindtap="play_miuse" id="miuse{{item.works_id}}"  controls></audio>
-                    <text class="works-record-duration">{{item.duration>=60?(Math.floor(item.duration/60)+':'+(item.duration%60)):'00:'+item.duration}}</text>
+                    <!-- <text class="works-record-duration">{{item.duration>=60?(Math.floor(item.duration/60)+':'+(item.duration%60)):'00:'+item.duration}}</text> -->
                 </view>
                 <view class="comment_list" wx:if="{{item.teacher_comment_list[0]}}">老师点评</view>
                 <view class="comment_info" wx:for="{{item.teacher_comment_list}}"  wx:for-item="val">
@@ -99,7 +99,7 @@
                       <view style="margin-top:20px;">
                           <!-- <view wx:if="{{val.comment_id != play_miuse_id}}" class="comment_bf" data-id="{{val.comment_id}}" data-url="{{val.voice_comment}}" bindtap="play_comment"><image src="/images/cbf.png"></image></view>
                           <view wx:if="{{val.comment_id == play_miuse_id}}" class="comment_bf" data-id="{{val.comment_id}}" data-url="{{val.voice_comment}}" bindtap="play_comment"><image src="/images/czt.png"></image></view> -->
-                          <view style="width:67px;height:67px;overflow:hidden;float:left;margin-left:15%;"><audio src="{{val.voice_comment}}" bindtap="play_miuse" id="common{{val.comment_id}}" poster="https://resource.xunsheng.org.cn/ds_img.png" name="老师点评" controls></audio></view>
+                          <view style="width:67px;height:67px;overflow:hidden;float:left;margin-left:15%;"><audio src="{{val.voice_comment}}" bindtap="play_miuse" id="common{{val.comment_id}}" poster="https://resource.xunsheng.org.cn/20190808115253-task-cover-283.jpg" name="老师点评" controls></audio></view>
                           <view class="comment_c" style="min-height:67px;">
                               <text>{{val.teacher_comment}}</text>
                           </view>
