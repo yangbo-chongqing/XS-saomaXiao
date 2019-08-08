@@ -415,7 +415,7 @@ Page({
     },
     redirect(e){
         var url = e.currentTarget.dataset.url;
-        wx.redirectTo({
+        wx.reLaunch({
             url: url,
         })
     },
