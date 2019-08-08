@@ -191,6 +191,7 @@ Page({
     var url = web_url.substring(s_site + 1, web_url.length);
     var e_site = url.lastIndexOf("?");
     var site_url = url.substring(0, e_site);
+    var share_title;
    console.log(web_url);
     if(site_url == "SsWorksDetail"){ // 作品详情
         var works_id = this.getQueryString('works_id',web_url);
@@ -205,6 +206,7 @@ Page({
       var mid = this.getQueryString('mid',web_url);
       var tk = this.getQueryString('tk',web_url);
       var share_url = "/pages/work/work?type=SsReport&task_id="+task_id+"&class_id="+class_id+"&mid="+mid+"&tk="+tk+"&parent_id="+wx.getStorageSync("member_id");
+        share_title='成就报表';
     } else if (site_url == "MyCoupon") { // 我的卷包
       var share_url = "/pages/work/work?type=MyCoupon";
     } else if (site_url == "CommentOrder"){
@@ -212,7 +214,7 @@ Page({
     }
     console.log(share_url);
     return {
-      title: this.data.share_title,
+      title: share_title||this.data.share_title,
       imageUrl: this.data.share_image,
       path: share_url,
       success: function(res) {

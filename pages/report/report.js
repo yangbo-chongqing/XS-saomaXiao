@@ -7,7 +7,7 @@ Page({
     data: {
         motto: '寻声',
         link: "",
-        share_title:"班级海报",
+        share_title:"统计报表",
         share_url:"",
         share_image:"https://resource.xunsheng.org.cn/ds_banner.png",
         
@@ -37,7 +37,7 @@ Page({
         }
     },
     onShareAppMessage: function(res) {
-        var share_url = "/pages/report/report?class_id="+class_id+"&parent_id="+wx.getStorageSync("member_id");
+        var share_url = "/pages/report/report?class_id="+wx.getStorageSync("class_id")+"&parent_id="+wx.getStorageSync("member_id");
         return {
             title: this.data.share_title,
             imageUrl: this.data.share_image,

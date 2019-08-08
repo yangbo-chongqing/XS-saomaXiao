@@ -15,7 +15,7 @@
                   <view class="van-col van-col--6" style="width:25%;">
                       <view class="aplayer aplayer-narrow">
                           <view class="aplayer-body">
-                              <view class="aplayer-pic" style="background-image: url('{{item.cover_img}}'); background-color: rgb(65, 184, 131);background-size:100% 100%;height:66px;"></view>
+                              <view class="aplayer-pic" style="background: url('{{item.cover_img}}') no-repeat center center; background-color: rgb(65, 184, 131);background-size:cover;height:66px;"></view>
                           </view>
                       </view>
                   </view>
