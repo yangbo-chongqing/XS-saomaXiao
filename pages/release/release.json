@@ -3,6 +3,7 @@
   "navigationBarTitleText": "作业",
   "usingComponents": {
     "imt-audio": "/components/imt-audio/imt-audio",
-    "van-notice-bar": "/components/vant-weapp/dist/notice-bar/index"
+    "van-notice-bar": "/components/vant-weapp/dist/notice-bar/index",
+    "van-icon": "/components/vant-weapp/dist/icon/index"
   }
 }

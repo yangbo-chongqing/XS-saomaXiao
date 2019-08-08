@@ -44,7 +44,6 @@
     <view class="font_coler">课程主页</view>
     <!-- <view bindtap="jump" data-url="../index/index">个人中心</view> -->
   </view>
-
 </view>
 
 <view wx:if="{{loading}}" class="loading_background"></view>

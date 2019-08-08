@@ -110,5 +110,10 @@
         </view>
         <view wx:else class="no-content">暂无朗读记录</view>
     </view>
+    <view class="footer_menu">
+        <!--<view bindtap="jump" data-url="../report/report">统计报表</view>-->
+        <view bindtap="jump_data" data-url="../index/index">课程主页</view>
+        <view bindtap="jump_data" data-url="../user/user">个人中心</view>
+    </view>
 </view>
 <view wx:if="{{loading}}" class="loading_background"></view>
