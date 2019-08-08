@@ -284,6 +284,13 @@ Page({
   },
   //开始录音
   openRecording: function () {
+    if (this.data.play_miuse_id) { // 当前音频正在播放
+      this.data.audioCtx[this.data.play_miuse_id].pause();
+      this.setData({
+        is_play: 0,
+        play_miuse_id: ''
+      })
+    }  
     var that = this;
     const options = {
       duration: 600000,//指定录音的时长，单位 ms
@@ -431,7 +438,7 @@ Page({
       clearInterval(that.data.setInter1);
       recorderManager.stop();
       recorderManager.onStop((res) => {
-        app.hide_l(that);
+        app.show_l(that);
         this.tempFilePath = res.tempFilePath;
         that.setData({//存值
           miuse_url: res.tempFilePath,
@@ -439,7 +446,7 @@ Page({
           miuse_state: 1,
           tempFilePath: res
         })
-        app.show_l(that);
+        app.hide_l(that);
         that.get_qiniu_info();
       })
       return false;

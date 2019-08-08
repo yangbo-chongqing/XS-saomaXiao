@@ -9,7 +9,7 @@
       </view>
     </view>
     
-    <view class="apply_radio">
+    <view wx:if="{{select_type == 1}}" class="apply_radio">
         
         <text style="float:left">点评服务状态: </text>
         <radio-group class="radio-group" bindchange="radioChange" >
