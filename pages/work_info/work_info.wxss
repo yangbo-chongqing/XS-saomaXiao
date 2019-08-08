@@ -212,7 +212,7 @@ page{
     font-size: 0.875rem;
     line-height: 2.6rem;
     background-color: #fff;
-
+    align-items: center;
 
 }
 .van-field__label {
