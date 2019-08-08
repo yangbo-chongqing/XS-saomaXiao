@@ -81,7 +81,7 @@
                 成就报表
             </view>
         </view>
-        <view class="van-list" wx:if="{{work_list.length>0}}" style="background-color:#fff;">
+        <view class="van-list" wx:if="{{work_list.length>0}}" style="background-color:#fff;margin-bottom:70px;">
             <view class="vux-flexbox1 works-item vux-flex-col" wx:for="{{work_list}}">
                 <view class="vux-flexbox-item works-impression" bindtap="jump_data" data-url="../work_info/work_info?work_id={{item.works_id}}">听听我的新作品吧！</view>
                 <view class="audio-content">
@@ -112,8 +112,14 @@
     </view>
     <view class="footer_menu">
         <!--<view bindtap="jump" data-url="../report/report">统计报表</view>-->
-        <view bindtap="jump_data" data-url="../index/index">课程主页</view>
-        <view bindtap="jump_data" data-url="../user/user">个人中心</view>
+        <view bindtap="redirect" data-url="../index/index">
+            <van-icon name="home-o" size="45rpx" custom-class="tabbar-icon"></van-icon>
+            课程主页
+        </view>
+        <view bindtap="redirect" data-url="../user/user">
+            <van-icon name="friends-o" size="45rpx" custom-class="tabbar-icon"></van-icon>
+            个人中心
+        </view>
     </view>
 </view>
 <view wx:if="{{loading}}" class="loading_background"></view>

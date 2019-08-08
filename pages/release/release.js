@@ -413,6 +413,12 @@ Page({
         url: url,
       })
     },
+    redirect(e){
+        var url = e.currentTarget.dataset.url;
+        wx.redirectTo({
+            url: url,
+        })
+    },
     bf(e){
       if (this.data.is_play == 1){
           this.audioCtx.pause();

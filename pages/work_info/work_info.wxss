@@ -162,7 +162,7 @@ page{
 }
 
 .comment-list {
-    margin: 0.625rem auto 1.25rem;
+    margin: 0.625rem auto 70px;
     padding: 0.625rem 3%;
     background-color: #fff;
 }
