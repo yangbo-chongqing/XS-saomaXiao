@@ -43,6 +43,9 @@ Page({
               url: '../index/index'
             })
         }
+        wx.setNavigationBarTitle({
+          title: '作品详情'
+        })
         this.setData({
           link: config.SITE_URL+'/apph5/#/SsWorksDetail?mid='+member_id+'&tk='+token+"&works_id="+work_id
         })
@@ -67,6 +70,9 @@ Page({
             url: '../index/index'
           })
         }
+        wx.setNavigationBarTitle({
+          title: '做作业'
+        })
         this.setData({
           link: config.SITE_URL+'/apph5/#/SsTask?task_id='+task_id+'&class_id='+class_id+"&tk="+token+"&mid="+member_id
         })
@@ -91,7 +97,9 @@ Page({
           tk = wx.getStorageSync("tk")
         }
         wx.setStorageSync('tk',tk);
-    
+        wx.setNavigationBarTitle({
+          title: '分享海报'
+        })
         if(!task_id || !class_id){
             wx.showToast({
               title: "参数错误",
@@ -109,6 +117,25 @@ Page({
         this.setData({
           link: config.SITE_URL+'/apph5/#/SsReport?task_id='+task_id+'&class_id='+class_id+"&tk="+tk+"&mid="+mid
         })
+    } else if (type == "MyCoupon") { // 我的卷包
+      wx.setNavigationBarTitle({
+        title: '我的券包'
+      })
+      this.setData({
+        link: config.SITE_URL + '/apph5/#/MyCoupon?mid=' + member_id + '&tk=' + token + "&show_buy_url=0"
+      })
+    } else if (type == "CommentOrder"){
+      wx.setNavigationBarTitle({
+        title: '申请详情'
+      })
+      var apply_id = options.apply_id;
+      if (!apply_id) {
+        apply_id = wx.getStorageSync("apply_id")
+      }
+      wx.setStorageSync('apply_id', apply_id);
+      this.setData({
+        link: config.SITE_URL + '/apph5/#/CommentOrder??mid=' + member_id + '&tk=' + token + "&apply_id="+apply_id
+      })
     }
   
     if(!token){ // 用户未登录 则跳转到授权登录
@@ -178,6 +205,10 @@ Page({
       var mid = this.getQueryString('mid',web_url);
       var tk = this.getQueryString('tk',web_url);
       var share_url = "/pages/work/work?type=SsReport&task_id="+task_id+"&class_id="+class_id+"&mid="+mid+"&tk="+tk+"&parent_id="+wx.getStorageSync("member_id");
+    } else if (site_url == "MyCoupon") { // 我的卷包
+      var share_url = "/pages/work/work?type=MyCoupon";
+    } else if (site_url == "CommentOrder"){
+      var share_url = "/pages/work/work?type=CommentOrder&apply_id=" + wx.getStorageSync("apply_id");
     }
     console.log(share_url);
     return {

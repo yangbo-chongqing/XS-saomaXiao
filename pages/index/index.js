@@ -105,7 +105,7 @@ Page({
       })
   },
   onShareAppMessage: function(res) {
-    var share_url = "/pages/work_list/work_list?&parent_id="+wx.getStorageSync("member_id");
+    var share_url = "/pages/index/index?&parent_id="+wx.getStorageSync("member_id");
     return {
       title: this.data.share_title,
       imageUrl: this.data.share_image,

@@ -10,6 +10,8 @@ Page({
     share_title:"个人中心",
     share_url:"",
     share_image:"https://resource.xunsheng.org.cn/ds_banner.png",
+    is_teacher:0,
+    user_info:[]
   },
   onLoad: function (options) {
     var token = wx.getStorageSync("token");
@@ -24,11 +26,7 @@ Page({
       })
     }else{
       // 获取用户信息
-      //this.getMembers();
-      var url = "http://test.xunsheng.org.cn/apph5/#/SsWorksDetail?mid=6003&tk=8033ce1629cfdbc5afa35d6db8ed8042&works_id=188465";
-      this.setData({
-        link: config.SITE_URL+'/apph5/#/UserLevel?mid='+member_id
-      })
+      this.getMembers();
     }
   },
   getUserInfo: function(e) {
@@ -58,13 +56,10 @@ Page({
       },
       success: function (res) {
         if(res.data.code == 200){
-          var user = {};
-          user.nickName = res.data.data.name;
-          user.avatarUrl = res.data.data.avatar;
-          that.setData({//存值
-            userInfo:user,
-            hasUserInfo:true
-          })
+            that.setData({
+              is_teacher: res.data.data.vip.is_teacher,
+              user_info:res.data.data
+            });
         }
       }
     })
@@ -81,5 +76,12 @@ Page({
         // 转发失败
       }
     }
+  },
+  //跳转个人中心
+  jump(e) {
+    var url = e.currentTarget.dataset.url;
+    wx.navigateTo({
+      url: url,
+    })
   },
 });
