@@ -16,10 +16,7 @@ Page({
     page_size:10,
     select_type:0,
     apply_list:[],
-    items: [
-      { name: '1', value: '在线' },
-      { name: '0', value: '离线', checked: 'true' }
-    ]
+    items: []
   },
   onLoad: function (options) {
     var token = wx.getStorageSync("token");
@@ -47,6 +44,13 @@ Page({
       this.my_apply_comment();
       if(type == 1){
         this.get_my_state();
+        wx.setNavigationBarTitle({
+          title: '我的点评'
+        })
+      }else{
+        wx.setNavigationBarTitle({
+          title: '查看点评'
+        })
       }
     }
   },

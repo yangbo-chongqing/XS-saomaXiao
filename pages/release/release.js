@@ -227,6 +227,7 @@ Page({
         });
         innerAudioContext.autoplay = true
         innerAudioContext.src = this.tempFilePath,
+        console.log(123);
         innerAudioContext.onPlay(() => {
             console.log('开始播放')
         });
