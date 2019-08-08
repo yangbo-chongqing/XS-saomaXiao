@@ -1,4 +1,8 @@
 {
     "enablePullDownRefresh":false,
-    "navigationBarTitleText": "个人中心"
+    "navigationBarTitleText": "个人中心",
+    "usingComponents": {
+      "van-button": "/components/vant-weapp/dist/button/index",
+      "van-icon": "/components/vant-weapp/dist/icon/index"
+    }
 }
