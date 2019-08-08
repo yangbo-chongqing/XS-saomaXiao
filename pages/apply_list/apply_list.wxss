@@ -1,0 +1,250 @@
+.van-notice-bar__wrap {
+    position: relative;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    height: 1.5rem;
+    overflow: hidden;
+}
+.gg{
+    color: #ed6a0c;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    animation:mymove 8.4812s linear infinite;
+    -webkit-animation:mymove 8.4812s linear infinite;
+}
+.van-notice-bar__content {
+    position: absolute;
+    white-space: nowrap;
+}
+.van-notice-bar {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    height: 2.5rem;
+    padding: 0 0.9375rem;
+    color: #ed6a0c;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    background-color: #fffbe8;
+}
+@keyframes mymove
+{
+from {padding-left:314.063px;left:0;}
+to {padding-left:0px;left:-400px;}
+}
+
+@-webkit-keyframes mymove /*Safari and Chrome*/
+{
+from {padding-left:314.063px;left:0;}
+to {padding-left:0px;left:-400px;}
+}
+
+.van-icon {
+    position: relative;
+    font: 0.875rem/1 "vant-icon";
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    width: 24px;
+    height: 24px;
+    float: left;
+}
+.van-icon, .van-icon::before {
+    display: inline-block;
+}
+.van-notice-bar__wrap {
+    position: relative;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    height: 1.5rem;
+    overflow: hidden;
+}
+
+.tab{
+    position: relative;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    box-sizing: border-box;
+    min-width: 0;
+    padding: 0 0.3125rem;
+    color: #7d7e80;
+    font-size: 0.875rem;
+    line-height: 2.75rem;
+    text-align: center;
+    cursor: pointer;
+  
+}
+
+.select_box {
+    background-color: #eee;
+    padding: 0 10rpx;
+    width: 93%;
+    position: absolute;
+    top: 130rpx;
+    z-index: 1;
+    overflow: hidden;
+    animation: myfirst 0.5s;
+}
+.select_one {
+    height: 60rpx;
+    line-height: 60rpx;
+    border-bottom: 1px solid #ccc;
+}
+
+.weui-cell {
+    padding: 0.625rem 0.9375rem;
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+.vux-flexbox {
+    width: 100%;
+    text-align: left;
+    display: -webkit-box;
+    display: flex;
+    display: -webkit-flex;
+    box-align: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+.vux-flexbox .vux-flexbox-item {
+    -webkit-box-flex: 1;
+    flex: 1;
+    -webkit-flex: 1;
+    min-width: 1.25rem;
+    width: 0%;
+}
+.vux-flex-col {
+    box-orient: vertical;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+.vux-flexbox .vux-flexbox-item:first-child {
+    margin-left: 0!important;
+    margin-top: 0!important;
+}
+.vux-flex-col > .vux-flexbox-item {
+    width: 100%;
+}
+
+.vux-flex-row {
+    box-direction: row;
+    box-orient: horizontal;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+
+.avatar {
+    width: 2.8125rem;
+    height: 2.8125rem;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+.user-name {
+    font-size: 0.8125rem;
+}
+.apply-time{
+    font-size: 0.625rem;
+    color: #999;
+}
+.works-cell {
+    width: 100%;
+}
+
+.works-cell .works-list {
+    line-height: initial;
+    padding: 5px; 
+    background-color: #F8F8F8;
+    box-sizing: border-box;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.cover_img {
+    height: 4.375rem;
+    vertical-align: middle;
+}
+.works-name {
+    font-size: 0.75rem;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.works-info {
+    font-size: 0.625rem;
+    color: #999;
+}
+.router-link{
+    color: #999;
+    font-size: 0.625rem;
+    text-decoration: underline;
+}
+.teacher-comment-apply-list .bg-red {
+    background-color: #F06260;
+}
+
+.van-button--danger {
+    color: #fff;
+    background-color: #f44;
+    border: 1px solid #f44;
+}
+.van-button {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    height: 2.75rem;
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    line-height: 2.625rem;
+    text-align: center;
+    border-radius: 2px;
+    -webkit-appearance: none;
+    -webkit-text-size-adjust: 100%;
+}
+.van-button--hairline.van-button--round::after, .van-button--round {
+    border-radius: 10em;
+}
+.van-button--mini {
+    display: inline-block;
+    min-width: 3.125rem;
+    height: 1.375rem;
+    font-size: 0.625rem;
+    line-height: 1.25rem;
+}
+page{
+  background: #F3F2F7 !important;
+}
+
+.text-red {
+    color: #F06260;
+}
+.comment-status{
+    font-size: 0.75rem;
+}
+.apply_radio{
+  height: 40px;
+  background: #fff;
+  line-height: 40px;
+  margin-top: 5px;
+  padding-left: 20px;
+}
+.apply_radio radio{
+  margin-left: 50px;
+}
