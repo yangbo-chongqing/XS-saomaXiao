@@ -101,3 +101,7 @@
     border-left: 2px solid #f2574b;
     font-size: 0.8125rem;
 }
+.no-content{
+    text-align: center;
+    color:#999;
+}

@@ -8,7 +8,7 @@
       <view bindtap="jump" data-url="../report/report" style="float: right;padding-right: 5%;color:#0068b7;">统计报表</view>
   </view>    
 
-  <view class="van-list">
+  <view class="van-list" wx:if="{{work_list.length>0}}">
       <view class="van-row van-row--flex van-row--align-center" wx:for="{{work_list}}">
           <view class="van-col van-col--24">
               <view class="homework-item van-row van-row--flex van-row--align-center">
@@ -38,6 +38,7 @@
       </view>
       <view class="van-row van-row--flex van-row--align-center" style="height:60px;"></view>
   </view>
+    <view wx:else class="no-content">暂无可读作业</view>
 
   <view class="footer_menu">
      <view class="font_coler">
