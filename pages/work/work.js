@@ -134,7 +134,7 @@ Page({
       }
       wx.setStorageSync('apply_id', apply_id);
       this.setData({
-        link: config.SITE_URL + '/apph5/#/CommentOrder??mid=' + member_id + '&tk=' + token + "&apply_id="+apply_id
+        link: config.SITE_URL + '/apph5/#/CommentOrder?showUseBtn=0&mid=' + member_id + '&tk=' + token + "&apply_id="+apply_id
       })
     }
   

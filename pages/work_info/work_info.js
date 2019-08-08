@@ -324,7 +324,7 @@ Page({
     recorderManager.onError((res) => {
       console.log(res);
       wx.showToast({
-        title: '没有权限',
+        title: '录音失败',
         icon: 'none',
         duration: 1500,
       })
@@ -406,7 +406,7 @@ Page({
             form_xl: '',
             form_grade: '',
             form_star_count:0,
-            miuse_state: 2,
+            miuse_state: 1,
             strat: true,
             miuse_url: '',
             recordingTimeqwe: 0,
@@ -432,13 +432,12 @@ Page({
   // 获取七牛云参数
   get_qiniu_info: function () {
     var that = this;
-    if (!that.data.miuse_url){
+    if (!that.data.miuse_url && that.data.recordingTimeqwe){
       //结束录音计时 
       clearInterval(that.data.setInter);
       clearInterval(that.data.setInter1);
       recorderManager.stop();
       recorderManager.onStop((res) => {
-        app.show_l(that);
         this.tempFilePath = res.tempFilePath;
         that.setData({//存值
           miuse_url: res.tempFilePath,
@@ -446,7 +445,6 @@ Page({
           miuse_state: 1,
           tempFilePath: res
         })
-        app.hide_l(that);
         that.get_qiniu_info();
       })
       return false;

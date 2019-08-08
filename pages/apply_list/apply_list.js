@@ -45,17 +45,17 @@ Page({
       if(type == 1){
         this.get_my_state();
         wx.setNavigationBarTitle({
-          title: '我的点评'
+          title: '点评中心'
         })
       }else{
         wx.setNavigationBarTitle({
-          title: '查看点评'
+          title: '我的点评'
         })
       }
     }
   },
   onShareAppMessage: function (res) {
-    var share_url = "/pages/work_list/work_list?&parent_id=" + wx.getStorageSync("member_id");
+    var share_url = "/pages/apply_list/apply_list?type=" + wx.getStorageSync("apply_type")+"&parent_id=" + wx.getStorageSync("member_id");
     return {
       title: this.data.share_title,
       imageUrl: this.data.share_image,
