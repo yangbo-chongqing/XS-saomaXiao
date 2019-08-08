@@ -162,8 +162,8 @@ page{
 }
 
 .comment-list {
-    margin: 0.625rem auto 70px;
-    padding: 0.625rem 3%;
+    margin: 0.625rem auto 0;
+    padding: 0.625rem 3% 70px;
     background-color: #fff;
 }
 .pf image{
