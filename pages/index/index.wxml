@@ -40,14 +40,9 @@
   </view>
 
   <view class="footer_menu">
-      <view class="font_coler">
-          <van-icon name="home-o" size="45rpx" custom-class="tabbar-icon"></van-icon>
-          课程主页
-      </view>
-      <view bindtap="jump" data-url="../user/user">
-          <van-icon name="friends-o" size="45rpx" custom-class="tabbar-icon"></van-icon>
-          个人中心
-      </view>
+    <!-- <view bindtap="jump" data-url="../report/report">统计报表</view> -->
+    <view class="font_coler">课程主页</view>
+    <view bindtap="jump" data-url="../user/user">个人中心</view>
   </view>
 </view>
 
