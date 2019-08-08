@@ -76,7 +76,7 @@
         <!-- 朗读记录 -->
         <view class="works-record" style="background-color:#fff;">
             <view class="works-record-title">朗读记录</view>
-            <view class="works-ss-report" bindtap="jump">
+            <view class="works-ss-report" bindtap="jump" wx:if="{{work_list.length>0}}">
                 <image src="/images/ss_report.png"></image>
                 成就报表
             </view>
