@@ -248,3 +248,14 @@ page{
 .apply_radio radio{
   margin-left: 50px;
 }
+.no-content{
+    text-align: center;
+    color:#999;
+}
+.no-content image{
+    width: 95%;
+}
+.no-content view{
+    position: relative;
+    top:-90rpx;
+}

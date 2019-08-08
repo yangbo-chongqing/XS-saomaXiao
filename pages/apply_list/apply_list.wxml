@@ -22,51 +22,53 @@
     
     </view>
     <view class="apply_list">
-        <view class="weui-cells vux-no-group-title" wx:for="{{apply_list}}" style="background-color:#fff;margin-top:5px;">
-            <view class="vux-cell-box weui-cell">
-                <view class="vux-flexbox vux-flex-col">
-                    <view class="vux-flexbox-item" style="margin-top: 8px;">
-                        <view class="vux-flexbox vux-flex-row" wx:if="{{select_type == 1}}">
-                            <view class="vux-flexbox-item" style="margin-left: 8px; flex: 0 0 16.6667%;">
-                                <image class="avatar" src="{{item.student_info.avatar}}">
-                                </image>
+        <block wx:if="{{apply_list.length>0}}">
+            <view class="weui-cells vux-no-group-title" wx:for="{{apply_list}}" style="background-color:#fff;margin-top:5px;">
+                <view class="vux-cell-box weui-cell">
+                    <view class="vux-flexbox vux-flex-col">
+                        <view class="vux-flexbox-item" style="margin-top: 8px;">
+                            <view class="vux-flexbox vux-flex-row" wx:if="{{select_type == 1}}">
+                                <view class="vux-flexbox-item" style="margin-left: 8px; flex: 0 0 16.6667%;">
+                                    <image class="avatar" src="{{item.student_info.avatar}}">
+                                    </image>
+                                </view>
+                                <view class="vux-flexbox-item" style="margin-left: 8px;">
+                                    <view class="user-name">{{item.class_info.name}}</view>
+                                    <view class="apply-time">{{item.maturity_time}}</view>
+                                </view>
                             </view>
-                            <view class="vux-flexbox-item" style="margin-left: 8px;">
-                                <view class="user-name">{{item.class_info.name}}</view>
-                                <view class="apply-time">{{item.maturity_time}}</view>
+                            <view class="vux-flexbox vux-flex-row" wx:if="{{select_type == 2}}">
+                                <view class="vux-flexbox-item" style="margin-left: 8px; flex: 0 0 16.6667%;">
+                                    <image class="avatar" src="{{item.tour_info.member_url}}">
+                                    </image>
+                                </view>
+                                <view class="vux-flexbox-item" style="margin-left: 8px;">
+                                    <view class="user-name">{{item.tour_info.name}}</view>
+                                    <view class="apply-time">{{item.maturity_time}}</view>
+                                </view>
                             </view>
                         </view>
-                        <view class="vux-flexbox vux-flex-row" wx:if="{{select_type == 2}}">
-                            <view class="vux-flexbox-item" style="margin-left: 8px; flex: 0 0 16.6667%;">
-                                <image class="avatar" src="{{item.tour_info.member_url}}">
-                                </image>
-                            </view>
-                            <view class="vux-flexbox-item" style="margin-left: 8px;">
-                                <view class="user-name">{{item.tour_info.name}}</view>
-                                <view class="apply-time">{{item.maturity_time}}</view>
-                            </view>
-                        </view>
-                    </view>
-                    <view class="vux-flexbox-item" style="margin-top: 8px;">
-                        <view class="works-cell">
-                            <view class="vux-flexbox vux-flex-row" style="align-items: flex-start;">
-                                <view class="vux-flexbox-item" style="margin-left: 8px; flex: 0 0 14.2857%;"></view>
-                                <view class="vux-flexbox-item" bindtap="jump" data-url="../work_info/work_info?work_id={{item.work_info.works_id}}" >
-                                    <view class="vux-flexbox vux-flex-col">        
-                                        <view class="vux-flexbox-item">
-                                            <view class="vux-flexbox works-list vux-flex-row">
-                                                <view class="vux-flexbox-item" style="margin-left: 8px; flex: 0 0 30%; overflow: hidden;">
-                                                    <image src="{{item.work_info.cover_img}}"  class="cover_img" mode="scaleToFill">
-                                                     </image>
-                                                </view>
-                                                <view class="vux-flexbox-item" style="margin-left: 8px;">
-                                                    <view class="vux-flexbox vux-flex-col">
-                                                        <view class="vux-flexbox-item works-name" style="margin-top: 20px;">{{item.work_info.works_name}}</view>
-                                                        <view class="vux-flexbox-item" style="margin-top: 20px;">
-                                                            <view class="works-info">收听 {{item.work_info.listen_num}}   评论 {{item.work_info.comment_num}}   点赞 {{item.work_info.like_num}}</view>
-                                                        </view>
+                        <view class="vux-flexbox-item" style="margin-top: 8px;">
+                            <view class="works-cell">
+                                <view class="vux-flexbox vux-flex-row" style="align-items: flex-start;">
+                                    <view class="vux-flexbox-item" style="margin-left: 8px; flex: 0 0 14.2857%;"></view>
+                                    <view class="vux-flexbox-item" bindtap="jump" data-url="../work_info/work_info?work_id={{item.work_info.works_id}}" >
+                                        <view class="vux-flexbox vux-flex-col">
+                                            <view class="vux-flexbox-item">
+                                                <view class="vux-flexbox works-list vux-flex-row">
+                                                    <view class="vux-flexbox-item" style="margin-left: 8px; flex: 0 0 30%; overflow: hidden;">
+                                                        <image src="{{item.work_info.cover_img}}"  class="cover_img" mode="scaleToFill">
+                                                        </image>
                                                     </view>
-                                                    
+                                                    <view class="vux-flexbox-item" style="margin-left: 8px;">
+                                                        <view class="vux-flexbox vux-flex-col">
+                                                            <view class="vux-flexbox-item works-name" style="margin-top: 20px;">{{item.work_info.works_name}}</view>
+                                                            <view class="vux-flexbox-item" style="margin-top: 20px;">
+                                                                <view class="works-info">收听 {{item.work_info.listen_num}}   评论 {{item.work_info.comment_num}}   点赞 {{item.work_info.like_num}}</view>
+                                                            </view>
+                                                        </view>
+
+                                                    </view>
                                                 </view>
                                             </view>
                                         </view>
@@ -74,20 +76,24 @@
                                 </view>
                             </view>
                         </view>
-                    </view>
-                    <view class="vux-flexbox-item" style="margin-top: 8px;">
-                        <view class="vux-flexbox vux-flex-row">
-                            <view class="vux-flexbox-item" style="margin-left: 8px;" bindtap="jump" data-url="../work/work?type=CommentOrder&apply_id={{item.apply_id}}" class="router">
-                                <text class="router-link">查看申请详情</text>
-                            </view>
-                            <view class="vux-flexbox-item" style="margin-left: 8px; text-align: right;">
-                                <button wx:if="{{select_type == 1}}" bindtap="jump" data-url="../work_info/work_info?work_id={{item.work_info.works_id}}" class="act-btn bg-red van-button van-button--danger van-button--mini van-button--round">立即点评</button>
-                                <text class="text-red comment-status" wx:if="{{select_type == 2}}">点评中...</text>
+                        <view class="vux-flexbox-item" style="margin-top: 8px;">
+                            <view class="vux-flexbox vux-flex-row">
+                                <view class="vux-flexbox-item" style="margin-left: 8px;" bindtap="jump" data-url="../work/work?type=CommentOrder&apply_id={{item.apply_id}}" class="router">
+                                    <text class="router-link">查看申请详情</text>
+                                </view>
+                                <view class="vux-flexbox-item" style="margin-left: 8px; text-align: right;">
+                                    <button wx:if="{{select_type == 1}}" bindtap="jump" data-url="../work_info/work_info?work_id={{item.work_info.works_id}}" class="act-btn bg-red van-button van-button--danger van-button--mini van-button--round">立即点评</button>
+                                    <text class="text-red comment-status" wx:if="{{select_type == 2}}">点评中...</text>
+                                </view>
                             </view>
                         </view>
                     </view>
                 </view>
             </view>
+        </block>
+        <view wx:else class="no-content">
+            <image src="http://resource.xunsheng.org.cn/20190704172457-task-cover-283.png" mode="aspectFit"></image>
+            <view>暂无点评数据</view>
         </view>
     </view>
 </view>
