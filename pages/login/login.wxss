@@ -204,6 +204,7 @@
   top: 0;
   z-index: 1;
   background: #fff;
+  text-align: center;
 }
 .tel_bin_box button{
   width: 80%;
@@ -256,7 +257,7 @@
 .w-25{
   width: 25%;
 }
-.loginbox .logo{
+.loginbox .logo,.tel_bin_box .logo{
   width: 200rpx;
   margin:80rpx auto 0;
 }

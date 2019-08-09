@@ -10,6 +10,7 @@
   </view>
 </view>
 <view class="tel_bin_box" wx:if="{{is_tel}}">
+  <image src="/images/logo.png" class="logo" mode="widthFix"></image>
   <view class="font-size-24 wx_title mg-b-100 mg-t-100">
 
   </view>
