@@ -561,7 +561,6 @@ Page({
         })
       }
       if (this.data.audition){
-        console.log(321321);
         clearInterval(that.data.setInter1);
         that.setData({
           audition: false,
@@ -632,14 +631,29 @@ Page({
         })
     },
     play_miuse(e){
-      if (this.data.audition){
-        innerAudioContext.stop();
+      var that = this;
+      if (this.data.miuse_state == 2) {
+        //结束录音计时
+        clearInterval(that.data.setInter);
+        clearInterval(that.data.setInter1);
+        recorderManager.stop();
+        recorderManager.onStop((res) => {
+          this.tempFilePath = res.tempFilePath;
+          that.setData({//存值
+            miuse_url: res.tempFilePath,
+            strat: false,
+            miuse_state: 4,
+            tempFilePath: res
+          })
+        })
+      }
+      if (this.data.audition) {
         clearInterval(that.data.setInter1);
         that.setData({
           audition: false,
           setInter1: ""
         });
-        
+        innerAudioContext.stop();
       }
       var miuse_id = e.target.id;
       if (miuse_id == this.data.play_miuse_id){ // 当前音频正在播放
