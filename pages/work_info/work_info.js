@@ -415,8 +415,10 @@ Page({
             form_score: 0
           })
           that.getworkinfo();
+          that.is_apply_work();
           that.onLoad({ work_id: wx.getStorageSync("work_id") });
           that.comment_hide();
+        
 
         }else{
           wx.showToast({
