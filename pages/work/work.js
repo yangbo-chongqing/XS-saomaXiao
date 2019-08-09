@@ -26,7 +26,7 @@ Page({
       type =  wx.getStorageSync("work_type");
     }
     wx.setStorageSync('work_type',type);
-    
+    this.getMembers();
     if(type == "SsWorksDetail"){ //作品详情页面
         var work_id = options.work_id;
         if(!work_id){
@@ -173,12 +173,12 @@ Page({
       },
       success: function (res) {
         if(res.data.code == 200){
-          var user = {};
-          user.nickName = res.data.data.name;
-          user.avatarUrl = res.data.data.avatar;
-          that.setData({//存值
-            userInfo:user,
-            hasUserInfo:true
+         
+        } else if (res.data.msg == "用户认证不通过") {
+          wx.setStorageSync('member_id', '');
+          wx.setStorageSync('token', '');
+          wx.redirectTo({
+            url: '../login/login?type=index'
           })
         }
       }

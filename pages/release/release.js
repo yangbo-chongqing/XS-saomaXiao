@@ -133,6 +133,12 @@ Page({
                     task_info: res.data.data.task_detail
                   })
                   app.hide_l(that);
+              }else if (res.data.msg == "用户认证不通过") {
+                  wx.setStorageSync('member_id', '');
+                  wx.setStorageSync('token', '');
+                  wx.redirectTo({
+                    url: '../login/login?type=index'
+                  })
               }
             }
         })

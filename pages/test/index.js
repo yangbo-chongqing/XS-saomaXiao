@@ -52,6 +52,7 @@ Page({
   },
   // 获取用户信息
   getMembers:function(){
+    console.log(123);
     var that = this;
     var ts = Date.parse(new Date());
     var data = {
@@ -69,6 +70,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded',
       },
       success: function (res) {
+        console.log(res);
         if(res.data.code == 200){
           var user = {};
           user.nickName = res.data.data.name;
@@ -76,6 +78,13 @@ Page({
           that.setData({//存值
             userInfo:user,
             hasUserInfo:true
+          })
+        } else if (res.data.msg == "用户认证不通过"){
+          console.log(111);
+          wx.setStorageSync('member_id', '');
+          wx.setStorageSync('token', '');
+          wx.redirectTo({
+            url: '../login/login?type=index'
           })
         }
       }

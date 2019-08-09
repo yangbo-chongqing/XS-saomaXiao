@@ -60,6 +60,12 @@ Page({
               is_teacher: res.data.data.vip.is_teacher,
               user_info:res.data.data
             });
+        } else if (res.data.msg == "用户认证不通过") {
+          wx.setStorageSync('member_id', '');
+          wx.setStorageSync('token', '');
+          wx.redirectTo({
+            url: '../login/login?type=index'
+          })
         }
       }
     })
