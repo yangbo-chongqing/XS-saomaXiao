@@ -400,7 +400,7 @@ Page({
             duration: 1500,
           });
           that.setData({//存值
-            share_image: 'https://resource.xunsheng.org.cn/share_dpw.png',
+            share_image: 'https://resource.xunsheng.org.cn/xcxshare_dpw.png',
             form_yd: '',
             form_tsd: '',
             form_xl: '',
@@ -570,7 +570,7 @@ Page({
             })
             if (html && that.data.my_work){
                 that.setData({//存值
-                  share_image: 'https://resource.xunsheng.org.cn/share_dp.png'
+                  share_image: 'https://resource.xunsheng.org.cn/xcxshare_dp.png'
                 })
             }
           }

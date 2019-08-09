@@ -9,7 +9,7 @@ Page({
         link: "",
         share_title:"统计报表",
         share_url:"",
-        share_image:"https://resource.xunsheng.org.cn/ds_banner.png",
+        share_image:"https://resource.xunsheng.org.cn/xcxds_banner.png",
         
     },
     onLoad: function (options) {

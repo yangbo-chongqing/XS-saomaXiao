@@ -11,7 +11,7 @@ Page({
         link: "",
         share_title:"寻声伴读作业",
         share_url:"",
-        share_image:"https://resource.xunsheng.org.cn/ds_banner.png",
+        share_image:"https://resource.xunsheng.org.cn/xcxds_banner.png",
         task_info:[],
         work_list:[],
         recordingTimeqwe: 0,
