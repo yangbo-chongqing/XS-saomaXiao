@@ -24,7 +24,6 @@ Page({
     });
   },
   onLoad: function (options) {
-    
     var token = wx.getStorageSync("token");
     var member_id = wx.getStorageSync("member_id");
     if (options.parent_id) { // 上级信息
@@ -224,10 +223,11 @@ Page({
               icon: 'none',
               duration: 4000,
             })
+
             wx.setStorageSync('work_id', data.works_id);
             setTimeout(function(){
               wx.redirectTo({
-                url: '../work_info/work_info'
+                url: '../work_info/work_info?showShareTip=1'
               });
             },3000);
           }else{

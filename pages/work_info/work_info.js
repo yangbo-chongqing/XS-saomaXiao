@@ -34,7 +34,8 @@ Page({
     next_apply:0,
     minute: '0' + 0,   // 分
     second: '0' + 0,    // 秒
-    my_work:false
+    my_work:false,
+    show_grade_tip:false //五星好评提示
   },
   onLoad: function (options) {
       console.log(this.data.share_image);
@@ -57,6 +58,18 @@ Page({
         this.hasright();
         this.animation = wx.createAnimation()
         this.is_apply_work();
+      }
+      if(options.showShareTip=='1'){
+        wx.showModal({
+          title: '温馨提示',
+          content:'分享至微信班级群，提示老师及时点评',
+          showCancel:false,
+          confirmText:'我知道了',
+          success:(res)=>{
+            if(res.confirm){
+            }
+          }
+        })
       }
   },
   // 获取作品详情
@@ -107,6 +120,35 @@ Page({
             that.setData({
               my_work: true
             });
+
+            //5星奖励提示
+            if(works_detail.teacher_comment_list.length>0){
+              var teacher_comment_arr=[];
+              works_detail.teacher_comment_list.forEach(item=>{
+                if(item.grade==='S'){
+                  teacher_comment_arr.push(item.comment_id);
+                }
+              })
+              var max_comment_id=teacher_comment_arr.length>0?Math.max.apply(null,teacher_comment_arr):'';
+              var storage_comment_id=wx.getStorageSync('show_teacher_comment');
+              if((max_comment_id&&!storage_comment_id)||(max_comment_id&&storage_comment_id&&max_comment_id>storage_comment_id)){
+                that.setData({
+                  show_grade_tip:true
+                })
+                wx.setStorageSync('show_teacher_comment',max_comment_id);
+//                wx.showModal({
+//                  title:'温馨提示',
+//                  content:'恭喜你作品获得5星好评',
+//                  showCancel:false,
+//                  confirmText:'我知道了',
+//                  success:(res) =>{
+//                    if(res.confirm){
+//                      wx.setStorageSync('show_teacher_comment',max_comment_id);
+//                    }
+//                  }
+//                });
+              }
+            }
           }
         }
       }
@@ -419,6 +461,18 @@ Page({
           that.onLoad({ work_id: wx.getStorageSync("work_id") });
           that.comment_hide();
         
+
+          wx.showModal({
+            title: '温馨提示',
+            content:'分享至微信班级群，提示学生查看点评内容',
+            showCancel:false,
+            confirmText:'我知道了',
+            success:(res)=>{
+              if(res.confirm){
+
+              }
+            }
+          })
 
         }else{
           wx.showToast({

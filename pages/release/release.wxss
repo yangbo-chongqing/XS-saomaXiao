@@ -14,9 +14,12 @@
     font-size: 28rpx;
     line-height: 1.5rem;
     padding: 0rem 0.625rem;
-    height: 460rpx;
+    height: 450rpx;
     overflow: auto;
     color: #fff;
+}
+.works-detail .lyric.higher {
+    height: 555rpx;
 }
 .lyric-content{
    overflow: auto;

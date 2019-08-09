@@ -5,6 +5,7 @@
     "van-rate": "/components/vant-weapp/dist/rate/index",
     "van-button": "/components/vant-weapp/dist/button/index",
     "imt-audio": "/components/imt-audio/imt-audio",
-    "van-icon": "/components/vant-weapp/dist/icon/index"
+    "van-icon": "/components/vant-weapp/dist/icon/index",
+    "van-dialog": "/components/vant-weapp/dist/dialog/index"
   }
 }

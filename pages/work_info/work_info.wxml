@@ -241,4 +241,13 @@
              个人中心
          </view>
     </view>
+    <van-dialog
+            use-slot
+            title="温馨提示"
+            show="{{ show_grade_tip }}"
+            confirm-button-text="我知道了"
+    >
+        <!--<image mode="widthFix" src="http://resource.xunsheng.org.cn/images/voice/20171102/15095603357358_l.jpg" />-->
+        <view style="text-align: center;padding: 15px 0;">恭喜你获取5星好评</view>
+    </van-dialog>
 </view>

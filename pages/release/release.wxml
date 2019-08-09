@@ -3,7 +3,7 @@
     <view class="works-detail" style="background-image: url('{{task_info.cover_img}}');">
         <!-- 顶部文档 -->
         <view class="lyric-content">
-            <view class="lyric">
+            <view class="lyric {{!task_info.example_url?'higher':''}}">
                 <text >{{task_info.lyric_text}}</text>
             </view>
             <view class="aplayer-body">
