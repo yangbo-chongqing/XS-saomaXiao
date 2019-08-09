@@ -192,6 +192,13 @@
     color: #888;
     font-size: 12px;
 }
+.to-detail-content{
+  position: absolute;
+    right: 0;
+    bottom: 0;
+    top:0;
+    width:235px;
+}
 .works-impression{
     margin-top: 5rpx;
     padding-left: calc(50% - 152px);

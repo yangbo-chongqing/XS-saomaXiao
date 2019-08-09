@@ -16,12 +16,15 @@ Page({
     select_sort_desc: '正序',
     tutor_list:[],
     select_id:'',
+    apply_success:false
   },
   onUnload: function () {
     wx.setStorageSync('work_id',wx.getStorageSync("works_id"));
-    wx.redirectTo({
-      url: '../work_info/work_info'
-    });
+    if(!apply_success){
+      wx.redirectTo({
+        url: '../work_info/work_info'
+      });
+    }
   },
   onLoad: function (options) {
     var token = wx.getStorageSync("token");
@@ -217,6 +220,7 @@ Page({
           if (res.data.code == 200) {
             that.setData({
               loading: true,
+              apply_success:true
             })
             wx.showToast({
               title: res.data.msg,
