@@ -242,12 +242,15 @@
          </view>
     </view>
     <van-dialog
+            customStyle="background-color:transparent"
             use-slot
-            title="温馨提示"
             show="{{ show_grade_tip }}"
+            show-cancel-button="{{false}}"
+            show-confirm-button="{{false}}"
             confirm-button-text="我知道了"
     >
-        <!--<image mode="widthFix" src="http://resource.xunsheng.org.cn/images/voice/20171102/15095603357358_l.jpg" />-->
-        <view style="text-align: center;padding: 15px 0;">恭喜你获取5星好评</view>
+        <image bindtap="hideGradeTip" mode="widthFix" src="http://resource.xunsheng.org.cn/20190809153328-task-cover-283.png" />
+        <view slot="title"></view>
+        <!--<view style="text-align: center;padding: 15px 0;">恭喜你获取5星好评</view>-->
     </van-dialog>
 </view>

@@ -130,12 +130,12 @@ Page({
                 }
               })
               var max_comment_id=teacher_comment_arr.length>0?Math.max.apply(null,teacher_comment_arr):'';
-              var storage_comment_id=wx.getStorageSync('show_teacher_comment');
+              var storage_comment_id=wx.getStorageSync('show_teacher_comment_'+wx.getStorageSync("work_id"));
               if((max_comment_id&&!storage_comment_id)||(max_comment_id&&storage_comment_id&&max_comment_id>storage_comment_id)){
                 that.setData({
                   show_grade_tip:true
                 })
-                wx.setStorageSync('show_teacher_comment',max_comment_id);
+                wx.setStorageSync('show_teacher_comment_'+wx.getStorageSync("work_id"),max_comment_id);
 //                wx.showModal({
 //                  title:'温馨提示',
 //                  content:'恭喜你作品获得5星好评',
@@ -681,4 +681,10 @@ Page({
       }
     }, 1000)
   },
+  //隐藏五星好评提示
+  hideGradeTip(){
+    this.setData({
+      show_grade_tip:false
+    })
+  }
 });

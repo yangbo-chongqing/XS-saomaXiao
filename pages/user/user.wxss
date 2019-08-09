@@ -30,19 +30,20 @@
 .nick-name {
     text-align: center;
     color: #fff;
-    font-size: 12px;
+    font-size: 14px;
     margin-top: 10px;
 }
 .kCountContent {
     color: #fff;
-    font-size: 1.3rem;
-    padding-left: 1rem;
+    font-size: 28rpx;
     text-align: center;
+    margin-top: 15rpx;
 }
 .kCountContent image {
     vertical-align: bottom;
-    width:100px;
-    height: 100px;
+    width:20px;
+    height: 20px;
+    margin-right: 10rpx;
 }
 .user-avator image{
     margin-top: 60px;

@@ -4,7 +4,7 @@
         <!-- <view class="myKcount"><text style="float:left">我的余额</text><image src="/images/sx.png"></image></view> -->
         <view class="user-avator"><image src="{{user_info.avatar}}"></image></view>
         <view class="nick-name">{{user_info.name}}</view>
-        <!-- <view class="kCountContent"><image src="http://test.xunsheng.org.cn/pubh5/static/img/coin.e98be3f.png" ></image><text style="font-size:60px;"">619</text></view> -->
+         <view class="kCountContent"><image src="/images/small_flower.png"></image><text>{{user_info.small_flower||0}}</text></view>
      </view>
      <view>
         <view class="weui-cells vux-no-group-title">
