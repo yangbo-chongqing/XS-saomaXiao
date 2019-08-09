@@ -206,16 +206,40 @@ Page({
       var tk = this.getQueryString('tk',web_url);
       var share_url = "/pages/work/work?type=SsReport&task_id="+task_id+"&class_id="+class_id+"&mid="+mid+"&tk="+tk+"&parent_id="+wx.getStorageSync("member_id");
       share_title='成就报表';
-      wx.showModal({
-        title: '温馨提示',
-        content: '哇哦，恭喜你完成分享系统奖励你1朵小花，快去个人中心查看吧！',
-        showCancel: false,
-        confirmText: '我知道了',
-        success: (res) => {
-          if (res.confirm) {
-          }
-        }
-      });
+//      wx.showModal({
+//        title: '温馨提示',
+//        content: '哇哦，恭喜你完成分享系统奖励你1朵小花，快去个人中心查看吧！',
+//        showCancel: false,
+//        confirmText: '我知道了',
+//        success: (res) => {
+//          if (res.confirm) {
+//          }
+//        }
+//      });
+        var data = {
+            member_id: wx.getStorageSync("member_id"),
+            token: wx.getStorageSync("token")
+        };
+        wx.request({
+            url: config.URL + "/member/member/sharegetflower",
+            data: data,
+            method: 'post',
+            header: { "Content-Type": "application/x-www-form-urlencoded" },
+            success: function (res) {
+                if (res.data.code == 200) {
+                    wx.showToast({
+                        title:'分享成功',
+                        duration:5000
+                    })
+                } else{
+//                    wx.setStorageSync('member_id', '');
+//                    wx.setStorageSync('token', '');
+//                    wx.redirectTo({
+//                        url: '../login/login?type=index'
+//                    })
+                }
+            }
+        })
     } else if (site_url == "MyCoupon") { // 我的卷包
       var share_url = "/pages/work/work?type=MyCoupon";
     } else if (site_url == "CommentOrder"){
