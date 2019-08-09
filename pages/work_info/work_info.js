@@ -56,7 +56,7 @@ Page({
       }else{
         var work_id = options.work_id;
       }
-      // work_id = 188533;
+      //work_id = 325865;
       wx.setStorageSync('work_id', work_id);
       if(!token){
           wx.redirectTo({
@@ -165,6 +165,21 @@ Page({
           wx.redirectTo({
             url: '../login/login?type=index'
           })
+        } else if (res.data.msg == "获取作品失败"){
+          wx.showToast({
+            title: '获取作品失败',
+            icon: 'none',
+            duration: 1500,
+          });
+          that.setData({
+            loading:true
+          });
+          setTimeout(function(){
+            wx.redirectTo({
+              url: '../index/index'
+            })
+          },1800)
+          
         }
       }
     })

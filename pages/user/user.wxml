@@ -20,7 +20,7 @@
           </view>
           <view bindtap="jump" data-url="../apply_list/apply_list?type=2"  class="weui-cell vux-tap-active weui-cell_access">
               <view class="weui-cell__hd"><image src="/images/wddp.png"></image></view>
-              <view class="vux-cell-bd vux-cell-primary title">我的点评</view>
+              <view class="vux-cell-bd vux-cell-primary title">待点评作品</view>
               <view class="weui-cell__ft"></view>
           </view>
           <view wx:if="{{is_teacher}}" bindtap="jump" data-url="../apply_list/apply_list?type=1"  class="weui-cell vux-tap-active weui-cell_access">
