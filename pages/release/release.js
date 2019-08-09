@@ -271,7 +271,7 @@ Page({
           audition:true
         });
         innerAudioContext.autoplay = true
-        innerAudioContext.src = this.tempFilePath,
+        innerAudioContext.src = encodeURI(this.tempFilePath);
         innerAudioContext.onPlay(() => {
             this.setData({
               minute: '0' + 0,   // 分

@@ -56,14 +56,9 @@ Page({
       },
       success: function (res) {
         if(res.data.code == 200){
-            if (res.data.data.is_example_reader){
-              var is_teacher = 1;
-            }else{
-              var is_teacher = 0;
-            }
             that.setData({
               is_teacher: is_teacher,
-              user_info:res.data.data
+              user_info: res.data.vip.is_teacher
             });
         } else if (res.data.msg == "用户认证不通过") {
           wx.setStorageSync('member_id', '');
