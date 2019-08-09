@@ -63,14 +63,14 @@
              
             </view>
             <view wx:if="{{miuse_state == 2}}" class="vux-flexbox-item record-btn-content">
-                <view class="record-btn" style="width:60px;color:red;" bindtap="shutRecording">
+                <view class="record-btn" style="width:85px;color:red;" bindtap="shutRecording">
                 <image src="/images/tz.png" style="width:25px;height:25px;float:left;"></image>
-                停止</view>
+                停止录制</view>
             </view>
             <view wx:if="{{miuse_state == 1}}" class="vux-flexbox-item record-btn-content">
-                <view class="record-btn" style="width:60px;color:red;" bindtap="openRecording">
+                <view class="record-btn" style="width:85px;color:red;" bindtap="openRecording">
                 <image src="/images/lz.png" style="width:25px;height:25px;float:left;"></image>
-                录制</view>
+                录制作品</view>
             </view>
         </view>
         <!-- 朗读记录 -->
@@ -83,7 +83,7 @@
         </view>
         <view class="van-list" wx:if="{{work_list.length>0}}" style="background-color:#fff;padding-bottom:70px;">
             <view class="vux-flexbox1 works-item vux-flex-col" wx:for="{{work_list}}">
-                <view class="vux-flexbox-item works-impression" bindtap="jump_data" data-url="../work_info/work_info?work_id={{item.works_id}}">听听我的新作品吧！</view>
+                <view class="vux-flexbox-item works-impression" bindtap="jump_data" data-url="../work_info/work_info?work_id={{item.works_id}}">听听我的新作品吧！<text style="float:right;margin-right:5%;color: #0068b7;">作品详情</text></view>
                 <view class="audio-content">
                     <audio src="{{item.video_url}}" name="{{item.works_name}}" poster="{{item.cover_img}}" author="{{item.author_name}}" bindtap="play_miuse" id="miuse{{item.works_id}}"  controls></audio>
                     <!-- <text class="works-record-duration">{{item.duration>=60?(Math.floor(item.duration/60)+':'+(item.duration%60)):'00:'+item.duration}}</text> -->

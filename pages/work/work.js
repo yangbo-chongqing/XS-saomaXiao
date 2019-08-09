@@ -115,7 +115,7 @@ Page({
           mid = member_id;
         }
         this.setData({
-          link: config.SITE_URL+'/apph5/#/SsReport?task_id='+task_id+'&class_id='+class_id+"&tk="+tk+"&mid="+mid
+          link: config.SITE_URL +'/apph5/#/SsReport?showQQbtn=0&task_id='+task_id+'&class_id='+class_id+"&tk="+tk+"&mid="+mid
         })
     } else if (type == "MyCoupon") { // 我的卷包
       wx.setNavigationBarTitle({
