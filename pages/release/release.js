@@ -310,7 +310,40 @@ Page({
     },
     // 获取七牛云参数
     get_qiniu_info:function(){
-        var that = this;
+
+      var that = this;
+      if (this.data.play_miuse_id) { // 当前音频正在播放
+        this.data.audioCtx[this.data.play_miuse_id].pause();
+        this.setData({
+          is_play: 0,
+          play_miuse_id: ''
+        })
+      }
+      if (this.data.miuse_state == 2) {
+        //结束录音计时
+        clearInterval(that.data.setInter);
+        clearInterval(that.data.setInter1);
+        recorderManager.stop();
+        recorderManager.onStop((res) => {
+          this.tempFilePath = res.tempFilePath;
+          that.setData({//存值
+            miuse_url: res.tempFilePath,
+            strat: false,
+            miuse_state: 4,
+            tempFilePath: res
+          })
+        })
+      }
+      if (this.data.audition) {
+        console.log(321321);
+        clearInterval(that.data.setInter1);
+        that.setData({
+          audition: false,
+          setInter1: ""
+        });
+        innerAudioContext.stop();
+      }
+
         var ts = Date.parse(new Date());
         var data = {
             member_id: wx.getStorageSync("member_id"),

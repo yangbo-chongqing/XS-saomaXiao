@@ -606,6 +606,11 @@ Page({
                 apply_count: res.data.data.untreated_count,
                 next_apply: res.data.data.nep_work
               })
+            }else{
+              that.setData({//存值
+                apply_count: 0,
+                next_apply: 0
+              })
             }
             var html = "";
             for (var i = 0; i < res.data.data.tutor_info.length; i++) {
