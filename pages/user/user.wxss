@@ -33,7 +33,11 @@
     font-size: 14px;
     margin-top: 10px;
 }
+.count-content{
+    display: flex;
+}
 .kCountContent {
+    flex: 1;
     color: #fff;
     font-size: 28rpx;
     text-align: center;
