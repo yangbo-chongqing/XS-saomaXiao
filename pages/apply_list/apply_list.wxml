@@ -57,7 +57,7 @@
                                             <view class="vux-flexbox-item">
                                                 <view class="vux-flexbox works-list vux-flex-row">
                                                     <view class="vux-flexbox-item" style="margin-left: 8px; flex: 0 0 30%; overflow: hidden;">
-                                                        <image src="{{item.work_info.cover_img}}"  class="cover_img" mode="scaleToFill">
+                                                        <image mode="aspectFit" src="{{item.work_info.cover_img}}"  class="cover_img" mode="scaleToFill">
                                                         </image>
                                                     </view>
                                                     <view class="vux-flexbox-item" style="margin-left: 8px;">

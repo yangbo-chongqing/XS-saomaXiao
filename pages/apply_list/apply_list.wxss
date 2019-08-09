@@ -176,7 +176,8 @@ to {padding-left:0px;left:-400px;}
     overflow: hidden;
 }
 .cover_img {
-    height: 4.375rem;
+    width: 95px;
+    height: 95px;
     vertical-align: middle;
 }
 .works-name {
