@@ -10,7 +10,7 @@ Page({
     work_list: [],
     share_title: "寻声朗读",
     share_url: "",
-    share_image: "https://resource.xunsheng.org.cn/xcxds_banner.png",
+    share_image: "https://resource.xunsheng.org.cn/xsds_banner.png",
     banner_img: '',
     page:1,
     page_size:10,

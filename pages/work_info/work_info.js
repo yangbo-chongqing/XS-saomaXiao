@@ -11,7 +11,7 @@ Page({
     work_info:[],
     share_title:"寻声朗读",
     share_url:"",
-    share_image:"",
+    share_image:"https://resource.xunsheng.org.cn/xsds_banner.png",
     audioCtx:[],
     grade_arr:['','D','C','B','A','S'],
     is_play: 0,
@@ -37,8 +37,17 @@ Page({
     my_work:false,
     show_grade_tip:false //五星好评提示
   },
+  onUnload: function () {
+    var that = this;
+    if (this.data.play_miuse_id) { // 当前音频正在播放
+      this.data.audioCtx[this.data.play_miuse_id].pause();
+      this.setData({
+        is_play: 0,
+        play_miuse_id: ''
+      })
+    }
+  },
   onLoad: function (options) {
-      console.log(this.data.share_image);
       var token = wx.getStorageSync("token");
       var member_id = wx.getStorageSync("member_id");
       var work_id = '';
@@ -98,11 +107,11 @@ Page({
             var works_detail = res.data.data.works_detail;
             var date = new Date();
             works_detail.create_time = util.formatTimeTwo(works_detail.create_time,'Y-M-D h:m:s');
-            if (works_detail.cover_img && !that.data.share_image){
-                that.setData({//存值
-                  share_image: works_detail.cover_img,
-                })
-            }
+            // if (works_detail.cover_img && !that.data.share_image){
+            //     that.setData({//存值
+            //       share_image: works_detail.cover_img,
+            //     })
+            // }
             that.setData({//存值
                  work_info: res.data.data.works_detail,
             })

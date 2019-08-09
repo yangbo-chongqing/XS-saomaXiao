@@ -9,7 +9,7 @@ Page({
     link: "",
     share_title:"个人中心",
     share_url:"",
-    share_image:"https://resource.xunsheng.org.cn/xcxds_banner.png",
+    share_image:"https://resource.xunsheng.org.cn/xsds_banner.png",
     is_teacher:0,
     user_info:[]
   },
