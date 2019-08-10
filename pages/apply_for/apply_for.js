@@ -20,7 +20,7 @@ Page({
   },
   onUnload: function () {
     wx.setStorageSync('work_id',wx.getStorageSync("works_id"));
-    if(!apply_success){
+    if(!this.data.apply_success){
       wx.redirectTo({
         url: '../work_info/work_info'
       });
