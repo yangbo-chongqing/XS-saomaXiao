@@ -37,15 +37,8 @@ Page({
     my_work:false,
     show_grade_tip:false //五星好评提示
   },
-  onUnload: function () {
-    var that = this;
-    if (this.data.play_miuse_id) { // 当前音频正在播放
-      this.data.audioCtx[this.data.play_miuse_id].pause();
-      this.setData({
-        is_play: 0,
-        play_miuse_id: ''
-      })
-    }
+  onUnload: function () { 
+    this.stop_miuse_one();
   },
   onLoad: function (options) {
       var token = wx.getStorageSync("token");
@@ -202,6 +195,7 @@ Page({
   },
   //跳转个人中心
   jump(e) {
+    this.stop_miuse_one();
     var url = e.currentTarget.dataset.url;
     wx.navigateTo({
       url: url,
@@ -209,6 +203,7 @@ Page({
   },
   //跳转首页
   jump_index(e) {
+    this.stop_miuse_one();
     var url = e.currentTarget.dataset.url;
     wx.redirectTo({
       url: '../index/index?index_tab='+url,
@@ -363,13 +358,7 @@ Page({
   },
   //开始录音
   openRecording: function () {
-    if (this.data.play_miuse_id) { // 当前音频正在播放
-      this.data.audioCtx[this.data.play_miuse_id].pause();
-      this.setData({
-        is_play: 0,
-        play_miuse_id: ''
-      })
-    }  
+    this.stop_miuse_one();
     var that = this;
     const options = {
       duration: 600000,//指定录音的时长，单位 ms
@@ -723,5 +712,15 @@ Page({
     this.setData({
       show_grade_tip:false
     })
+  },
+  stop_miuse_one(){
+    var that = this;
+    if (this.data.play_miuse_id) { // 当前音频正在播放
+      this.data.audioCtx[this.data.play_miuse_id].pause();
+      this.setData({
+        is_play: 0,
+        play_miuse_id: ''
+      })
+    }
   }
 });

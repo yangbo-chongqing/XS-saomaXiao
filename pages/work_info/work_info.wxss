@@ -291,3 +291,8 @@ page{
 .act-btn{
     margin-right: 10rpx;
 }
+.share_button{
+  width: 100%;
+  text-align: center;
+  margin-bottom: 15px;
+}

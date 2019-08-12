@@ -192,9 +192,18 @@ Page({
             function () {
                 if(that.data.strat){
                     var time = that.data.recordingTimeqwe + 1;
-                    that.setData({
+                    if (time > 599){
+                        that.shutRecording();
+                        wx.showToast({
+                          title: '录制最大时长10分钟',
+                          icon: 'none',
+                          duration: 3000,
+                        })
+                    }else{
+                      that.setData({
                         recordingTimeqwe: time
-                    })
+                      })
+                    } 
                 }
             }
             , 1000);
@@ -238,7 +247,9 @@ Page({
           audition:true
         });
         innerAudioContext.autoplay = true
-        innerAudioContext.src = encodeURI(this.tempFilePath);
+        innerAudioContext.src = this.tempFilePath;
+        innerAudioContext.play();
+
         innerAudioContext.onPlay(() => {
             this.setData({
               minute: '0' + 0,   // 分

@@ -14,7 +14,15 @@ Page({
     class_name:'',
     index_tab:1,
     user_info:[],
-    is_teacher:0
+    is_teacher:0,
+    class_content:'',
+    indicatorDots: true,
+    autoplay: false,
+    interval: 5000,
+    duration: 1000,
+    teacher_ids:[],
+    teacher_list:[],
+    k_all:[]
   },
   onLoad: function (options) {
       var token = wx.getStorageSync("token");
@@ -45,6 +53,7 @@ Page({
       }else{
           this.getClassInfo();
           this.getMembers();
+          // 查询班级付费导师
       }
   },
   getUserInfo: function(e) {
@@ -77,7 +86,7 @@ Page({
           if (res.data.data.vip.is_teacher) {
             var is_teacher = 1;
           } else {
-            var is_teacher = 1;
+            var is_teacher = 0;
           }
           that.setData({
             is_teacher: is_teacher,
@@ -171,14 +180,26 @@ Page({
         if (res.data.code == 200) {
           var class_id = res.data.data.class_id;
           var banner_img = res.data.data.class_info.head_img;
-          var class_name = res.data.data.class_info.class_name;
+          if (res.data.data.class_info.class_name){
+             var class_name = res.data.data.class_info.class_name;
+             wx.setNavigationBarTitle({
+                title: class_name,
+             })
+
+          }else{
+             var class_name ="";
+             var class_content = "";
+          }
+          
 
           that.setData({//存值
             class_id: class_id,
             banner_img: banner_img,
-            class_name:class_name
+            class_name:class_name,
+            class_content: res.data.data.class_info.content
           });
           that.getHomeWork();
+          that.get_class_tea_list();
         } else if (res.data.msg == "用户认证不通过"){
           wx.setStorageSync('member_id', '');
           wx.setStorageSync('token', '');
@@ -195,5 +216,49 @@ Page({
     this.setData({
       index_tab: url
     });
+  },
+  // 查询班级付费导师
+  get_class_tea_list(){
+    var that = this;
+    var ts = Date.parse(new Date());
+    var data = {
+      member_id: wx.getStorageSync("member_id"),
+      token: wx.getStorageSync("token"),
+      class_id: that.data.class_id,
+      page:1,
+      page_size:20,
+      type:1,
+      order: 'score',
+      sort:0,
+      ts: ts
+    };
+    var cs = app.encryption(data);
+    data.cs = cs;
+    app.show_l(that);
+    wx.request({
+      url: config.URL + "fa/Xspaycomment/tutor_list",
+      data: data,
+      method: 'get',
+      header: { "Content-Type": "application/x-www-form-urlencoded" },
+      success: function (res) {
+        if (res.data.code == 200) {
+            var ids = [];
+            for (var i=0;i<res.data.data.tutor_list.length;i++){
+              ids[i] = res.data.data.tutor_list[i].example_reader_id;
+            }
+            var k_all = [];
+            if (res.data.data.tutor_list.length < 4){
+              for (var i = res.data.data.tutor_list.length;i<4;i++){
+                  k_all.push([]);
+              }
+            }
+            that.setData({
+                teacher_ids: ids,
+                k_all: k_all,
+                teacher_list: res.data.data.tutor_list
+            });
+        }
+      }
+    })
   }
 });

@@ -240,8 +240,8 @@
     text-align: center;
 }
 .teacher-item .teacher-avatar{
-    height: 100px;
-    width: 100px;
+    height: 80px;
+    width: 80px;
 }
 .teacher-item .teacher-name{
 

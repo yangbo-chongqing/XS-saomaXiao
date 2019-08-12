@@ -48,12 +48,16 @@
                         </view>
                     </view>
                     <van-button class="act-btn" wx:if="{{is_apply}}" bindtap="jump"
-                                data-url="../apply_for/apply_for?works_id={{work_info.works_id}}"
+                                data-url="../apply_for/apply_for?works_id={{work_info.works_id}}&success=1"
                                 round type="danger" size="mini">申请点评
                     </van-button>
                 </view>
             </view>
         </view>
+    </view>
+    <view class="share_button">
+        <van-button class="act-btn" open-type="share" round type="danger" size="mini">转发
+        </van-button>
     </view>
     <!--所在班级  -->
     <view wx:if="{{apply_content}}" class="class_view">
