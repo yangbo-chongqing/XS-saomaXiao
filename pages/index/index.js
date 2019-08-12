@@ -12,6 +12,7 @@ Page({
     share_url:"",
     share_image:"https://resource.xunsheng.org.cn/xsds_banner.png",
     banner_img:'',
+    class_name:''
   },
   onLoad: function (options) {
       var token = wx.getStorageSync("token");
@@ -148,10 +149,12 @@ Page({
         if (res.data.code == 200) {
           var class_id = res.data.data.class_id;
           var banner_img = res.data.data.class_info.head_img;
-        
+          var class_name = res.data.data.class_info.class_name;
+
           that.setData({//存值
             class_id: class_id,
-            banner_img: banner_img
+            banner_img: banner_img,
+            class_name:class_name
           });
           that.getHomeWork();
         } else if (res.data.msg == "用户认证不通过"){
