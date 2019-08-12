@@ -4,10 +4,46 @@
           <image mode="widthFix" style="width:100%" src="{{banner_img}}"></image>
       </view>
 
-      <view class="works-record" style="width:100%;height:30px;">
-          <view class="works-record-title" style="width:50%;float:left;">{{class_name||'杉树伴读范读'}}</view>
+      <view class="class-desc">
+          <view class="class-desc-title">课程介绍</view>
+          <view class="class-desc-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias eum fugiat neque? Asperiores dolorem et iusto perferendis totam. Cupiditate fugit incidunt ipsam itaque libero magnam quidem quis repellat soluta temporibus!</view>
+      </view>
+
+      <view class="works-record main-title-container">
+          <view class="works-record-title main-title">杉树伴读导师</view>
+          <view bindtap="jump" data-url="../report/report" style="float: right;padding-right: 5%;color:#0068b7;">更多»</view>
+      </view>
+      <scroll-view scroll-x="{{true}}" style="width: 100%;">
+          <view class="teacher-item">
+              <image class="teacher-avatar" src="http://resource.xunsheng.org.cn/xsmatch/static/imgs/head.jpeg"></image>
+              <view class="teacher-name">导师名称</view>
+              <button class="teacher-detail-btn">查看详情</button>
+          </view>
+      </scroll-view>
+
+      <view class="works-record main-title-container">
+          <view class="works-record-title main-title">学生</view>
+      </view>
+
+      <van-row custom-class="data-content">
+          <van-col span="8">
+              <view class="data-content-count">6</view>
+              <view class="data-content-title">已朗读</view>
+          </van-col>
+          <van-col span="8">
+              <view class="data-content-count">0</view>
+              <view class="data-content-title">点评中</view>
+          </van-col>
+          <van-col span="8">
+              <view class="data-content-count">7</view>
+              <view class="data-content-title">已点评</view>
+          </van-col>
+      </van-row>
+
+      <view class="works-record main-title-container">
+          <view class="works-record-title main-title">课程作业</view>
           <view bindtap="jump" data-url="../report/report" style="float: right;padding-right: 5%;color:#0068b7;">统计报表</view>
-      </view>    
+      </view>
 
       <view class="van-list" wx:if="{{work_list.length>0}}">
           <view class="van-row van-row--flex van-row--align-center" wx:for="{{work_list}}">

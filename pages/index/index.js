@@ -29,7 +29,7 @@ Page({
               var parent_id = options.parent_id;
               wx.setStorageSync('parent_id', parent_id);
           }
-          var class_id = options.class_id;
+          var class_id = options.class_id||'9698';
           if (class_id) {
             class_id = wx.getStorageSync("class_id");
           }

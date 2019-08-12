@@ -3,6 +3,8 @@
   "navigationBarTitleText": "杉树伴读",
   "usingComponents": {
     "van-button": "/components/vant-weapp/dist/button/index",
-    "van-icon": "/components/vant-weapp/dist/icon/index"
+    "van-icon": "/components/vant-weapp/dist/icon/index",
+    "van-col": "/components/vant-weapp/dist/col/index",
+    "van-row": "/components/vant-weapp/dist/row/index"
   }
 }

@@ -12,6 +12,24 @@
 	height:auto;
 }
 
+.class-desc{
+    width: 90%;
+    margin: 30rpx auto;
+    padding-bottom: 30rpx;
+    border-bottom: 1px solid #ccc;
+}
+.class-desc .class-desc-title{
+    text-align: center;
+    font-size: 28rpx;
+    font-weight: 600;
+    margin-bottom: 10rpx;
+}
+.class-desc .class-desc-content{
+    text-indent: 52rpx;
+    text-align: justify;
+    color:#666;
+}
+
 .common-title{
   width: 90%;
   font-size: 0.9375rem;
@@ -89,17 +107,19 @@
 .van-col--24 {
     width: 100%;
 }
-
-.works-record {
-    width: 95%;
-    margin: 30rpx auto 20rpx;
-    padding-left: 30rpx;
-    box-sizing: border-box;
-}
-.works-record .works-record-title {
+.main-title{
     padding-left: 20rpx;
     border-left: 2px solid #f2574b;
     font-size: 0.8125rem;
+    width:50%;
+    float:left;
+}
+.main-title-container {
+    margin: 30rpx auto 20rpx;
+    padding-left: 30rpx;
+    box-sizing: border-box;
+    width:100%;
+    height:30px;
 }
 .no-content{
     text-align: center;
@@ -201,4 +221,31 @@
   width: 19px;
   height: 19px;
   padding-top:3px; 
+}
+
+.data-content{
+    text-align: center;
+}
+.data-content-count{
+    font-size: 44rpx;
+}
+.data-content-title{
+    font-size: 20rpx;
+}
+
+/*范读导师*/
+.teacher-item{
+    height: 150px;
+    width: 100px;
+    text-align: center;
+}
+.teacher-item .teacher-avatar{
+    height: 100px;
+    width: 100px;
+}
+.teacher-item .teacher-name{
+
+}
+.teacher-item .teacher-detail-btn{
+    width: 80px;
 }
