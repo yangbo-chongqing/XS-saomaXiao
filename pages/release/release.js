@@ -32,38 +32,9 @@ Page({
         bf_src:'',
     },
     onUnload: function () {
-      var that = this;
-      if (this.data.play_miuse_id) { // 当前音频正在播放
-        this.data.audioCtx[this.data.play_miuse_id].pause();
-        this.setData({
-          is_play: 0,
-          play_miuse_id: ''
-        })
-      }
-      if (this.data.miuse_state == 2) {
-        //结束录音计时
-        clearInterval(that.data.setInter);
-        clearInterval(that.data.setInter1);
-        recorderManager.stop();
-        recorderManager.onStop((res) => {
-          this.tempFilePath = res.tempFilePath;
-          that.setData({//存值
-            miuse_url: res.tempFilePath,
-            strat: false,
-            miuse_state: 4,
-            tempFilePath: res
-          })
-        })
-      }
-      if (this.data.audition) {
-        console.log(123123);
-        clearInterval(that.data.setInter1);
-        that.setData({
-          audition: false,
-          setInter1: ""
-        });
-        innerAudioContext.stop();
-      }
+      this.stop_miuse_one();
+      this.stop_miuse_two();
+      this.stop_miuse_three();
     },
     onLoad: function (options) {
         // 用户信息
@@ -177,9 +148,7 @@ Page({
     },
     //开始录音
     openRecording: function() {
-        if (this.data.play_miuse_id) { // 当前正在播放的音频
-          this.data.audioCtx[this.data.play_miuse_id].pause();
-        }
+        this.stop_miuse_one();
         var that = this;
         const options = {
             duration: 600000,//指定录音的时长，单位 ms
@@ -259,9 +228,7 @@ Page({
     //录音播放
     recordingAndPlaying: function(eve) {
         var that = this;
-        if (this.data.play_miuse_id) { // 当前正在播放的音频
-          this.data.audioCtx[this.data.play_miuse_id].pause();
-        }
+        this.stop_miuse_one();
         wx.showToast({
             title: '开始播放',
             icon: 'none',
@@ -350,7 +317,6 @@ Page({
     },
     // 获取七牛云参数
     get_qiniu_info:function(){
-
       var that = this;
       if (this.data.play_miuse_id) { // 当前音频正在播放
         this.data.audioCtx[this.data.play_miuse_id].pause();
@@ -499,37 +465,9 @@ Page({
     //跳转个人中心
     jump(e) {
         var that = this;
-        if (this.data.play_miuse_id) { // 当前音频正在播放
-          this.data.audioCtx[this.data.play_miuse_id].pause();
-          this.setData({
-            is_play: 0,
-            play_miuse_id: ''
-          })
-        }
-        if (this.data.miuse_state == 2) {
-          //结束录音计时
-          clearInterval(that.data.setInter);
-          clearInterval(that.data.setInter1);
-          recorderManager.stop();
-          recorderManager.onStop((res) => {
-            this.tempFilePath = res.tempFilePath;
-            that.setData({//存值
-              miuse_url: res.tempFilePath,
-              strat: false,
-              miuse_state: 4,
-              tempFilePath: res
-            })
-          })
-        }
-        if (this.data.audition){
-          console.log(123123);
-          clearInterval(that.data.setInter1);
-          that.setData({
-            audition: false,
-            setInter1: ""
-          });
-          innerAudioContext.stop();
-        }
+        this.stop_miuse_one();
+        this.stop_miuse_two();
+        this.stop_miuse_three();
         var url = "../work/work?type=SsReport&class_id=" + this.data.class_id + "&task_id=" + this.data.task_id;
         wx.navigateTo({
           url: url,
@@ -538,36 +476,9 @@ Page({
     //跳转个人中心
     jump_data(e) {
       var that = this;
-      if (this.data.play_miuse_id) { // 当前音频正在播放
-        this.data.audioCtx[this.data.play_miuse_id].pause();
-        this.setData({
-          is_play: 0,
-          play_miuse_id: ''
-        })
-      }
-      if (this.data.miuse_state == 2){
-        //结束录音计时
-        clearInterval(that.data.setInter);
-        clearInterval(that.data.setInter1);
-        recorderManager.stop();
-        recorderManager.onStop((res) => {
-          this.tempFilePath = res.tempFilePath;
-          that.setData({//存值
-            miuse_url: res.tempFilePath,
-            strat: false,
-            miuse_state: 4,
-            tempFilePath: res
-          })
-        })
-      }
-      if (this.data.audition){
-        clearInterval(that.data.setInter1);
-        that.setData({
-          audition: false,
-          setInter1: ""
-        });
-        innerAudioContext.stop();
-      }
+      this.stop_miuse_one();
+      this.stop_miuse_two();
+      this.stop_miuse_three();
       var url = e.currentTarget.dataset.url;
       wx.navigateTo({
         url: url,
@@ -575,41 +486,13 @@ Page({
     },
     redirect(e){
       var that = this;
-      if (this.data.play_miuse_id) { // 当前音频正在播放
-        this.data.audioCtx[this.data.play_miuse_id].pause();
-        this.setData({
-          is_play: 0,
-          play_miuse_id: ''
-        })
-      }
-      if (this.data.miuse_state == 2) {
-        //结束录音计时
-        clearInterval(that.data.setInter);
-        clearInterval(that.data.setInter1);
-        recorderManager.stop();
-        recorderManager.onStop((res) => {
-          this.tempFilePath = res.tempFilePath;
-          that.setData({//存值
-            miuse_url: res.tempFilePath,
-            strat: false,
-            miuse_state: 4,
-            tempFilePath: res
-          })
-        })
-      }
-      if (this.data.audition) {
-        console.log(321321);
-        clearInterval(that.data.setInter1);
-        that.setData({
-          audition: false,
-          setInter1: ""
-        });
-        innerAudioContext.stop();
-      }
-        var url = e.currentTarget.dataset.url;
-        wx.reLaunch({
-            url: url,
-        })
+      this.stop_miuse_one();
+      this.stop_miuse_two();
+      this.stop_miuse_three();
+      var url = e.currentTarget.dataset.url;
+      wx.reLaunch({
+          url: url,
+      })
     },
     bf(e){
       if (this.data.is_play == 1){
@@ -632,29 +515,8 @@ Page({
     },
     play_miuse(e){
       var that = this;
-      if (this.data.miuse_state == 2) {
-        //结束录音计时
-        clearInterval(that.data.setInter);
-        clearInterval(that.data.setInter1);
-        recorderManager.stop();
-        recorderManager.onStop((res) => {
-          this.tempFilePath = res.tempFilePath;
-          that.setData({//存值
-            miuse_url: res.tempFilePath,
-            strat: false,
-            miuse_state: 4,
-            tempFilePath: res
-          })
-        })
-      }
-      if (this.data.audition) {
-        clearInterval(that.data.setInter1);
-        that.setData({
-          audition: false,
-          setInter1: ""
-        });
-        innerAudioContext.stop();
-      }
+      this.stop_miuse_two();
+      this.stop_miuse_three();
       var miuse_id = e.target.id;
       if (miuse_id == this.data.play_miuse_id){ // 当前音频正在播放
         this.data.audioCtx[miuse_id].pause();
@@ -720,14 +582,7 @@ Page({
     },
     //播放老师点评
     play_comment(e){
-      if (this.data.audition) {
-        innerAudioContext.stop();
-        clearInterval(that.data.setInter1);
-        that.setData({
-          audition: false,
-          setInter1: ""
-        });
-      }
+      this.stop_miuse_three();
       var miuse_id = e.currentTarget.dataset.id;
       var url = e.currentTarget.dataset.url;
       if (miuse_id == this.data.play_miuse_id) { // 当前音频正在播放
@@ -768,10 +623,51 @@ Page({
     },
     //跳转首页
     jump_index(e) {
+      this.stop_miuse_one();
+      this.stop_miuse_two();
+      this.stop_miuse_three();
       var url = e.currentTarget.dataset.url;
       wx.redirectTo({
         url: '../index/index?index_tab=' + url,
       })
     },
-  
+    stop_miuse_one(){
+        var that = this;
+        if (this.data.play_miuse_id) { // 当前音频正在播放
+          this.data.audioCtx[this.data.play_miuse_id].pause();
+          this.setData({
+            is_play: 0,
+            play_miuse_id: ''
+          })
+        }
+    },
+    stop_miuse_two(){
+        var that = this;
+        if (this.data.miuse_state == 2) {
+            //结束录音计时
+            clearInterval(that.data.setInter);
+            clearInterval(that.data.setInter1);
+            recorderManager.stop();
+            recorderManager.onStop((res) => {
+              this.tempFilePath = res.tempFilePath;
+              that.setData({//存值
+                miuse_url: res.tempFilePath,
+                strat: false,
+                miuse_state: 4,
+                tempFilePath: res
+              })
+            })
+        }
+    },
+    stop_miuse_three(){
+        var that = this;
+        if (this.data.audition) {
+            clearInterval(that.data.setInter1);
+            that.setData({
+              audition: false,
+              setInter1: ""
+            });
+            innerAudioContext.stop();
+        }
+    }
 });
