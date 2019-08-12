@@ -5,33 +5,39 @@ const md5 = require('../../utils/md5.js');
 const app = getApp();
 Page({
   data: {
-    tab_index:2,
     class_id:0,
     work_list:[],
     share_title:"寻声朗读",
     share_url:"",
     share_image:"https://resource.xunsheng.org.cn/xsds_banner.png",
     banner_img:'',
-    class_name:''
+    class_name:'',
+    index_tab:1,
+    user_info:[],
+    is_teacher:0
   },
   onLoad: function (options) {
       var token = wx.getStorageSync("token");
       var member_id = wx.getStorageSync("member_id");
-
-      if(options.parent_id){ // 上级信息
-          var parent_id = options.parent_id;
-          wx.setStorageSync('parent_id',parent_id);
+      if (options){
+          if (options.index_tab) {
+              this.setData({
+                index_tab: options.index_tab
+              });
+          }
+          if (options.parent_id) { // 上级信息
+              var parent_id = options.parent_id;
+              wx.setStorageSync('parent_id', parent_id);
+          }
+          var class_id = options.class_id;
+          if (class_id) {
+            class_id = wx.getStorageSync("class_id");
+          }
+          wx.setStorageSync('class_id', class_id);
+          this.setData({
+            class_id: class_id
+          });
       }
-
-
-      var class_id = options.class_id;
-      if (!class_id) {
-        class_id = wx.getStorageSync("class_id");
-      }
-      wx.setStorageSync('class_id', class_id);
-      this.setData({
-        class_id:class_id
-      });
       if(!token){
           wx.redirectTo({
               url: '../login/login?type=index'
@@ -39,7 +45,6 @@ Page({
       }else{
           this.getClassInfo();
           this.getMembers();
-    
       }
   },
   getUserInfo: function(e) {
@@ -56,7 +61,7 @@ Page({
     var data = {
       member_id: wx.getStorageSync("member_id"),
       token: wx.getStorageSync("token"),
-      ts:ts
+      ts: ts
     };
     var cs = app.encryption(data);
     data.cs = cs;
@@ -68,6 +73,23 @@ Page({
         'content-type': 'application/x-www-form-urlencoded',
       },
       success: function (res) {
+        if (res.data.code == 200) {
+          if (res.data.data.vip.is_teacher) {
+            var is_teacher = 1;
+          } else {
+            var is_teacher = 1;
+          }
+          that.setData({
+            is_teacher: is_teacher,
+            user_info: res.data.data
+          });
+        } else if (res.data.msg == "用户认证不通过") {
+          wx.setStorageSync('member_id', '');
+          wx.setStorageSync('token', '');
+          wx.redirectTo({
+            url: '../login/login?type=index'
+          })
+        }
       }
     })
   },
@@ -166,5 +188,12 @@ Page({
         }
       }
     })
+  },
+  tab_swiper(e){
+    var url = e.currentTarget.dataset.url;
+
+    this.setData({
+      index_tab: url
+    });
   }
 });

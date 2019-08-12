@@ -1,51 +1,103 @@
 <view>
-  <view class="banner-img">
-      <image mode="widthFix" style="width:100%" src="{{banner_img}}"></image>
-  </view>
+  <view wx:if="{{index_tab == 1}}">
+    <view class="banner-img">
+          <image mode="widthFix" style="width:100%" src="{{banner_img}}"></image>
+      </view>
 
-  <view class="works-record" style="width:100%;height:30px;">
-      <view class="works-record-title" style="width:50%;float:left;">{{class_name||'杉树伴读范读'}}</view>
-      <view bindtap="jump" data-url="../report/report" style="float: right;padding-right: 5%;color:#0068b7;">统计报表</view>
-  </view>    
+      <view class="works-record" style="width:100%;height:30px;">
+          <view class="works-record-title" style="width:50%;float:left;">{{class_name||'杉树伴读范读'}}</view>
+          <view bindtap="jump" data-url="../report/report" style="float: right;padding-right: 5%;color:#0068b7;">统计报表</view>
+      </view>    
 
-  <view class="van-list" wx:if="{{work_list.length>0}}">
-      <view class="van-row van-row--flex van-row--align-center" wx:for="{{work_list}}">
-          <view class="van-col van-col--24">
-              <view class="homework-item van-row van-row--flex van-row--align-center">
-                  <view class="van-col van-col--6" style="width:25%;">
-                      <view class="aplayer aplayer-narrow">
-                          <view class="aplayer-body">
-                              <view class="aplayer-pic" style="background: url('{{item.cover_img}}') no-repeat center center; background-color: rgb(65, 184, 131);background-size:cover;height:66px;"></view>
+      <view class="van-list" wx:if="{{work_list.length>0}}">
+          <view class="van-row van-row--flex van-row--align-center" wx:for="{{work_list}}">
+              <view class="van-col van-col--24">
+                  <view class="homework-item van-row van-row--flex van-row--align-center">
+                      <view class="van-col van-col--6" style="width:25%;">
+                          <view class="aplayer aplayer-narrow">
+                              <view class="aplayer-body">
+                                  <view class="aplayer-pic" style="background: url('{{item.cover_img}}') no-repeat center center; background-color: rgb(65, 184, 131);background-size:cover;height:66px;"></view>
+                              </view>
                           </view>
                       </view>
-                  </view>
-                  <view class="van-col van-col--18" style="width:75%" data-url="../release/release?class_id={{item.class_id}}&task_id={{item.task_id}}" bindtap="jump">
-                      <view class="van-row van-row--flex van-row--align-center">
-                          <view class="homework-name van-col van-col--17" style="width:60%;">{{item.task_name}}</view>
-                          <view class="time van-col van-col--7" style="width:40%;">{{item.create_time}}</view>
-                      </view>
-                      <view class="van-row van-row--flex van-row--align-center" style="margin-top:15px;">
-                          <view class="homework-desc van-col van-col--17">{{item.author}}    {{item.duration}}</view>
-                          <view class="time">
-                              <!--<button style="float:right" data-url="../release/release?class_id={{item.class_id}}&task_id={{item.task_id}}" bindtap="jump" class="homework-btn van-button van-button&#45;&#45;warning van-button&#45;&#45;mini">做作业</button>-->
-                              <van-button size="mini" style="float:right" custom-class="homework-btn">做作业</van-button>
+                      <view class="van-col van-col--18" style="width:75%" data-url="../release/release?class_id={{item.class_id}}&task_id={{item.task_id}}" bindtap="jump">
+                          <view class="van-row van-row--flex van-row--align-center">
+                              <view class="homework-name van-col van-col--17" style="width:60%;">{{item.task_name}}</view>
+                              <view class="time van-col van-col--7" style="width:40%;">{{item.create_time}}</view>
                           </view>
+                          <view class="van-row van-row--flex van-row--align-center" style="margin-top:15px;">
+                              <view class="homework-desc van-col van-col--17">{{item.author}}    {{item.duration}}</view>
+                              <view class="time">
+                                  <!--<button style="float:right" data-url="../release/release?class_id={{item.class_id}}&task_id={{item.task_id}}" bindtap="jump" class="homework-btn van-button van-button&#45;&#45;warning van-button&#45;&#45;mini">做作业</button>-->
+                                  <van-button size="mini" style="float:right" custom-class="homework-btn">做作业</van-button>
+                              </view>
+                          </view>
+                          
                       </view>
-                      
                   </view>
               </view>
           </view>
+          <view class="van-row van-row--flex van-row--align-center" style="height:60px;"></view>
       </view>
-      <view class="van-row van-row--flex van-row--align-center" style="height:60px;"></view>
+        <view wx:else class="no-content">暂无可读作业</view>
   </view>
-    <view wx:else class="no-content">暂无可读作业</view>
-
-  <view class="footer_menu">
+  <view wx:if="{{index_tab == 2}}">
+    <view class="bannerContent">
+          <!-- <view class="myKcount"><text style="float:left">我的余额</text><image src="/images/sx.png"></image></view> -->
+          <view class="user-avator"><image src="{{user_info.avatar}}"></image></view>
+          <view class="nick-name">{{user_info.name}}</view>
+          <view class="count-content">
+              <view class="kCountContent"></view>
+              <view class="kCountContent"><image src="/images/big_flower.png"></image><text>{{user_info.big_flower||0}}</text></view>
+              <view class="kCountContent"><image src="/images/small_flower.png"></image><text>{{user_info.small_flower||0}}</text></view>
+              <view class="kCountContent"></view>
+          </view>
+      </view>
+      <view>
+          <view class="weui-cells vux-no-group-title">
+            <view bindtap="jump" data-url="../work/work?type=MyCoupon"  class="weui-cell vux-tap-active weui-cell_access">
+                <view class="weui-cell__hd"><image src="/images/wdjb.png"></image></view>
+                <view class="vux-cell-bd vux-cell-primary title">我的券包</view>
+                <view class="weui-cell__ft"></view>
+            </view>
+            <view bindtap="jump" data-url="../apply_list/apply_list?type=2"  class="weui-cell vux-tap-active weui-cell_access">
+                <view class="weui-cell__hd"><image src="/images/wddp.png"></image></view>
+                <view class="vux-cell-bd vux-cell-primary title">待点评作品</view>
+                <view class="weui-cell__ft"></view>
+            </view>
+            <view wx:if="{{is_teacher}}" bindtap="jump" data-url="../apply_list/apply_list?type=1"  class="weui-cell vux-tap-active weui-cell_access">
+                <view class="weui-cell__hd"><image src="/images/wddp.png"></image></view>
+                <view class="vux-cell-bd vux-cell-primary title">待点评中心</view>
+                <view class="weui-cell__ft"></view>
+            </view>
+            <button id="kf" open-type="contact" session-from="weapp"></button>
+            <label for="kf">
+              <view class="weui-cell vux-tap-active weui-cell_access" for='' style=" border-bottom: 1px solid #d9d9d9">
+                  <view class="weui-cell__hd"><image src="/images/wdkf.png"></image></view>
+                  <view class="vux-cell-bd vux-cell-primary title">寻声客服</view>
+                  <view class="weui-cell__ft"></view>
+              </view>
+            </label>
+          </view>
+          
+      </view>
+  </view>
+  <view class="footer_menu" wx:if="{{index_tab == 1}}">
      <view class="font_coler">
 	      <van-icon name="home-o" size="45rpx" custom-class="tabbar-icon"></van-icon>
 	      课程主页
 	  </view>
-	  <view bindtap="jump" data-url="../user/user">
+	  <view bindtap="tab_swiper" data-url="2">
+	      <van-icon name="friends-o" size="45rpx" custom-class="tabbar-icon"></van-icon>
+	      个人中心
+	  </view>
+  </view>
+  <view class="footer_menu" wx:if="{{index_tab == 2}}">
+     <view  bindtap="tab_swiper" data-url="1">
+	      <van-icon name="home-o" size="45rpx" custom-class="tabbar-icon"></van-icon>
+	      课程主页
+	  </view>
+	  <view class="font_coler">
 	      <van-icon name="friends-o" size="45rpx" custom-class="tabbar-icon"></van-icon>
 	      个人中心
 	  </view>

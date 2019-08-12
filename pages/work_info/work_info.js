@@ -207,6 +207,13 @@ Page({
       url: url,
     })
   },
+  //跳转首页
+  jump_index(e) {
+    var url = e.currentTarget.dataset.url;
+    wx.redirectTo({
+      url: '../index/index?index_tab='+url,
+    })
+  },
   bf(e) {
     if (this.data.is_play == 1) {
       this.audioCtx.pause();

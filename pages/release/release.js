@@ -530,7 +530,7 @@ Page({
           });
           innerAudioContext.stop();
         }
-        var url = "../work/work?type=SsReport&class_id=" + this.data.class_id + "&task_id="+this.data.task_id ;
+        var url = "../work/work?type=SsReport&class_id=" + this.data.class_id + "&task_id=" + this.data.task_id;
         wx.navigateTo({
           url: url,
         })
@@ -765,6 +765,13 @@ Page({
           });
         });
       }
+    },
+    //跳转首页
+    jump_index(e) {
+      var url = e.currentTarget.dataset.url;
+      wx.redirectTo({
+        url: '../index/index?index_tab=' + url,
+      })
     },
   
 });
