@@ -331,6 +331,9 @@ Page({
     // 重置录音
     reset:function(){
         var that = this;
+        that.stop_miuse_one();
+        that.stop_miuse_two();
+        that.stop_miuse_three();
         that.setData({//存值
             miuse_state:1,
             recordingTimeqwe:0,
@@ -721,11 +724,23 @@ Page({
           if (res.data.code == 200) {
             var ids = [];
             var is_online = false;
+            var new_list = [];
+            var arr = [];
             for (var i = 0; i < res.data.data.tutor_list.length; i++) {
               if (that.data.select_teacher_id == res.data.data.tutor_list[i].example_reader_id) {
                 is_online = true;
               }
               ids[i] = res.data.data.tutor_list[i].example_reader_id;
+              if (arr.length == 4) {
+                new_list.push(arr);
+                arr = [];
+                arr.push(res.data.data.tutor_list[i]);
+              } else {
+                arr.push(res.data.data.tutor_list[i]);
+              }
+            }
+            if (arr.length > 0) {
+              new_list.push(arr);
             }
             if (!is_online) {
               console.log(123);
@@ -735,16 +750,17 @@ Page({
               });
               wx.setStorageSync('select_teacher_id', ids[index]);
             }
-            var k_all = [];
-            if (res.data.data.tutor_list.length < 4 && res.data.data.tutor_list.length > 0) {
-              for (var i = res.data.data.tutor_list.length; i < 4; i++) {
-                k_all.push([]);
-              }
-            }
+            // var k_all = [];
+            // if (res.data.data.tutor_list.length < 4 && res.data.data.tutor_list.length > 0) {
+            //   for (var i = res.data.data.tutor_list.length; i < 4; i++) {
+            //     k_all.push([]);
+            //   }
+            // }
             that.setData({
               teacher_ids: ids,
-              k_all: k_all,
-              teacher_list: res.data.data.tutor_list
+             // k_all: k_all,
+             // teacher_list: res.data.data.tutor_list
+              teacher_list: new_list
             });
           }
         }

@@ -35,16 +35,16 @@
           <view class="works-record-title main-title">我的首选点评导师</view>
       </view>
       <view wx:if="{{teacher_list.length > 0}}">
-          <swiper indicator-active-color="red" indicator-color="#666" display-multiple-items="4"  indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+          <swiper indicator-active-color="red" indicator-color="#666" display-multiple-items="1"  indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
                 <block>
                   <swiper-item wx:for="{{teacher_list}}">
-                        <view class="teacher-item">
-                            <view bindtap="edit_teacher" data-url="{{item.example_reader_id}}">
-                              <image class="teacher-avatar" src="{{item.member_url}}"></image>
-                              <view class="select"><image wx:if="{{item.example_reader_id == select_teacher_id}}" src="/images/xz.png"></image></view>
+                        <view class="teacher-item" wx:for="{{item}}" wx:for-item="value">
+                            <view bindtap="edit_teacher" style="position: relative;"  data-url="{{value.example_reader_id}}">
+                              <image class="teacher-avatar" src="{{value.member_url}}"></image>
+                              <view class="select"><image wx:if="{{value.example_reader_id == select_teacher_id}}" src="/images/xz.png"></image></view>
                               
                             </view>
-                            <view class="teacher-name">{{item.name}}</view>
+                            <view class="teacher-name">{{value.name}}</view>
                         </view>
                   </swiper-item>
                   <swiper-item wx:for="{{k_all}}">

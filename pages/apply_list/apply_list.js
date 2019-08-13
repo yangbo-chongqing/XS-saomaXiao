@@ -16,7 +16,8 @@ Page({
     page_size:10,
     select_type:0,
     apply_list:[],
-    items: []
+    items: [],
+    switch_type: 0
   },
   onLoad: function (options) {
     var token = wx.getStorageSync("token");
@@ -30,6 +31,11 @@ Page({
       var type = options.type;
     }else{
       var type = wx.getStorageSync("apply_type");
+    }
+    if (options.swiper_type){
+        this.setData({
+          switch_type: options.swiper_type
+        });
     }
     wx.setStorageSync('apply_type', type);
     if (!token) { // 用户未登录 则跳转到授权登录
@@ -45,11 +51,11 @@ Page({
       if(type == 1){
         this.get_my_state();
         wx.setNavigationBarTitle({
-          title: '待点评作品'
+          title: '待点评中心'
         })
       }else{
         wx.setNavigationBarTitle({
-          title: '待点评中心'
+          title: '待点评作品'
         })
       }
     }
@@ -85,11 +91,12 @@ Page({
       page:that.data.page,
       page_size: that.data.page_size,
       identity: that.data.select_type,
-      type:0,
+      type:that.data.switch_type,
       ts: ts
     };
     var cs = app.encryption(data);
     data.cs = cs;
+    app.show_l(that);
     wx.request({
       url: config.URL + "/fa/XsPayComment/my_apply_comment",
       data: data,
@@ -98,6 +105,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded',
       },
       success: function (res) {
+        app.hide_l(that);
         if (res.data.code == 200) {
           that.setData({
             apply_list: res.data.data.list,
@@ -183,6 +191,13 @@ Page({
         that.get_my_state();
       }
     })
+  },
+  top_switch(e){
+      var switch_type = e.currentTarget.dataset.type;
+      this.setData({
+        switch_type: switch_type
+      });
+      this.my_apply_comment();
   }
  
 });

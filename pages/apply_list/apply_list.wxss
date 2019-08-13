@@ -260,3 +260,34 @@ page{
     position: relative;
     top:-90rpx;
 }
+
+.top_tab{
+    position: fixed;
+    top:0;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    box-sizing: border-box;
+    min-width: 0;
+    width: 100%;
+    color: #7d7e80;
+    font-size: 0.875rem;
+    line-height: 2.75rem;
+    text-align: center;
+    cursor: pointer;
+    z-index: 100;
+    background: rgb(238, 238, 238);
+}
+.top_tab view{
+  width: 50%;
+  float: left;
+  background: rgb(238, 238, 238);
+}
+.color_red{
+  color:red;
+}
+.van-button--default {
+    color: #323233;
+    background-color: #fff;
+    border: 1px solid #ebedf0;
+}

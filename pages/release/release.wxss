@@ -322,9 +322,10 @@
 
 /*范读导师*/
 .teacher-item{
-    height: 150px;
+    height: 25%;
     width: 100px;
     text-align: center;
+    float: left;
 }
 .teacher-item .teacher-avatar{
     height: 80px;
@@ -343,8 +344,8 @@
   height: 15px;
   border:1px solid #eee;
   border-radius: 50%;
-  position: fixed;
-  right: 7px;
+  position: absolute;
+  right: 11px;
   top: 60px;
 }
 .select image{

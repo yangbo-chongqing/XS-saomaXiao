@@ -776,6 +776,7 @@ Page({
   
   },
   template(e){
+    return;
     var type = e.currentTarget.dataset.type;
     if(type == 1){
       this.setData({

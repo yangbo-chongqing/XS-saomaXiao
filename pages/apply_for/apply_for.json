@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "申请付费点评",
+  "navigationBarTitleText": "申请导师点评",
   "usingComponents": {
     "van-rate": "/components/vant-weapp/dist/rate/index"
   }

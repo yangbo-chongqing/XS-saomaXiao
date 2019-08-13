@@ -29,7 +29,14 @@ Page({
     is_comment_cout:0,//已点评
     surplus_cout:0,// 剩余点评包
   },
+  onPullDownRefresh: function () {
+      this.getClassInfo();
+      this.getMembers();
+      // 查询首页统计数据
+      this.get_statistical_data();
+  },
   onLoad: function (options) {
+    
       // 默认选择导师
       var select_teacher_id = wx.getStorageSync("select_teacher_id");
       var token = wx.getStorageSync("token");
@@ -63,8 +70,7 @@ Page({
           });
           this.getClassInfo();
           this.getMembers();
-          // 查询首页统计数据
-          this.get_statistical_data();
+   
       }
   },
   getUserInfo: function(e) {
@@ -205,8 +211,11 @@ Page({
             class_name:class_name,
             class_content: res.data.data.class_info.content
           });
+          wx.setStorageSync('class_id', class_id);
           that.getHomeWork();
           that.get_class_tea_list();
+          // 查询首页统计数据
+          that.get_statistical_data();
         } else if (res.data.msg == "用户认证不通过"){
           wx.setStorageSync('member_id', '');
           wx.setStorageSync('token', '');
@@ -250,11 +259,24 @@ Page({
         if (res.data.code == 200) {
             var ids = [];
             var is_online = false;
-            for (var i=0;i<res.data.data.tutor_list.length;i++){
-              if (that.data.select_teacher_id == res.data.data.tutor_list[i].example_reader_id){
+            var new_list = [];
+            var arr = [];
+            for (var i = 0; i < res.data.data.tutor_list.length; i++) {
+              if (that.data.select_teacher_id == res.data.data.tutor_list[i].example_reader_id) {
                 is_online = true;
               }
               ids[i] = res.data.data.tutor_list[i].example_reader_id;
+              if (arr.length == 4) {
+                new_list.push(arr);
+                arr = [];
+                arr.push(res.data.data.tutor_list[i]);
+              } else {
+                arr.push(res.data.data.tutor_list[i]);
+              }
+            }
+            
+            if (arr.length > 0){
+              new_list.push(arr);
             }
             if(!is_online){
               console.log(123);
@@ -264,17 +286,10 @@ Page({
               });
               wx.setStorageSync('select_teacher_id', ids[index]);
             }
-            var k_all = [];
-            if (res.data.data.tutor_list.length < 4 && res.data.data.tutor_list.length > 0){
-              for (var i = res.data.data.tutor_list.length;i<4;i++){
-                  k_all.push([]);
-              }
-            }
-          console.log(res.data.data.tutor_list);
             that.setData({
                 teacher_ids: ids,
-                k_all: k_all,
-                teacher_list: res.data.data.tutor_list
+                //teacher_list: res.data.data.new_list
+                teacher_list: new_list
             });
         }
       }
@@ -293,6 +308,7 @@ Page({
     var data = {
       member_id: wx.getStorageSync("member_id"),
       token: wx.getStorageSync("token"),
+      class_id: wx.getStorageSync("class_id"),
       ts: ts
     };
     var cs = app.encryption(data);
@@ -301,7 +317,7 @@ Page({
     wx.request({
       url: config.URL + "fa/Xspaycomment/get_member_commen",
       data: data,
-      method: 'get',
+      method: 'post',
       header: { "Content-Type": "application/x-www-form-urlencoded" },
       success: function (res) {
         if (res.data.code == 200) {
