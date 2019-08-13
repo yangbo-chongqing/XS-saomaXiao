@@ -22,9 +22,16 @@ Page({
     duration: 1000,
     teacher_ids:[],
     teacher_list:[],
-    k_all:[]
+    k_all:[],
+    select_teacher_id:0,
+    is_read_count:0, // 已读数量
+    comment_ing_cout:0, //点评中
+    is_comment_cout:0,//已点评
+    surplus_cout:0,// 剩余点评包
   },
   onLoad: function (options) {
+      // 默认选择导师
+      var select_teacher_id = wx.getStorageSync("select_teacher_id");
       var token = wx.getStorageSync("token");
       var member_id = wx.getStorageSync("member_id");
       if (options){
@@ -51,9 +58,13 @@ Page({
               url: '../login/login?type=index'
           })
       }else{
+          this.setData({
+            select_teacher_id: select_teacher_id
+          });
           this.getClassInfo();
           this.getMembers();
-          // 查询班级付费导师
+          // 查询首页统计数据
+          this.get_statistical_data();
       }
   },
   getUserInfo: function(e) {
@@ -158,8 +169,7 @@ Page({
     })
   },
   //查询班级详情
-  getClassInfo(){
-    
+  getClassInfo(){   
     var that = this;
     var ts = Date.parse(new Date());
     var data = {
@@ -185,13 +195,10 @@ Page({
              wx.setNavigationBarTitle({
                 title: class_name,
              })
-
           }else{
              var class_name ="";
              var class_content = "";
           }
-          
-
           that.setData({//存值
             class_id: class_id,
             banner_img: banner_img,
@@ -212,7 +219,6 @@ Page({
   },
   tab_swiper(e){
     var url = e.currentTarget.dataset.url;
-
     this.setData({
       index_tab: url
     });
@@ -243,19 +249,67 @@ Page({
       success: function (res) {
         if (res.data.code == 200) {
             var ids = [];
+            var is_online = false;
             for (var i=0;i<res.data.data.tutor_list.length;i++){
+              if (that.data.select_teacher_id == res.data.data.tutor_list[i].example_reader_id){
+                is_online = true;
+              }
               ids[i] = res.data.data.tutor_list[i].example_reader_id;
             }
+            if(!is_online){
+              console.log(123);
+              var index = Math.floor(Math.random() * ids.length); 
+              that.setData({
+                select_teacher_id: ids[index],
+              });
+              wx.setStorageSync('select_teacher_id', ids[index]);
+            }
             var k_all = [];
-            if (res.data.data.tutor_list.length < 4){
+            if (res.data.data.tutor_list.length < 4 && res.data.data.tutor_list.length > 0){
               for (var i = res.data.data.tutor_list.length;i<4;i++){
                   k_all.push([]);
               }
             }
+          console.log(res.data.data.tutor_list);
             that.setData({
                 teacher_ids: ids,
                 k_all: k_all,
                 teacher_list: res.data.data.tutor_list
+            });
+        }
+      }
+    })
+  },
+  edit_teacher(e){
+    var id = e.currentTarget.dataset.url;
+    this.setData({
+      select_teacher_id: id,
+    });
+    wx.setStorageSync('select_teacher_id', id);
+  },
+  get_statistical_data(){
+    var that = this;
+    var ts = Date.parse(new Date());
+    var data = {
+      member_id: wx.getStorageSync("member_id"),
+      token: wx.getStorageSync("token"),
+      ts: ts
+    };
+    var cs = app.encryption(data);
+    data.cs = cs;
+    app.show_l(that);
+    wx.request({
+      url: config.URL + "fa/Xspaycomment/get_member_commen",
+      data: data,
+      method: 'get',
+      header: { "Content-Type": "application/x-www-form-urlencoded" },
+      success: function (res) {
+        if (res.data.code == 200) {
+            that.setData({
+              is_read_count: res.data.data.is_read,
+              comment_ing_cout: res.data.data.comment_ing,
+              is_comment_cout: res.data.data.is_comment,
+              surplus_cout: res.data.data.surplus_number,
             });
         }
       }

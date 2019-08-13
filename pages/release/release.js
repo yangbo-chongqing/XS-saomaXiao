@@ -30,6 +30,14 @@ Page({
         second: '0' + 0,    // 秒
         audition:false,
         bf_src:'',
+        indicatorDots: true, // 轮播参数
+        autoplay: false, //轮播参数
+        interval: 5000, // 轮播参数
+        duration: 1000, // 轮播参数
+        teacher_ids: [], // 范读导师id数组
+        teacher_list: [], // 范读导师列表
+        k_all: [], // 空数组 填充轮播图
+        select_teacher_id: 0 // 选中的范读导师
     },
     onUnload: function () {
       this.stop_miuse_one();
@@ -37,6 +45,8 @@ Page({
       this.stop_miuse_three();
     },
     onLoad: function (options) {
+        // 默认选择导师
+        var select_teacher_id = wx.getStorageSync("select_teacher_id");
         // 用户信息
         var token = wx.getStorageSync("token");
         var member_id = wx.getStorageSync("member_id");
@@ -63,9 +73,11 @@ Page({
             this.setData({
               task_id: task_id,
               class_id: class_id,
+              select_teacher_id: select_teacher_id
             })
             this.get_tast_info();
             this.get_classworkslist();
+            this.get_class_tea_list();
         }
     },
     onShareAppMessage: function(res) {
@@ -447,16 +459,17 @@ Page({
                 'content-type': 'application/x-www-form-urlencoded',
             },
             success: function (res) {
-                app.hide_l();
-                if(res.data.code == 200){
-                    wx.showToast({
-                        title: "发布成功",
-                        icon:'success',
-                        duration:2000
-                    })
-                    wx.redirectTo({
-                      url: '../apply_for/apply_for?works_id=' + res.data.data
-                    })
+                // app.hide_l();
+                if(res.data.code == 200){  // 发布成功自动给用户申请导师   
+                    // wx.showToast({
+                    //     title: "发布成功",
+                    //     icon:'success',
+                    //     duration:2000
+                    // })
+                    that.adding_order(res.data.data);
+                    // wx.redirectTo({
+                    //   url: '../apply_for/apply_for?works_id=' + res.data.data
+                    // })
                 }else{
                     wx.showToast({
                         title: res.data.msg,
@@ -680,5 +693,123 @@ Page({
             });
             innerAudioContext.stop();
         }
+    },
+    // 查询班级付费导师
+    get_class_tea_list() {
+      var that = this;
+      var ts = Date.parse(new Date());
+      var data = {
+        member_id: wx.getStorageSync("member_id"),
+        token: wx.getStorageSync("token"),
+        class_id: wx.getStorageSync("class_id"),
+        page: 1,
+        page_size: 20,
+        type: 1,
+        order: 'score',
+        sort: 0,
+        ts: ts
+      };
+      var cs = app.encryption(data);
+      data.cs = cs;
+      app.show_l(that);
+      wx.request({
+        url: config.URL + "fa/Xspaycomment/tutor_list",
+        data: data,
+        method: 'get',
+        header: { "Content-Type": "application/x-www-form-urlencoded" },
+        success: function (res) {
+          if (res.data.code == 200) {
+            var ids = [];
+            var is_online = false;
+            for (var i = 0; i < res.data.data.tutor_list.length; i++) {
+              if (that.data.select_teacher_id == res.data.data.tutor_list[i].example_reader_id) {
+                is_online = true;
+              }
+              ids[i] = res.data.data.tutor_list[i].example_reader_id;
+            }
+            if (!is_online) {
+              console.log(123);
+              var index = Math.floor(Math.random() * ids.length);
+              that.setData({
+                select_teacher_id: ids[index],
+              });
+              wx.setStorageSync('select_teacher_id', ids[index]);
+            }
+            var k_all = [];
+            if (res.data.data.tutor_list.length < 4 && res.data.data.tutor_list.length > 0) {
+              for (var i = res.data.data.tutor_list.length; i < 4; i++) {
+                k_all.push([]);
+              }
+            }
+            that.setData({
+              teacher_ids: ids,
+              k_all: k_all,
+              teacher_list: res.data.data.tutor_list
+            });
+          }
+        }
+      })
+    },
+    // 修改默认导师
+    edit_teacher(e) {
+      var id = e.currentTarget.dataset.url;
+      this.setData({
+        select_teacher_id: id,
+      });
+      wx.setStorageSync('select_teacher_id', id);
+    },
+    // 申请老师点评
+    adding_order(works_id) {
+        var that = this;
+        var ts = Date.parse(new Date());
+        var data = {
+            member_id: wx.getStorageSync("member_id"),
+            token: wx.getStorageSync("token"),
+            tutor_id: that.data.select_teacher_id,
+            works_id: works_id,
+            ts: ts
+        };
+        var cs = app.encryption(data);
+        data.cs = cs;
+        // app.show_l(that);
+        wx.request({
+            url: config.URL + "/fa/Xspaycomment/adding_order",
+            data: data,
+            method: 'post',
+            header: {
+              'content-type': 'application/x-www-form-urlencoded',
+            },
+            success: function (res) {
+                app.hide_l(that);
+                if (res.data.code == 200) {
+                    that.setData({
+                      loading: true,
+                      apply_success: true
+                    })
+                    wx.showToast({
+                      title: res.data.msg,
+                      icon: 'none',
+                      duration: 4000,
+                    })
+                    wx.setStorageSync('work_id', data.works_id);
+                    setTimeout(function () {
+                      wx.redirectTo({
+                        url: '../work_info/work_info?showShareTip=1'
+                      });
+                    }, 3000);
+                } else {
+                    wx.showToast({
+                      title: "发布成功",
+                      icon: 'none',
+                      duration: 4000,
+                    })
+                    setTimeout(function () {
+                      wx.redirectTo({
+                        url: '../work_info/work_info'
+                      });
+                    }, 3000);
+                }
+              }
+        })
     }
 });

@@ -8,42 +8,62 @@
           <view class="class-desc-title">课程介绍</view>
           <view class="class-desc-content">{{class_content}}</view>
       </view>
-      <view class="works-record main-title-container">
+      <view class=" main-title-container">
           <view class="works-record-title main-title">我的首选点评导师</view>
           <!-- <view bindtap="jump" data-url="../report/report" style="float: right;padding-right: 5%;color:#0068b7;">更多»</view> -->
       </view>
-      <swiper display-multiple-items="4"  indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-          <block>
-            <swiper-item wx:for="{{teacher_list}}">
-                  <view class="teacher-item">
-                      <image class="teacher-avatar" src="{{item.member_url}}"></image>
-                      <view class="teacher-name">{{item.name}}</view>
-                      <button class="teacher-detail-btn">查看详情</button>
-                  </view>
-            </swiper-item>
-            <swiper-item wx:for="{{k_all}}">
-                  
-            </swiper-item>
-            
-          </block>
-      </swiper>
-
-      <view class="works-record main-title-container">
-          <view class="works-record-title main-title">学生</view>
+      {{}}
+      <view wx:if="{{teacher_list.length > 0}}">
+          <swiper indicator-active-color="red" indicator-color="#666"   display-multiple-items="4"  indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+              <block>
+                <swiper-item wx:for="{{teacher_list}}">
+                      <view class="teacher-item">
+                          <view bindtap="edit_teacher" data-url="{{item.example_reader_id}}">
+                            <image class="teacher-avatar" src="{{item.member_url}}"></image>
+                            <view class="select"><image wx:if="{{item.example_reader_id == select_teacher_id}}" src="/images/xz.png"></image></view>
+                            
+                          </view>
+                          <view class="teacher-name">{{item.name}}</view>
+                          <button bindtap="jump" data-url="../work/work?type=TeacherDetail&teacher_id={{item.example_reader_id}}" class="teacher-detail-btn red_button">查看详情</button>
+                      </view>
+                </swiper-item>
+                <swiper-item wx:for="{{k_all}}">
+                      
+                </swiper-item>
+                
+              </block>
+          </swiper>
       </view>
-
+  
+      <view class="null_tips" wx:if="{{teacher_list.length == 0}}">
+          <text>班级暂无导师在线</text>
+      </view>
+      <view class="works-record main-title-container"  wx:if="{{!is_teacher}}">
+          <view class="works-record-title main-title">我的作业数据</view>
+      </view>
+      <view class="works-record main-title-container"  wx:else >
+          <view class="works-record-title main-title">我的点评数据</view>
+      </view>
       <van-row custom-class="data-content">
-          <van-col span="8">
-              <view class="data-content-count">6</view>
+          <van-col span="6" wx:if="{{!is_teacher}}">
+              <view class="data-content-count" style="color:#ffc000;">{{is_read_count}}</view>
               <view class="data-content-title">已朗读</view>
           </van-col>
-          <van-col span="8">
-              <view class="data-content-count">0</view>
+          <van-col span="6" wx:if="{{!is_teacher}}">
+              <view bindtap="jump" data-url="../apply_list/apply_list"  class="data-content-count" style="color:#f96054;">{{comment_ing_cout}}</view>
               <view class="data-content-title">点评中</view>
           </van-col>
-          <van-col span="8">
-              <view class="data-content-count">7</view>
+          <van-col span="6" wx:else >
+              <view bindtap="jump" data-url="../apply_list/apply_list?type=1"  class="data-content-count" style="color:#f96054;">{{comment_ing_cout}}</view>
+              <view class="data-content-title">点评中</view>
+          </van-col>
+          <van-col span="6">
+              <view class="data-content-count" style="color:#0072ff;">{{is_comment_cout}}</view>
               <view class="data-content-title">已点评</view>
+          </van-col>
+          <van-col wx:if="{{!is_teacher}}" span="6">
+              <view bindtap="jump" data-url="../work/work?type=MyCoupon" class="data-content-count" style="color:#000;">{{surplus_cout}}</view>
+              <view class="data-content-title">剩余点评包</view>
           </van-col>
       </van-row>
 

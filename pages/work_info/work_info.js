@@ -35,7 +35,13 @@ Page({
     minute: '0' + 0,   // 分
     second: '0' + 0,    // 秒
     my_work:false,
-    show_grade_tip:false //五星好评提示
+    show_grade_tip:false, //五星好评提示
+    comment_yd:[], // 提升点范文
+    yd_template: false, 
+    comment_tsd: [], // 提升点范文
+    tsd_template: false,
+    comment_xlff: [], // 提升点范文
+    xlff_template: false,
   },
   onUnload: function () { 
     this.stop_miuse_one();
@@ -49,7 +55,7 @@ Page({
       }else{
         var work_id = options.work_id;
       }
-      //work_id = 325865;
+      //work_id = 188593;
       wx.setStorageSync('work_id', work_id);
       if(!token){
           wx.redirectTo({
@@ -307,6 +313,8 @@ Page({
                 that.setData({
                   hasright:1
                 })
+                // 查询评论模板
+                that.get_commont_tpl();
             }
          }
       }
@@ -722,5 +730,118 @@ Page({
         play_miuse_id: ''
       })
     }
+  },
+  radioChange: function (e) {
+    var checked = e.detail.value
+    var changed = {}
+    var type = e.currentTarget.dataset.type;
+    console.log(type);
+    if (type == 1){
+        for (var i = 0; i < this.data.comment_yd.length; i++) {
+            if (checked.indexOf(this.data.comment_yd[i].name) !== -1) {
+            this.setData({
+              form_yd: this.data.comment_yd[i].value
+            })
+            changed['comment_yd[' + i + '].checked'] = true
+          } else {
+            changed['comment_yd[' + i + '].checked'] = false
+          }
+        }
+        this.setData(changed)
+    }else if(type == 2){
+        for (var i = 0; i < this.data.comment_tsd.length; i++) {
+          if (checked.indexOf(this.data.comment_tsd[i].name) !== -1) {
+            this.setData({
+              form_tsd: this.data.comment_tsd[i].value
+            })
+            changed['comment_tsd[' + i + '].checked'] = true
+          } else {
+            changed['comment_tsd[' + i + '].checked'] = false
+          }
+        }
+        this.setData(changed)
+    }else if(type == 3){
+        for (var i = 0; i < this.data.comment_xlff.length; i++) {
+          if (checked.indexOf(this.data.comment_xlff[i].name) !== -1) {
+            this.setData({
+              form_xl: this.data.comment_xlff[i].value
+            })
+            changed['comment_xlff[' + i + '].checked'] = true
+          } else {
+            changed['comment_xlff[' + i + '].checked'] = false
+          }
+        }
+        this.setData(changed)
+    }
+  
+  },
+  template(e){
+    var type = e.currentTarget.dataset.type;
+    if(type == 1){
+      this.setData({
+        yd_template: true,
+        tsd_template: false,
+        xlff_template: false
+      })
+    } else if (type == 2){
+      this.setData({
+        yd_template: false,
+        tsd_template: true,
+        xlff_template: false
+      })
+    } else if (type == 3) {
+      this.setData({
+        yd_template: false,
+        tsd_template: false,
+        xlff_template: true
+      })
+    }
+  },
+  get_commont_tpl(){
+      var that = this;
+      var ts = Date.parse(new Date());
+      var data = {
+          member_id: wx.getStorageSync("member_id"),
+          token: wx.getStorageSync("token"),
+          ts: ts
+      };
+      var cs = app.encryption(data);
+      data.cs = cs;
+      wx.request({
+          url: config.URL + "fa/Xspaycomment/get_comment_tpl",
+          data: data,
+          method: 'post',
+          header: {
+            'content-type': 'application/x-www-form-urlencoded',
+          },
+          success: function (res) {
+              if (res.data.code == 200) { //
+                var tsd_list = [];
+                var xlff_list = [];
+                var yd_list = [];
+                for (var i = 0; i < res.data.data.comment_tsd.length;i++){
+                    tsd_list.push(
+                      { name: res.data.data.comment_tsd[i], value: res.data.data.comment_tsd[i] },
+                    );
+                }
+                for (var i = 0; i < res.data.data.comment_xlff.length; i++) {
+                  xlff_list.push(
+                    { name: res.data.data.comment_xlff[i], value: res.data.data.comment_xlff[i] },
+                  );
+                }
+                for (var i = 0; i < res.data.data.comment_yd.length; i++) {
+                  yd_list.push(
+                    { name: res.data.data.comment_yd[i], value: res.data.data.comment_yd[i] },
+                  );
+                }
+                that.setData({
+                  comment_yd : yd_list,
+                  comment_tsd : tsd_list,
+                  comment_xlff : xlff_list
+                })
+
+              }
+          }
+      })
   }
 });

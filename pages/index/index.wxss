@@ -227,7 +227,7 @@
     text-align: center;
 }
 .data-content-count{
-    font-size: 44rpx;
+    font-size: 55rpx;
 }
 .data-content-title{
     font-size: 20rpx;
@@ -242,10 +242,40 @@
 .teacher-item .teacher-avatar{
     height: 80px;
     width: 80px;
+    border-radius: 7px;
 }
 .teacher-item .teacher-name{
 
 }
 .teacher-item .teacher-detail-btn{
     width: 80px;
+}
+
+.select{
+  width: 15px;
+  height: 15px;
+  border:1px solid #eee;
+  border-radius: 50%;
+  position: fixed;
+  right: 7px;
+  top: 60px;
+}
+.select image{
+  width: 15px;
+  height: 15px;
+}
+.red_button{
+  border: 1px solid #f2574b;
+  background: #f2574b;
+  color: #fff;
+  padding: 1px !important;
+  width: 50px !important;
+  font-size: 10px;
+  margin-top: 3px;
+}
+
+.null_tips{
+  text-align: center;
+  color: #666;
+  margin: 35px 0;
 }

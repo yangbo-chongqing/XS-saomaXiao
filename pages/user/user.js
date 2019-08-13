@@ -11,7 +11,8 @@ Page({
     share_url:"",
     share_image:"https://resource.xunsheng.org.cn/xsds_banner.png",
     is_teacher:0,
-    user_info:[]
+    user_info:[],
+    index_tab:1
   },
   onLoad: function (options) {
     var token = wx.getStorageSync("token");

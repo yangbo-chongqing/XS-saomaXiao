@@ -319,3 +319,68 @@
   padding-left: 35%;
   margin-bottom: 5px;
 }
+
+/*范读导师*/
+.teacher-item{
+    height: 150px;
+    width: 100px;
+    text-align: center;
+}
+.teacher-item .teacher-avatar{
+    height: 80px;
+    width: 80px;
+    border-radius: 7px;
+}
+.teacher-item .teacher-name{
+
+}
+.teacher-item .teacher-detail-btn{
+    width: 80px;
+}
+
+.select{
+  width: 15px;
+  height: 15px;
+  border:1px solid #eee;
+  border-radius: 50%;
+  position: fixed;
+  right: 7px;
+  top: 60px;
+}
+.select image{
+  width: 15px;
+  height: 15px;
+}
+.red_button{
+  border: 1px solid #f2574b;
+  background: #f2574b;
+  color: #fff;
+  padding: 1px !important;
+  width: 50px !important;
+  font-size: 10px;
+  margin-top: 3px;
+}
+.main-title-container {
+  margin: 30rpx auto 20rpx;
+  padding-left: 30rpx;
+  box-sizing: border-box;
+  width: 100%;
+  height: 30px;
+
+}
+swiper{
+  height: 125px;
+  margin-top: 10px;
+}
+.main-title-container {
+  margin: 30rpx auto 20rpx;
+  padding-left: 30rpx;
+  box-sizing: border-box;
+  width: 100%;
+  height: 30px;
+}
+.null_tips{
+  text-align: center;
+  color: #666;
+  margin: 35px 0;
+}

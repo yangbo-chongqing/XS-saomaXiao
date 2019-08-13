@@ -136,6 +136,18 @@ Page({
       this.setData({
         link: config.SITE_URL + '/apph5/#/CommentOrder?mid=' + member_id + '&tk=' + token + "&apply_id="+apply_id
       })
+    } else if (type == "TeacherDetail"){// 导师详情
+      wx.setNavigationBarTitle({
+        title: '导师详情'
+      })
+      var teacher_id = options.teacher_id;
+      if (!teacher_id) {
+        teacher_id = wx.getStorageSync("work_teacher_id")
+      }
+      wx.setStorageSync('work_teacher_id', teacher_id);
+      this.setData({
+        link: config.SITE_URL + '/apph5/#/ExampleTeacherDetail?mid='+member_id+'&tk='+token+'&id='+teacher_id
+      })
     }
   
     if(!token){ // 用户未登录 则跳转到授权登录
@@ -244,6 +256,8 @@ Page({
       var share_url = "/pages/work/work?type=MyCoupon";
     } else if (site_url == "CommentOrder"){
       var share_url = "/pages/work/work?type=CommentOrder&apply_id=" + wx.getStorageSync("apply_id");
+    } else if (site_url == "TeacherDetail"){ // 导师详情
+      var share_url = "/pages/work/work?type=TeacherDetail&teacher_id=" + wx.getStorageSync("work_teacher_id");
     }
     return {
       title: share_title||this.data.share_title,

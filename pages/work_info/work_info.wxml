@@ -123,7 +123,23 @@
             <view class="van-cell__title van-field__label" style="width: 4.5rem;">优点:</view>
             <view class="van-cell__value">
                 <view class="van-field__body">
-                    <input style="padding-top:3px;" type="text" value="{{form_yd}}" bindinput="get_form_info" id="yd" placeholder="请输入优点"></input>
+                    <input style="padding-top:3px;" data-type="1" bindfocus="template" type="text" value="{{form_yd}}" bindinput="get_form_info" id="yd" placeholder="请输入优点"></input>
+                </view>
+            </view>
+        </view>
+        <view class="van-cell van-field" style="align-items: flex-start;"  wx:if="{{yd_template}}">
+            <view class="van-cell__title van-field__label" style="width: 4.5rem;">模板:</view>
+            <view class="van-cell__value">
+                <view class="van-field__body">
+                    <radio-group class="group" data-type="1" bindchange="radioChange">
+                        <view class="label-2" style="height: 41px;line-height: 41px;" wx:for="{{comment_yd}}">
+                          <radio id="{{item.name}}" hidden value="{{item.name}}" checked="{{item.checked}}"></radio>
+                          <view class="label-2__icon">
+                            <view class="label-2__icon-checked" style="opacity:{{item.checked ? 1: 0}}"></view>
+                          </view>
+                          <label class="label-2__text" for="{{item.name}}"><text>{{item.name}}</text></label>
+                        </view>
+                    </radio-group>
                 </view>
             </view>
         </view>
@@ -131,7 +147,23 @@
             <view class="van-cell__title van-field__label" style="width: 4.5rem;">提升点:</view>
             <view class="van-cell__value">
                 <view class="van-field__body">
-                    <input style="padding-top:3px;" type="text" bindinput="get_form_info" value="{{form_tsd}}" id="tsd" placeholder="请输入提升点"></input>
+                    <input style="padding-top:3px;" data-type="2" bindfocus="template" type="text" bindinput="get_form_info" value="{{form_tsd}}" id="tsd" placeholder="请输入提升点"></input>
+                </view>
+            </view>
+        </view>
+        <view class="van-cell van-field" style="align-items: flex-start;" wx:if="{{tsd_template}}">
+            <view class="van-cell__title van-field__label" style="width: 4.5rem;">模板:</view>
+            <view class="van-cell__value">
+                <view class="van-field__body">
+                    <radio-group class="group" data-type="2" bindchange="radioChange">
+                        <view class="label-2" style="height: 41px;line-height: 41px;" wx:for="{{comment_tsd}}">
+                          <radio id="{{item.name}}" hidden value="{{item.name}}" checked="{{item.checked}}"></radio>
+                          <view class="label-2__icon">
+                            <view class="label-2__icon-checked" style="opacity:{{item.checked ? 1: 0}}"></view>
+                          </view>
+                          <label class="label-2__text" for="{{item.name}}"><text>{{item.name}}</text></label>
+                        </view>
+                    </radio-group>
                 </view>
             </view>
         </view>
@@ -140,7 +172,23 @@
             <view class="van-cell__value">
                 <view class="van-field__body">
                     <!-- <textarea class="van-field__control" maxlength="-1" auto-height placeholder="请输入训练方法"></textarea> -->
-                    <input style="padding-top:3px;" type="text" bindinput="get_form_info" value="{{form_xl}}" id="xl" placeholder="请输入训练方法"></input>
+                    <input style="padding-top:3px;" data-type="3" bindfocus="template" type="text" bindinput="get_form_info" value="{{form_xl}}" id="xl" placeholder="请输入训练方法"></input>
+                </view>
+            </view>
+        </view>
+        <view class="van-cell van-field" style="align-items: flex-start;"  wx:if="{{xlff_template}}">
+            <view class="van-cell__title van-field__label" style="width: 4.5rem;">模板:</view>
+            <view class="van-cell__value">
+                <view class="van-field__body">
+                    <radio-group class="group" data-type="3" bindchange="radioChange">
+                        <view class="label-2" style="height: 41px;line-height: 41px;" wx:for="{{comment_xlff}}">
+                          <radio id="{{item.name}}" hidden value="{{item.name}}" checked="{{item.checked}}"></radio>
+                          <view class="label-2__icon">
+                            <view class="label-2__icon-checked" style="opacity:{{item.checked ? 1: 0}}"></view>
+                          </view>
+                          <label class="label-2__text" for="{{item.name}}"><text>{{item.name}}</text></label>
+                        </view>
+                    </radio-group>
                 </view>
             </view>
         </view>
