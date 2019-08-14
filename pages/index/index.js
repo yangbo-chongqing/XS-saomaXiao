@@ -231,7 +231,7 @@ Page({
             class_info: res.data.data.class_info,
             class_content: res.data.data.class_info.content,
             class_content_all: res.data.data.class_info.content,
-            class_content_less:res.data.data.class_info.content.substr(1,that.data.class_content_less_count)+'...'
+            class_content_less:res.data.data.class_info.content.substr(0,that.data.class_content_less_count)+'...'
           });
           wx.setStorageSync('class_id', class_id);
           wx.setStorageSync('current_class_name', res.data.data.class_info.school_info.school_name + '-' + res.data.data.class_info.class_name)

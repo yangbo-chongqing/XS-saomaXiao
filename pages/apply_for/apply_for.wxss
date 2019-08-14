@@ -375,7 +375,7 @@ button.weui-btn, input.weui-btn {
 }
 .submit-container {
     position: fixed;
-    bottom: 0;
+    bottom: 15rpx;
     background-color: #f2574b !important;
     color: #fff !important;
 }

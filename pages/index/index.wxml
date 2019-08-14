@@ -17,7 +17,7 @@
               </view>
               <view wx:else>
                   <rich-text nodes="{{class_content_all}}" class="class-desc-content"></rich-text>
-                  <view style="color:#999;text-align: right;" bindtap="showMoreDesc">
+                  <view wx:if="{{class_content.length>class_content_less_count}}" style="color:#999;text-align: right;" bindtap="showMoreDesc">
                       ▲ 收起
                   </view>
               </view>
