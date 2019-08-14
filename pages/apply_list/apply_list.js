@@ -17,7 +17,8 @@ Page({
     select_type:0,
     apply_list:[],
     items: [],
-    switch_type: 0
+    switch_type: 0,
+    hasMore:true //是否有更多数据
   },
   onLoad: function (options) {
     var token = wx.getStorageSync("token");
@@ -108,8 +109,17 @@ Page({
         app.hide_l(that);
         if (res.data.code == 200) {
           that.setData({
-            apply_list: res.data.data.list,
+            apply_list: that.data.apply_list.concat(res.data.data.list),
           });
+          if(res.data.data.list.length<that.data.page_size){
+            that.setData({
+              hasMore:false
+            })
+          }else{
+            that.setData({
+              page:++that.data.page
+            })
+          }
         }
       }
     })
@@ -195,9 +205,16 @@ Page({
   top_switch(e){
       var switch_type = e.currentTarget.dataset.type;
       this.setData({
-        switch_type: switch_type
+        switch_type: switch_type,
+        page:1,
+        apply_list:[],
+        hasMore:true
       });
       this.my_apply_comment();
+  },
+  onReachBottom(){
+    if(!this.data.hasMore) return false;
+    this.my_apply_comment();
   }
  
 });
