@@ -1,6 +1,8 @@
 {
   "navigationBarTitleText": "申请导师点评",
   "usingComponents": {
-    "van-rate": "/components/vant-weapp/dist/rate/index"
+    "van-rate": "/components/vant-weapp/dist/rate/index",
+    "van-popup": "/components/vant-weapp/dist/popup/index",
+    "van-button": "/components/vant-weapp/dist/button/index"
   }
 }

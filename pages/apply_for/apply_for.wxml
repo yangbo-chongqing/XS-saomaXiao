@@ -10,9 +10,11 @@
 <view class="dropdown-menu van-dropdown-menu van-hairline--top-bottom">
    <view class="van-dropdown-menu__item" data-type="1" bindtap="tab_switch">
       <text>{{select_order_desc}}</text>
+       <view class="arrow-down {{tab_type == 1?'arrow-up':''}}"></view>
    </view>
    <view class="van-dropdown-menu__item" data-type="2" bindtap="tab_switch">
       <text>{{select_sort_desc}}</text>
+       <view class="arrow-down {{tab_type == 2?'arrow-up':''}}"></view>
    </view>
    <!-- 切换 -->
    <view wx:if="{{tab_type > 0}}" class="van-dropdown-item van-dropdown-item--down" style="z-index: 10;top: 91.4063px;" >
@@ -157,4 +159,12 @@
         </view>
     </view>
     <button bindtap="adding_order" class="weui-btn submit-container weui-btn_warn">确定</button>
+    <van-popup show="{{tipDialog}}" custom-class="apply-success-popup" bind:close="closeSuccessTip">
+        <view style="text-align: center;">
+            <image mode="aspectFit" style="width: 90px;height: 120px;" src="/images/apply-success-tip.png"></image>
+        </view>
+        <view class="apply-success-title">申请点评成功</view>
+        <view class="apply-success-text">{{apply_success_tip}}</view>
+        <van-button custom-class="apply-success-btn" round block type="danger" bindtap="closeSuccessTip" size="mini">我知道了</van-button>
+    </van-popup>
 </view>

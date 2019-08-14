@@ -16,7 +16,9 @@ Page({
     select_sort_desc: '正序',
     tutor_list:[],
     select_id:'',
-    apply_success:false
+    apply_success:false,
+    tipDialog:false,
+    apply_success_tip:''
   },
   onUnload: function () {
     wx.setStorageSync('work_id',wx.getStorageSync("works_id"));
@@ -225,13 +227,15 @@ Page({
           if (res.data.code == 200) {
             that.setData({
               loading: true,
-              apply_success:true
+              apply_success:true,
+              tipDialog:true,
+              apply_success_tip:res.data.msg
             })
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'none',
-              duration: 4000,
-            })
+//            wx.showToast({
+//              title: res.data.msg,
+//              icon: 'none',
+//              duration: 4000,
+//            })
 
             wx.setStorageSync('work_id', data.works_id);
             setTimeout(function(){
@@ -250,6 +254,12 @@ Page({
       })
     }
     
+  },
+  closeSuccessTip(){
+    this.setData({
+      tipDialog:false,
+      apply_success_tip:''
+    })
   }
 
 });

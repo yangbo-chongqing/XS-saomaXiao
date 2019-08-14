@@ -77,6 +77,22 @@ to {padding-left:0px;left:-400px;}
     display: -webkit-flex;
     display: flex;
 }
+.arrow-down{
+    border: 6px solid;
+    border-color:#333 transparent transparent transparent;
+    margin-left: 5px;
+    position: relative;
+    top:4px;
+}
+.arrow-up{
+    border: 6px solid;
+    border-color:transparent transparent #333 transparent;
+    margin-left: 5px;
+    position: relative;
+    top: initial;
+    bottom: 4px;
+
+}
 .dropdown-menu {
     background-color: #EEEEEE;
 }
@@ -362,4 +378,28 @@ button.weui-btn, input.weui-btn {
     bottom: 0;
     background-color: #f2574b !important;
     color: #fff !important;
+}
+
+.apply-success-title{
+    text-align: center;
+    font-size: 15px;
+}
+.apply-success-text{
+    font-size: 13px;
+    color:#666;
+    margin: 10px auto 0;
+    text-align: justify;
+}
+.apply-success-btn{
+    font-size: 12px !important;
+    width: 50% !important;
+    margin: 15px auto 0;
+    height: 30px !important;
+    line-height: 30px !important;
+}
+.apply-success-popup{
+    width:70%;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
 }

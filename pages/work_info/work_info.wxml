@@ -265,7 +265,7 @@
             <view class="van-cell__title van-field__label" style="width: 4.5rem;">评分:</view>
             <view class="van-cell__value">
                 <view class="van-field__body">
-                    <input type="number" style="margin-top: 0.7rem;" bindinput="get_form_info" id="score"
+                    <input type="number" bindinput="get_form_info" id="score"
                            value="{{form_score}}" placeholder="请输入评分"></input>
                 </view>
             </view>
