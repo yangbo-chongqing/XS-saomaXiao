@@ -270,6 +270,7 @@
     text-align: center;
     color:#999;
     margin-bottom: 20rpx;
+    padding-bottom: 60px;
 }
 
 .comment_list{

@@ -54,4 +54,5 @@
           </view>
       </view>
   </view>
+    <view class="no-content" wx:if="{{!hasMore}}">没有更多了</view>
 </view>

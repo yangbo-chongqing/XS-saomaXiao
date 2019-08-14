@@ -28,7 +28,7 @@ Page({
       } else {
         this.setData({
           class_id: class_id,
-          tihuoWay: "当前班级 "+class_name,
+          tihuoWay: "当前班级："+class_name,
         });
         this.lists();
         // 查询我的班级
@@ -110,7 +110,7 @@ Page({
     var name = e.currentTarget.dataset.name
     var id = e.currentTarget.dataset.id
     this.setData({
-      tihuoWay: "当前班级 " +name,
+      tihuoWay: "当前班级：" +name,
       class_id: id,
       select: false,
       page:1,
