@@ -185,3 +185,57 @@
 .playBtn{
   line-height: 127px;
 }
+
+.list-msg {
+    padding: 0 20rpx;
+    background-color: #fff;
+    position: relative;
+}
+ 
+.list-msg1 {
+    height: 60rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+ 
+.list-msg2 {
+    height: 60rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #e3e3e3;
+    padding: 0 10rpx;
+    font-size: 0.8125rem;
+    line-height: 60rpx;
+}
+ 
+.select_box { 
+    background-color: #eee;
+    padding: 0 10rpx;
+    width: 100%;
+    position: absolute;
+    top: 60rpx;
+    z-index: 1;
+    overflow: hidden;
+    /* animation: myfirst 0.1s; */
+    font-size: 0.8125rem;
+    line-height: 60rpx;
+
+}
+ 
+@keyframes myfirst {
+    from {
+        height: 0rpx;
+    }
+ 
+    to {
+        height: 210rpx;
+    }
+}
+ 
+.select_one {
+    height: 60rpx;
+    line-height: 60rpx;
+    border-bottom: 1px solid #ccc;
+}

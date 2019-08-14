@@ -80,6 +80,12 @@ Page({
         })
       }
   },
+  onPullDownRefresh: function () {
+    wx.stopPullDownRefresh();
+    this.getworkinfo();
+    this.hasright();
+    this.is_apply_work();
+  },
   // 获取作品详情
   getworkinfo:function(){
     var that = this;
