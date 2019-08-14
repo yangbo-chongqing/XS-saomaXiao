@@ -43,7 +43,27 @@ Page({
     comment_xlff: [], // 提升点范文
     xlff_template: false,
     user_info:[],
-    submit_state :true
+    submit_state :1,
+    array: ['美国', '中国', '巴西', '日本'],
+    objectArray: [
+      {
+        id: 0,
+        name: '美国'
+      },
+      {
+        id: 1,
+        name: '中国'
+      },
+      {
+        id: 2,
+        name: '巴西'
+      },
+      {
+        id: 3,
+        name: '日本'
+      }
+    ],
+    index: 0,
   },
   onUnload: function () { 
     this.stop_miuse_one();
@@ -327,8 +347,9 @@ Page({
                   hasright:1
                 })
                 // 查询评论模板
-                that.get_commont_tpl();
+                
             }
+           that.get_commont_tpl();
          }
       }
     })
@@ -458,7 +479,7 @@ Page({
   },
   submit_from(qiniu_url){
     var that = this;
-    app.show_l(that);
+    //app.show_l(that);
     var ts = Date.parse(new Date());
     var data = {
       member_id: wx.getStorageSync("member_id"),
@@ -510,8 +531,6 @@ Page({
           that.is_apply_work();
           that.onLoad({ work_id: wx.getStorageSync("work_id") });
           that.comment_hide();
-        
-          console.log(that.data.work_info.works_name + ' ' + that.data.work_info.author + ' ' + util.formatTimeTwo(that.data.work_info.duration, 'm:s') + '  ' + that.data.user_info.name + '点评了该作品');
           wx.showModal({
             title: '温馨提示',
             content:'分享至微信班级群，提示学生查看点评内容',
@@ -523,7 +542,6 @@ Page({
               }
             }
           })
-
         }else{
           wx.showToast({
             title: res.data.error,
@@ -531,6 +549,9 @@ Page({
             duration: 1500,
           });
         }
+        that.setData({
+          submit_state: 1
+        });
       }
     })
     
@@ -538,7 +559,13 @@ Page({
   // 获取七牛云参数
   get_qiniu_info: function () {
     var that = this;
-   
+    if (!that.data.submit_state) {
+      return false;
+    } else {
+      this.setData({
+        submit_state: 0
+      })
+    }
     if (!that.data.miuse_url && that.data.recordingTimeqwe){
       //结束录音计时 
       clearInterval(that.data.setInter);
@@ -550,17 +577,22 @@ Page({
           miuse_url: res.tempFilePath,
           strat: false,
           miuse_state: 1,
-          tempFilePath: res
+          tempFilePath: res,
+          submit_state: 1
         })
         that.get_qiniu_info();
       })
       return false;
     }
+    
     if (!that.data.form_yd && !that.data.form_tsd && !that.data.form_xl) {
       wx.showToast({
         title: '未填写点评内容',
         icon: 'none',
         duration: 1500,
+      });
+      that.setData({
+        submit_state: 1
       });
       return;
     } else if (that.data.recordingTimeqwe <= 30) {
@@ -569,12 +601,18 @@ Page({
         icon: 'none',
         duration: 1500,
       });
+      that.setData({
+        submit_state: 1
+      });
       return;
     } else if (!that.data.form_grade) {
       wx.showToast({
         title: '请选择评分',
         icon: 'none',
         duration: 1500,
+      });
+      that.setData({
+        submit_state: 1
       });
       return;
     }
@@ -597,7 +635,6 @@ Page({
         'content-type': 'application/x-www-form-urlencoded',
       },
       success: function (res) {
-        app.hide_l(that);
         if (res.data.code == 200) {
           //上传录音
           wx.uploadFile({
@@ -621,13 +658,22 @@ Page({
               that.submit_from(data.key);
             },
             fail: function (ress) {
+              app.hide_l(that);
               wx.showToast({
                 title: '录音保存失败',
                 icon: 'none',
                 duration: 1500,
               });
+              that.setData({
+                submit_state: 1
+              });
             }
           })
+        }else{
+            app.hide_l(that);
+            that.setData({
+              submit_state: 1
+            });
         }
       }
     })
@@ -859,9 +905,9 @@ Page({
                   );
                 }
                 that.setData({
-                  comment_yd : yd_list,
-                  comment_tsd : tsd_list,
-                  comment_xlff : xlff_list
+                  comment_yd: res.data.data.comment_yd,
+                  comment_tsd: res.data.data.comment_tsd,
+                  comment_xlff: res.data.data.comment_xlff
                 })
 
               }
@@ -894,6 +940,21 @@ Page({
           });
         }
       }
+    })
+  },
+  bindPickerChange: function (e) {
+    this.setData({
+      form_yd: this.data.comment_yd[e.detail.value]
+    })
+  },
+  bindtsdChange:function(e){
+    this.setData({
+      form_tsd: this.data.comment_tsd[e.detail.value]
+    })
+  },
+  bindxlffChange:function(e){
+    this.setData({
+      form_xl: this.data.comment_xlff[e.detail.value]
     })
   }
 });

@@ -123,11 +123,18 @@
             <view class="van-cell__title van-field__label" style="width: 4.5rem;">优点:</view>
             <view class="van-cell__value">
                 <view class="van-field__body">
-                    <input style="padding-top:3px;" data-type="1" bindfocus="template" type="text" value="{{form_yd}}" bindinput="get_form_info" id="yd" placeholder="请输入优点"></input>
+                    <input style="padding-top:3px;width:80%;float:left;" data-type="1" bindfocus="template" type="text" value="{{form_yd}}" bindinput="get_form_info" id="yd" placeholder="请输入优点"></input>
+                    <view style="width:15%;float:left;">
+                        <picker id="yd_template" bindchange="bindPickerChange" range="{{comment_yd}}">
+                            <view class="picker">
+                            模板
+                            </view>
+                        </picker>
+                    </view> 
                 </view>
             </view>
         </view>
-        <view class="van-cell van-field" style="align-items: flex-start;"  wx:if="{{yd_template}}">
+        <!-- <view class="van-cell van-field" style="align-items: flex-start;"  wx:if="{{yd_template}}">
             <view class="van-cell__title van-field__label" style="width: 4.5rem;">模板:</view>
             <view class="van-cell__value">
                 <view class="van-field__body">
@@ -142,16 +149,23 @@
                     </radio-group>
                 </view>
             </view>
-        </view>
+        </view> -->
         <view class="van-cell van-field">
             <view class="van-cell__title van-field__label" style="width: 4.5rem;">提升点:</view>
             <view class="van-cell__value">
                 <view class="van-field__body">
-                    <input style="padding-top:3px;" data-type="2" bindfocus="template" type="text" bindinput="get_form_info" value="{{form_tsd}}" id="tsd" placeholder="请输入提升点"></input>
+                    <input style="padding-top:3px;width:80%;float:left;" data-type="2" bindfocus="template" type="text" bindinput="get_form_info" value="{{form_tsd}}" id="tsd" placeholder="请输入提升点"></input>
+                    <view style="width:15%;float:left;">
+                        <picker id="yd_template" bindchange="bindtsdChange" range="{{comment_tsd}}">
+                            <view class="picker">
+                            模板
+                            </view>
+                        </picker>
+                    </view> 
                 </view>
             </view>
         </view>
-        <view class="van-cell van-field" style="align-items: flex-start;" wx:if="{{tsd_template}}">
+        <!-- <view class="van-cell van-field" style="align-items: flex-start;" wx:if="{{tsd_template}}">
             <view class="van-cell__title van-field__label" style="width: 4.5rem;">模板:</view>
             <view class="van-cell__value">
                 <view class="van-field__body">
@@ -166,13 +180,20 @@
                     </radio-group>
                 </view>
             </view>
-        </view>
+        </view> -->
         <view class="van-cell van-field">
             <view class="van-cell__title van-field__label" style="width: 4.5rem;">训练方法:</view>
             <view class="van-cell__value">
                 <view class="van-field__body">
                     <!-- <textarea class="van-field__control" maxlength="-1" auto-height placeholder="请输入训练方法"></textarea> -->
-                    <input style="padding-top:3px;" data-type="3" bindfocus="template" type="text" bindinput="get_form_info" value="{{form_xl}}" id="xl" placeholder="请输入训练方法"></input>
+                    <input style="padding-top:3px;width:80%;float:left;" data-type="3" bindfocus="template" type="text" bindinput="get_form_info" value="{{form_xl}}" id="xl" placeholder="请输入训练方法"></input>
+                      <view style="width:15%;float:left;">
+                        <picker id="yd_template" bindchange="bindxlffChange" range="{{comment_xlff}}">
+                            <view class="picker">
+                            模板
+                            </view>
+                        </picker>
+                    </view> 
                 </view>
             </view>
         </view>
@@ -272,8 +293,11 @@
         </view>
         <view class="van-cell van-field">
             <view class="van-cell__value van-cell__value--alone">
-                <button bindtap="get_qiniu_info"
+                <button wx:if="{{submit_state == 1}}" bindtap="get_qiniu_info"
                         class="van-button1 van-button1--danger van-button1--normal van-button1--block van-button1--round">
+                    提交
+                </button>
+                 <button wx:if="{{submit_state == 0}}" class="van-button1 van-button1--normal van-button1--block van-button1--round" style="color: #000">
                     提交
                 </button>
             </view>
