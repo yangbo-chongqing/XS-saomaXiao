@@ -128,7 +128,10 @@
   <view wx:if="{{index_tab == 2}}">
     <view class="bannerContent">
           <!-- <view class="myKcount"><text style="float:left">我的余额</text><image src="/images/sx.png"></image></view> -->
-          <view class="user-avator"><image src="{{user_info.avatar}}"></image></view>
+          <view class="user-avator">
+              <image src="{{user_info.avatar}}"></image>
+              <image wx:if="{{is_teacher}}" mode="aspectFit" class="example-img" src="/images/example.png"></image>
+          </view>
           <view class="nick-name">{{user_info.name}}</view>
           <view class="count-content">
               <view class="kCountContent"></view>

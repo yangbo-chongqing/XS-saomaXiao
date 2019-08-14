@@ -124,6 +124,7 @@
 .no-content{
     text-align: center;
     color:#999;
+    padding-bottom: 70px;
 }
 
 /* 首页 */
@@ -147,6 +148,7 @@
 
 .user-avator{
     text-align: center;
+    position: relative;
 }
 #app {
     font-family: Avenir,Helvetica,Arial,sans-serif;
@@ -183,6 +185,13 @@
     width: 70px;
     height: 70px;
     border-radius: 50%;
+}
+.user-avator .example-img{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: calc(50% + 15px);
+    bottom: 0;
 }
 .myKcount image{
     width: 19px;
