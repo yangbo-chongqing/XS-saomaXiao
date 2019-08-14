@@ -16,6 +16,8 @@ Page({
     user_info:[],
     is_teacher:0,
     class_content:'',
+    class_content_all:'',
+    class_content_less:'',
     indicatorDots: true,
     autoplay: false,
     interval: 5000,
@@ -29,6 +31,11 @@ Page({
     is_comment_cout:0,//已点评
     surplus_cout:0,// 剩余点评包
     class_info:[],
+    page:1,
+    page_size:15,
+    hasMore:true, //是否还有更多数据
+    class_content_less_count:50,
+    showMoreDescState:false
   },
   onPullDownRefresh: function () {
       wx.stopPullDownRefresh();
@@ -131,8 +138,8 @@ Page({
           // member_id : 283,
           // token:'2fc9c9ace50b382d6f57676d05a7306c',
           class_id: that.data.class_id,
-          page:1,
-          page_size:15,
+          page:this.data.page,
+          page_size:this.data.page_size,
           ts:ts
       };
       var cs = app.encryption(data);
@@ -144,7 +151,16 @@ Page({
           header: { "Content-Type": "application/x-www-form-urlencoded" },
           success: function (res) {
             if(res.data.code == 200){
-                var list = res.data.data;
+                var list = that.data.work_list.concat(res.data.data);
+                if(res.data.data.length<that.data.page_size){
+                    that.setData({
+                        hasMore: false
+                    })
+                }else{
+                    that.setData({
+                        page:++that.data.page
+                    })
+                }
                 for (var i = 0; i < list.length;i++){
                     list[i].duration = app.formatSeconds(list[i].duration);
                 }
@@ -213,7 +229,9 @@ Page({
             banner_img: banner_img,
             class_name:class_name,
             class_info: res.data.data.class_info,
-            class_content: res.data.data.class_info.content
+            class_content: res.data.data.class_info.content,
+            class_content_all: res.data.data.class_info.content,
+            class_content_less:res.data.data.class_info.content.substr(1,that.data.class_content_less_count)+'...'
           });
           wx.setStorageSync('class_id', class_id);
           wx.setStorageSync('current_class_name', res.data.data.class_info.school_info.school_name + '-' + res.data.data.class_info.class_name)
@@ -335,5 +353,14 @@ Page({
         }
       }
     })
-  }
+  },
+  onReachBottom(){
+      if(!this.data.hasMore) return false;
+      this.getHomeWork();
+  },
+    showMoreDesc(){
+        this.setData({
+            showMoreDescState:!this.data.showMoreDescState
+        })
+    }
 });

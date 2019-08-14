@@ -8,7 +8,20 @@
       </view>
       <view class="class-desc">
           <view class="class-desc-title">课程介绍</view>
-          <rich-text nodes="{{class_content}}" class="class-desc-content"></rich-text>
+          <block wx:if="{{class_content}}">
+              <view wx:if="{{!showMoreDescState&&class_content.length>class_content_less_count}}">
+                  <rich-text nodes="{{class_content_less}}" class="class-desc-content"></rich-text>
+                  <view style="color:#999;text-align: right;" bindtap="showMoreDesc">
+                      ▼ 展开
+                  </view>
+              </view>
+              <view wx:else>
+                  <rich-text nodes="{{class_content_all}}" class="class-desc-content"></rich-text>
+                  <view style="color:#999;text-align: right;" bindtap="showMoreDesc">
+                      ▲ 收起
+                  </view>
+              </view>
+          </block>
       </view>
       <view class=" main-title-container">
           <view class="works-record-title main-title">我的首选点评导师</view>

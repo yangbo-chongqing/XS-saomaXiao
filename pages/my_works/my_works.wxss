@@ -9,6 +9,7 @@
     box-sizing: border-box;
     border-top: 1px solid #e5e9f2;
     border-bottom: 1px solid #e5e9f2;
+    background-color: #fff;
 }
 
 .all_listen, .all_works, .highest_listen {
@@ -200,27 +201,27 @@
 }
  
 .list-msg2 {
-    height: 60rpx;
+    height: 70rpx;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border: 1px solid #e3e3e3;
     padding: 0 10rpx;
     font-size: 0.8125rem;
-    line-height: 60rpx;
+    line-height: 70rpx;
 }
  
 .select_box { 
-    background-color: #eee;
+    background-color: #f3f2f7;
     padding: 0 10rpx;
     width: 100%;
     position: absolute;
-    top: 60rpx;
+    top: 70rpx;
     z-index: 1;
     overflow: hidden;
     /* animation: myfirst 0.1s; */
     font-size: 0.8125rem;
-    line-height: 60rpx;
+    line-height: 70rpx;
 
 }
  
@@ -235,7 +236,12 @@
 }
  
 .select_one {
-    height: 60rpx;
-    line-height: 60rpx;
-    border-bottom: 1px solid #ccc;
+    height: 80rpx;
+    line-height: 80rpx;
+    border-bottom: 1px solid #ededed;
+}
+.no-content{
+    text-align: center;
+    padding: 30px 0;
+    color:#666;
 }
