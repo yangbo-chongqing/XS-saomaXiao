@@ -1,0 +1,187 @@
+.myWorks{
+    background-color: #eff2f7;
+    height: 100%;
+}
+
+.statstic_content {
+    width: 100%;
+    height: 7rem;
+    box-sizing: border-box;
+    border-top: 1px solid #e5e9f2;
+    border-bottom: 1px solid #e5e9f2;
+}
+
+.all_listen, .all_works, .highest_listen {
+    display: inline-block;
+    box-sizing: border-box;
+    height: 7rem;
+    float: left;
+    text-align: center;
+}
+.all_listen, .all_works {
+    width: 33%;
+}
+.highest_listen {
+    width: 34%;
+    border-left: 1px solid #e5e9f2;
+    border-right: 1px solid #e5e9f2;
+}
+
+.title {
+    font-size: 0.8125rem;
+    margin-top: 1.5125rem;
+    color: #adadad;
+}
+.result {
+    color: #ff4949;
+    font-size: 0.9rem;
+    margin-top: 0.9rem;
+    line-height: 0.9rem;
+}
+
+
+.ss-task .works-record {
+    width: 95%;
+    margin: 30rpx auto 0;
+    display: flex;
+    align-items: center;
+}
+
+.works-record .works-record-title {
+    flex:1;
+    padding-left: 0.3125rem;
+    border-left: 2px solid #f2574b;
+    font-size: 0.8125rem;
+}
+.works-record .works-ss-report {
+    flex:1;
+    color:#0068b7;
+    text-align: right;
+}
+.works-record .works-ss-report image {
+    width: 43rpx;
+    height: 33rpx;
+    vertical-align: text-bottom;
+}
+
+.main-title-container {
+  margin: 30rpx auto 20rpx;
+  padding-left: 30rpx;
+  box-sizing: border-box;
+  width: 100%;
+  height: 30px;
+
+}
+
+.statstic {
+    position: fixed;
+    top: 0rem;
+    height: 10.5rem;
+    width: 100%;
+    font-size: 0;
+    z-index: 15;
+    background-color: #fff;
+}
+
+.highest_listen .result {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.highest_listen_num {
+    color: #adadad;
+    font-size: 0.8rem;
+    margin-top: 0.6rem;
+}
+/* 作品列表 */
+.list-item {
+    height: 98px;
+    font-size: 100%;
+    border-bottom: 1px solid #c8c7cc;
+}
+.cover-img {
+    width: 30%;
+    line-height: 2.6rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding-left: 0.3rem;
+    float: left;
+}
+.detail{
+    width: 50%;
+    font-size: 80%;
+    line-height: 0.7rem;
+    box-sizing: border-box;
+    padding-top: 0.3rem;
+}
+.play {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    width: 20%;
+}
+#list-content {
+    position: relative;
+    z-index: 10;
+    background: #fff;
+}
+
+.cover-img image{
+  height:82.5px;
+  width: 82.5px;
+  margin-top: 8px;
+}
+
+#list-wrapper {
+    left: 0;
+    margin-top: 12.8rem;
+    right: 0;
+    bottom: 0;
+}
+.detail {
+    width: 50%;
+    font-size: 80%;
+    line-height: .7rem;
+    box-sizing: border-box;
+    padding-top: .3rem;
+    float: left
+}
+.playBtn image{
+  width: 37.5px;
+  height: 37.5px;
+}
+.name {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 0.8125rem;
+    line-height: 2.2125rem;
+}
+.device-name{
+    color: #adadad;
+    font-size: 0.8125rem;
+    line-height: 1.2125rem;
+}
+.device-name{
+    color: #adadad;
+    font-size: 0.8125rem;
+    line-height: 1.2125rem;
+}
+.listen-num{
+    font-size: 0.6875rem;
+    line-height: 2.2125rem;
+    color: #adadad;
+}
+.playBtn{
+  line-height: 127px;
+}

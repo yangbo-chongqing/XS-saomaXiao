@@ -1,0 +1,48 @@
+<view class="myWorks">
+  <view class="statstic">
+      <!-- 选择范读导师 -->
+      <view class="works-record main-title-container">
+          <view class="works-record-title main-title">统计数据</view>
+      </view>
+
+      <view class="statstic_content">
+          <view class="all_listen">
+              <view class="title">作品总收听量：</view>
+              <view class="result">{{sum}}</view>
+          </view>
+          <view class="highest_listen" wx:if="{{max_info}}" bindtap="jump" data-url="../work_info/work_info?work_id={{max_info.works_id}}">
+              <view class="title">最受欢迎作品：</view>
+              <view class="result">{{max_info.works_name}}</view>
+              <view class="highest_listen_num">收听量：{{max_info.listen_num}}</view>
+          </view>
+          <view class="highest_listen" wx:else>
+              <view class="title">最受欢迎作品：</view>
+              <view class="result">暂无</view>
+          </view>
+          <view class="all_works">
+              <view class="title">作品总量：</view>
+              <view class="result">{{works_count}}</view>
+          </view>
+      </view>
+  </view>
+  <!-- 列表 -->
+  <view class="vue-pull-to-wrapper" id="list-wrapper">
+      <view class="list-content" id="list-content">
+          <view class="list-item" wx:for="{{works_list}}">
+              <view class="cover-img">
+                  <image scaleToFill src="{{item.cover_img}}"></image>
+              </view>
+              <view class="detail">
+                  <view class="name">{{item.works_name}}</view>
+                  <view class="device-name">{{item.device_name}}</view>
+                  <view class="listen-num">{{item.listen_num}}次   {{item.create_time}}</view>
+              </view>
+              <view class="play">
+                  <view class="playBtn" bindtap="jump" data-url="../work_info/work_info?work_id={{item.works_id}}">
+                    <image src="/images/my_bf.png"></image>
+                  </view>
+              </view>
+          </view>
+      </view>
+  </view>
+</view>
