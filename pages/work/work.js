@@ -251,10 +251,20 @@ Page({
             header: { "Content-Type": "application/x-www-form-urlencoded" },
             success: function (res) {
                 if (res.data.code == 200) {
-                    wx.showToast({
-                        title:'分享成功',
-                        duration:5000
-                    })
+//                    wx.showToast({
+//                        title:'分享成功',
+//                        duration:5000
+//                    })
+                          wx.showModal({
+                            title: '温馨提示',
+                            content: '恭喜你分享成功',
+                            showCancel: false,
+                            confirmText: '我知道了',
+                            success: (res) => {
+                              if (res.confirm) {
+                              }
+                            }
+                          });
                 } else{
 //                    wx.setStorageSync('member_id', '');
 //                    wx.setStorageSync('token', '');
