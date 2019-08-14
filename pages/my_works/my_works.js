@@ -11,6 +11,7 @@ Page({
     sum: 0,
     works_count: 0,
     max_info: [],
+    hasMore:true, //是否有更多数据
   },
   onLoad: function (options) {
       var token = wx.getStorageSync("token");
@@ -50,11 +51,20 @@ Page({
               app.hide_l(that);
               if (res.data.code == 200) {
                    that.setData({
-                      works_list: res.data.data.list,
+                      works_list: that.data.works_list.concat(res.data.data.list),
                       sum: res.data.data.sum,
                       works_count: res.data.data.works_count,
                       max_info: res.data.data.max_info,
                   });
+                   if(res.data.data.list.length<that.data.page_size){
+                       that.setData({
+                           hasMore: false
+                       })
+                   }else{
+                       that.setData({
+                           page:++that.data.page
+                       })
+                   }
               }
           }
       })
@@ -66,4 +76,8 @@ Page({
           url: url,
       })
   },
+  onReachBottom(){
+    if(!this.data.hasMore) return false;
+    this.lists();
+  }
 });
