@@ -70,6 +70,17 @@
     font-size: 0.8125rem;
 }
 
+.ss-task .works-record .works-record-title.no-border {
+    border:none;
+    padding-left:0;
+}
+.ss-task .works-record .works-record-title.no-border text{
+  color:#f2574b;
+  font-size: 32rpx;
+  position: relative;
+  left:-4rpx;
+}
+
 .ss-task .works-record .works-ss-report {
     flex:1;
     color:#0068b7;
