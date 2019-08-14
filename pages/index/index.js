@@ -28,7 +28,7 @@ Page({
     comment_ing_cout:0, //点评中
     is_comment_cout:0,//已点评
     surplus_cout:0,// 剩余点评包
-    class_info:[]
+    class_info:[],
   },
   onPullDownRefresh: function () {
       wx.stopPullDownRefresh();
@@ -57,6 +57,7 @@ Page({
           if (class_id) {
             class_id = wx.getStorageSync("class_id");
           }
+       // class_id = 10254;
           wx.setStorageSync('class_id', class_id);
           this.setData({
             class_id: class_id
@@ -192,7 +193,7 @@ Page({
     wx.request({
       url: config.URL + "fa/Xspaycomment/get_member_class",
       data: data,
-      method: 'post',
+      method: 'get',
       header: { "Content-Type": "application/x-www-form-urlencoded" },
       success: function (res) {
         if (res.data.code == 200) {
@@ -215,6 +216,7 @@ Page({
             class_content: res.data.data.class_info.content
           });
           wx.setStorageSync('class_id', class_id);
+          wx.setStorageSync('current_class_name', res.data.data.class_info.school_info.school_name + '-' + res.data.data.class_info.class_name)
           that.getHomeWork();
           that.get_class_tea_list();
           // 查询首页统计数据

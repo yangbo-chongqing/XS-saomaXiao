@@ -1,5 +1,5 @@
 {
-  "enablePullDownRefresh":false,
+  "enablePullDownRefresh":true,
   "navigationBarTitleText": "作品详情",
   "usingComponents": {
     "van-rate": "/components/vant-weapp/dist/rate/index",

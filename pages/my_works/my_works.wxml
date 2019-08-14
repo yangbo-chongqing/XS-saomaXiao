@@ -1,5 +1,14 @@
 <view class="myWorks">
   <view class="statstic">
+      <view class='list-msg2' bindtap='bindShowMsg'>
+          <text>{{tihuoWay}}</text>
+          <image style='height:20rpx;width:20rpx;' src='/images/xl.png'></image>
+      </view>
+      <!-- 下拉需要显示的列表 -->
+      <view class="select_box" wx:if="{{select}}">
+          <view wx:for="{{class_list}}" class="select_one" bindtap="mySelect" data-name="{{item.school_name}} - {{item.class_name}}" data-id="{{item.class_id}}">{{item.school_name}} - {{item.class_name}}</view>
+      </view>
+
       <!-- 选择范读导师 -->
       <view class="works-record main-title-container">
           <view class="works-record-title main-title">统计数据</view>
