@@ -42,6 +42,8 @@ Page({
     tsd_template: false,
     comment_xlff: [], // 提升点范文
     xlff_template: false,
+    user_info:[],
+    submit_state :true
   },
   onUnload: function () { 
     this.stop_miuse_one();
@@ -65,7 +67,7 @@ Page({
         this.getworkinfo();
         this.hasright();
         this.animation = wx.createAnimation()
-        this.is_apply_work();
+        this.getMembers();
       }
       if(options.showShareTip=='1'){
         wx.showModal({
@@ -84,7 +86,6 @@ Page({
     wx.stopPullDownRefresh();
     this.getworkinfo();
     this.hasright();
-    this.is_apply_work();
   },
   // 获取作品详情
   getworkinfo:function(){
@@ -117,9 +118,13 @@ Page({
             //       share_image: works_detail.cover_img,
             //     })
             // }
+            if (!that.data.share_title){
+                that.setData({//存值
+                  share_title: works_detail.works_name + " " + works_detail.author + " " + util.formatTimeTwo(works_detail.duration, 'm:s')
+                })
+             }
             that.setData({//存值
                  work_info: res.data.data.works_detail,
-                 share_title : res.data.data.works_detail.works_name
             })
 
           if (res.data.data.works_detail.class_info && res.data.data.works_detail.member_id == wx.getStorageSync("member_id")){
@@ -165,6 +170,7 @@ Page({
               }
             }
           }
+          that.is_apply_work();
         } else if (res.data.msg == "用户认证不通过") {
           wx.setStorageSync('member_id', '');
           wx.setStorageSync('token', '');
@@ -193,7 +199,7 @@ Page({
   onShareAppMessage: function(res) {
 
     var share_url = "/pages/work_info/work_info?work_id=" + wx.getStorageSync('work_id')+"&parent_id="+wx.getStorageSync("member_id");
-  
+    console.log(this.data.share_title);
     return {
       title: this.data.share_title,
       imageUrl: this.data.share_image,
@@ -482,9 +488,11 @@ Page({
             icon: 'none',
             duration: 1500,
           });
+          var content = that.data.work_info.works_name + ' ' + that.data.work_info.author + ' ' + util.formatTimeTwo(that.data.work_info.duration, 'm:s') + ' ' + that.data.user_info.name + '点评了该作品';
+          console.log(content);
           that.setData({//存值
             share_image: 'https://resource.xunsheng.org.cn/xcxshare_dp.png',
-            share_title: that.data.work_info.author + ',你的作品“' + that.data.work_info.works_name +'”收到点评',
+            share_title: content,
             form_yd: '',
             form_tsd: '',
             form_xl: '',
@@ -503,7 +511,7 @@ Page({
           that.onLoad({ work_id: wx.getStorageSync("work_id") });
           that.comment_hide();
         
-
+          console.log(that.data.work_info.works_name + ' ' + that.data.work_info.author + ' ' + util.formatTimeTwo(that.data.work_info.duration, 'm:s') + '  ' + that.data.user_info.name + '点评了该作品');
           wx.showModal({
             title: '温馨提示',
             content:'分享至微信班级群，提示学生查看点评内容',
@@ -530,6 +538,7 @@ Page({
   // 获取七牛云参数
   get_qiniu_info: function () {
     var that = this;
+   
     if (!that.data.miuse_url && that.data.recordingTimeqwe){
       //结束录音计时 
       clearInterval(that.data.setInter);
@@ -569,7 +578,7 @@ Page({
       });
       return;
     }
-    
+    app.show_l(that);
     var ts = Date.parse(new Date());
     var data = {
       member_id: wx.getStorageSync("member_id"),
@@ -588,6 +597,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded',
       },
       success: function (res) {
+        app.hide_l(that);
         if (res.data.code == 200) {
           //上传录音
           wx.uploadFile({
@@ -675,11 +685,13 @@ Page({
               apply_content: html
             })
             if (html && that.data.my_work){
+                console.log(11);
                 that.setData({//存值
                   share_image: 'https://resource.xunsheng.org.cn/xcxshare_dpw.png',
-                  share_title: that.data.work_info.author + ' 申请' +names+'老师点评',
+                  share_title: that.data.work_info.works_name + ' ' + that.data.work_info.author + " " + util.formatTimeTwo(that.data.work_info.duration, 'm:s') +' 申请' +names+'老师点评',
                 })
             }
+
           }
         }
       })
@@ -747,7 +759,6 @@ Page({
     var checked = e.detail.value
     var changed = {}
     var type = e.currentTarget.dataset.type;
-    console.log(type);
     if (type == 1){
         for (var i = 0; i < this.data.comment_yd.length; i++) {
             if (checked.indexOf(this.data.comment_yd[i].name) !== -1) {
@@ -856,5 +867,33 @@ Page({
               }
           }
       })
+  },
+  // 查询我的信息
+  getMembers(){
+    var that = this;
+    var ts = Date.parse(new Date());
+    var data = {
+      member_id: wx.getStorageSync("member_id"),
+      token: wx.getStorageSync("token"),
+      ts: ts
+    };
+    var cs = app.encryption(data);
+    data.cs = cs;
+    wx.request({
+      url: config.URL + "/member/member/index",
+      data: data,
+      method: 'post',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
+      success: function (res) {
+        if (res.data.code == 200) {
+          
+          that.setData({
+            user_info: res.data.data
+          });
+        }
+      }
+    })
   }
 });

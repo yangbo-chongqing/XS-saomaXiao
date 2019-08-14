@@ -14,7 +14,7 @@ Page({
     banner_img: '',
     page:1,
     page_size:10,
-    select_type:0,
+    select_type:2,
     apply_list:[],
     items: [],
     switch_type: 0,
@@ -33,7 +33,7 @@ Page({
     }else{
       var type = wx.getStorageSync("apply_type");
     }
-    if (options.swiper_type){
+    if (options.swiper_type == 0 || options.swiper_type == 1){
         this.setData({
           switch_type: options.swiper_type
         });
@@ -45,9 +45,11 @@ Page({
       })
     } else {
       // 获取用户信息
-      this.setData({
-        select_type: type
-      });
+      if (type != '') {
+        this.setData({
+          select_type: type
+        });
+      }
       this.my_apply_comment();
       if(type == 1){
         this.get_my_state();

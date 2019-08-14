@@ -36,7 +36,8 @@
        </view>  
         <!-- 选择范读导师 -->
       <view class="works-record main-title-container"  wx:if="{{release}}">
-          <view class="works-record-title main-title no-border"><text>1</text>第一步：选择我的点评导师 (当前可用点评包：{{voucher_count}})</view>
+          <!-- <view class="works-record-title main-title no-border"><text>1</text>第一步：选择我的点评导师 (当前可用点评包：{{voucher_count}})</view> -->
+          <view class="works-record-title main-title">第一步：选择我的点评导师 (当前可用点评包：{{voucher_count}})</view>
       </view>
       <view wx:if="{{release}}">
           <swiper indicator-active-color="red" indicator-color="#666" display-multiple-items="1"  indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
@@ -64,11 +65,13 @@
         </view>
 
         <view class="works-record main-title-container" wx:if="{{release}}">
-            <view class="works-record-title main-title no-border"><text>2</text>第二步：开始录制作品</view>
+           <!-- <view class="works-record-title main-title no-border"><text>2</text>第二步：开始录制作品,录制完成后点击“发布”按钮即可</view> -->
+              <view class="works-record-title main-title">第二步：开始录制作品,录制完成后点击“发布”按钮即可</view>
             <!-- <view bindtap="jump" data-url="../report/report" style="float: right;padding-right: 5%;color:#0068b7;">更多»</view> -->
         </view>
         <!-- 录制成功 -->
         <view wx:if="{{miuse_state == 4 && release}}" class="vux-flexbox1 vux-flex-col">
+            <!-- <view>(请点击“发布”按钮发布作品)</view> -->
             <view class="vux-flexbox-item" style="margin-top: 8px;">
               <textarea placeholder="说说你的感想吧..." value="{{impression}}" style="height:54px;" class="van-field__control" bindinput="bzInput"></textarea>
             </view>
@@ -85,7 +88,6 @@
                     </view>
                 </view>
             </view>
-            <view style="width: 90%;color:#666;margin: 10px auto;"><van-icon name="info-o"></van-icon> 请点击“发布”按钮发布作品</view>
             
             <view>
               <view class="vux-flexbox-item act-btn">

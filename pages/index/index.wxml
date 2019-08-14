@@ -75,7 +75,7 @@
               <view class="data-content-title">点评中</view>
           </van-col>
           <van-col wx:if="{{!is_teacher}}" span="6">
-              <view bindtap="jump" data-url="../apply_list/apply_list?swiper_type=1" class="data-content-count" style="color:#0072ff;">{{is_comment_cout}}</view>
+              <view bindtap="jump" data-url="../apply_list/apply_list?type=2&swiper_type=1" class="data-content-count" style="color:#0072ff;">{{is_comment_cout}}</view>
               <view class="data-content-title">已点评</view>
           </van-col>
           <van-col wx:else span="6">

@@ -141,6 +141,11 @@ Page({
     var that = this;
     var ts = Date.parse(new Date());
     app.show_l(that);
+    if (that.data.select_sort == 0){
+        var select_sort = 1;
+    } else if (that.data.select_sort == 1){
+        var select_sort = 0;
+    }
     var data = {
       member_id: wx.getStorageSync("member_id"),
       token: wx.getStorageSync("token"),
@@ -148,7 +153,7 @@ Page({
       page_size: that.data.page_size,
       type:1,
       order:that.data.select_order,
-      sort:that.data.select_sort,
+      sort: select_sort,
       works_id: wx.getStorageSync("works_id"),
       ts: ts
     };

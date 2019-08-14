@@ -494,7 +494,7 @@ Page({
             lrc_text: that.data.task_info.lyric_text,
             lrc_source:that.data.task_info.lyric_source,
             audio_name:that.data.task_info.task_name,
-            duration:that.data.task_info.duration,
+            duration: that.data.recordingTimeqwe,
             cover_img:that.data.task_info.cover_img,
             banner_list:that.data.task_info.image_lists.join('|'),
             task_id:that.data.task_info.task_id,
