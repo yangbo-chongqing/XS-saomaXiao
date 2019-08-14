@@ -119,6 +119,7 @@ Page({
             // }
             that.setData({//存值
                  work_info: res.data.data.works_detail,
+                 share_title : res.data.data.works_detail.works_name
             })
 
           if (res.data.data.works_detail.class_info && res.data.data.works_detail.member_id == wx.getStorageSync("member_id")){
@@ -483,6 +484,7 @@ Page({
           });
           that.setData({//存值
             share_image: 'https://resource.xunsheng.org.cn/xcxshare_dp.png',
+            share_title: that.data.work_info.author + ',你的作品“' + that.data.work_info.works_name +'”收到点评',
             form_yd: '',
             form_tsd: '',
             form_xl: '',
@@ -552,7 +554,7 @@ Page({
         duration: 1500,
       });
       return;
-    } else if (that.data.recordingTimeqwe < 30) {
+    } else if (that.data.recordingTimeqwe <= 30) {
       wx.showToast({
         title: '点评语音需要大于30秒',
         icon: 'none',
@@ -653,11 +655,14 @@ Page({
               })
             }
             var html = "";
+            var names = ""
             for (var i = 0; i < res.data.data.tutor_info.length; i++) {
               if (!html) {
                 html += "此作品申请" + res.data.data.tutor_info[i].name;
+                names += res.data.data.tutor_info[i].name;
               } else {
                 html += "," + res.data.data.tutor_info[i].name;
+                names += "," + res.data.data.tutor_info[i].name;
               }
 
             }
@@ -671,7 +676,8 @@ Page({
             })
             if (html && that.data.my_work){
                 that.setData({//存值
-                  share_image: 'https://resource.xunsheng.org.cn/xcxshare_dpw.png'
+                  share_image: 'https://resource.xunsheng.org.cn/xcxshare_dpw.png',
+                  share_title: that.data.work_info.author + ' 申请' +names+'老师点评',
                 })
             }
           }

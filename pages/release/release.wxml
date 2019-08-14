@@ -69,6 +69,7 @@
         </view>
         <!-- 录制成功 -->
         <view wx:if="{{miuse_state == 4 && release}}" class="vux-flexbox1 vux-flex-col">
+            <view>(请点击“发布”按钮发布作品)</view>
             <view class="vux-flexbox-item" style="margin-top: 8px;">
               <textarea placeholder="说说你的感想吧..." value="{{impression}}" style="height:54px;" class="van-field__control" bindinput="bzInput"></textarea>
             </view>
