@@ -37,7 +37,10 @@ Page({
         teacher_ids: [], // 范读导师id数组
         teacher_list: [], // 范读导师列表
         k_all: [], // 空数组 填充轮播图
-        select_teacher_id: 0 // 选中的范读导师
+        select_teacher_id: 0, // 选中的范读导师
+        release:true,
+        message:'',
+        voucher_count:0
     },
     onUnload: function () {
       this.stop_miuse_one();
@@ -71,13 +74,19 @@ Page({
             })
         }else{
             this.setData({
-              task_id: task_id,
-              class_id: class_id,
-              select_teacher_id: select_teacher_id
+                task_id: task_id,
+                class_id: class_id,
+                select_teacher_id: select_teacher_id,
+                class_name: wx.getStorageSync("current_class_name")
             })
-            this.get_tast_info();
-            this.get_classworkslist();
-            this.get_class_tea_list();
+            if(!class_id){ // 当前直接进入作品详情页面 没有进入班级页面
+              this.get_member_class();
+            }else{
+              this.get_tast_info();
+              this.get_classworkslist();
+              this.get_class_tea_list();
+              this.release_verification();
+            }  
         }
     },
     onShareAppMessage: function(res) {
@@ -93,6 +102,49 @@ Page({
                 // 转发失败
             }
         }
+    },
+    get_member_class:function(){
+        var that = this;
+        var ts = Date.parse(new Date());
+        var data = {
+            member_id: wx.getStorageSync("member_id"),
+            token: wx.getStorageSync("token"),
+            class_id: that.data.class_id,
+            ts: ts
+        };
+        var cs = app.encryption(data);
+        data.cs = cs;
+        app.show_l(that);
+        wx.request({
+          url: config.URL + "fa/Xspaycomment/get_member_class",
+          data: data,
+          method: 'get',
+          header: { "Content-Type": "application/x-www-form-urlencoded" },
+          success: function (res) {
+            if (res.data.code == 200) {
+              if(res.data.data.class_info){
+                  var name = res.data.data.class_info.school_info.school_name + '-' + res.data.data.class_info.class_name;
+                  that.setData({//存值
+                    class_id: class_id,
+                    class_name: name,
+                  });
+                  wx.setStorageSync('class_id', class_id);
+                  wx.setStorageSync('current_class_name', name)
+             
+                  that.get_tast_info();
+                  that.get_classworkslist();
+                  that.get_class_tea_list();
+                  that.release_verification();
+              }
+            } else if (res.data.msg == "用户认证不通过") {
+              wx.setStorageSync('member_id', '');
+              wx.setStorageSync('token', '');
+              wx.redirectTo({
+                url: '../login/login?type=release'
+              })
+            }
+          }
+        })  
     },
     // 文稿详情
     get_tast_info:function(){
@@ -743,19 +795,18 @@ Page({
               new_list.push(arr);
             }
             if (!is_online) {
-              console.log(123);
               var index = Math.floor(Math.random() * ids.length);
               that.setData({
                 select_teacher_id: ids[index],
               });
               wx.setStorageSync('select_teacher_id', ids[index]);
             }
-            // var k_all = [];
-            // if (res.data.data.tutor_list.length < 4 && res.data.data.tutor_list.length > 0) {
-            //   for (var i = res.data.data.tutor_list.length; i < 4; i++) {
-            //     k_all.push([]);
-            //   }
-            // }
+            if (res.data.data.tutor_list.length == 0){
+                that.setData({
+                  release: false,
+                  message: '班级暂无导师在线, 无法录制作品'
+                });
+            }
             that.setData({
               teacher_ids: ids,
              // k_all: k_all,
@@ -827,5 +878,48 @@ Page({
                 }
               }
         })
+    },
+    // 发布作品验证
+    release_verification(){
+        var that = this;
+        var ts = Date.parse(new Date());
+        var data = {
+          member_id: wx.getStorageSync("member_id"),
+          token: wx.getStorageSync("token"),
+          class_id: wx.getStorageSync("class_id"),
+          ts: ts
+        };
+        var cs = app.encryption(data);
+        data.cs = cs;
+        app.show_l(that);
+        wx.request({
+            url: config.URL + "fa/xspaycomment/release_verification",
+            data: data,
+            method: 'post',
+            header: {
+              'content-type': 'application/x-www-form-urlencoded',
+            },
+            success: function (res) {
+                if(res.data.code == 200){ // 
+                    if(res.data.data.class_state == 0){
+                        that.setData({
+                            release: false,
+                            message: res.data.data.class_message,
+                        });
+                    } else if (res.data.data.voucher_count == 0){
+                        that.setData({
+                          release: false,
+                          message: res.data.data.voucher_message,
+                        });
+                    }
+                    that.setData({
+                      voucher_count: res.data.data.voucher_count
+                    });
+
+                }
+            }
+        })
     }
 });
+// 1.第一步：选择我的点评导师
+// 2.第二步：开始录制作品，朗读后请点击“发布”按钮发布作品

@@ -31,11 +31,14 @@
                 text="多朗读几次，进步会更明显哦！每个作品每次可录制10分钟！"
                 speed="20"
         />
+       <view class="works-record main-title-container" wx:if="{{class_name}}">
+          <view class="works-record-title main-title">{{class_name}}</view>
+       </view>  
         <!-- 选择范读导师 -->
-      <view class="works-record main-title-container">
-          <view class="works-record-title main-title">我的首选点评导师</view>
+      <view class="works-record main-title-container"  wx:if="{{release}}">
+          <view class="works-record-title main-title">1.第一步：选择我的点评导师 (当前可用点评包：{{voucher_count}})</view>
       </view>
-      <view wx:if="{{teacher_list.length > 0}}">
+      <view wx:if="{{release}}">
           <swiper indicator-active-color="red" indicator-color="#666" display-multiple-items="1"  indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
                 <block>
                   <swiper-item wx:for="{{teacher_list}}">
@@ -56,16 +59,16 @@
             </swiper>
       </view>
         
-        <view class="null_tips" wx:if="{{teacher_list.length == 0}}">
-            <text>班级暂无导师在线,无法录制作品</text>
+        <view class="null_tips" wx:if="{{!release}}">
+            <text>{{message}}</text>
         </view>
 
-        <view class="works-record main-title-container" wx:if="{{teacher_list.length > 0}}">
-            <view class="works-record-title main-title">录制作品</view>
+        <view class="works-record main-title-container" wx:if="{{release}}">
+            <view class="works-record-title main-title">2.第二步：开始录制作品</view>
             <!-- <view bindtap="jump" data-url="../report/report" style="float: right;padding-right: 5%;color:#0068b7;">更多»</view> -->
         </view>
         <!-- 录制成功 -->
-        <view wx:if="{{miuse_state == 4 && teacher_list.length > 0}}" class="vux-flexbox1 vux-flex-col">
+        <view wx:if="{{miuse_state == 4 && release}}" class="vux-flexbox1 vux-flex-col">
             <view class="vux-flexbox-item" style="margin-top: 8px;">
               <textarea placeholder="说说你的感想吧..." value="{{impression}}" style="height:54px;" class="van-field__control" bindinput="bzInput"></textarea>
             </view>
@@ -91,7 +94,7 @@
             </view>
         </view>
         <!-- 录制 -->
-        <view style="background-color:#fff;" wx:if="{{miuse_state != 4 && teacher_list.length > 0}}" class="vux-flexbox record-box vux-flex-row">
+        <view style="background-color:#fff;" wx:if="{{miuse_state != 4 && release}}" class="vux-flexbox record-box vux-flex-row">
             <view class="vux-flexbox-item record-duration">
              {{minute}}:{{second}}
              
