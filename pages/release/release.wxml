@@ -29,6 +29,7 @@
                 color="#1989FA"
                 backgroundColor="#ECF9FF"
                 text="多朗读几次，进步会更明显哦！每个作品每次可录制10分钟！"
+                speed="20"
         />
         <!-- 选择范读导师 -->
       <view class="works-record main-title-container">

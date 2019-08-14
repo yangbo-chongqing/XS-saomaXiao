@@ -10,8 +10,8 @@
     color: #ed6a0c;
     font-size: 1rem;
     line-height: 1.5rem;
-    animation:mymove 8.4812s linear infinite;
-    -webkit-animation:mymove 8.4812s linear infinite;
+    animation:mymove 18.4812s linear infinite;
+    -webkit-animation:mymove 18.4812s linear infinite;
 }
 .van-notice-bar__content {
     position: absolute;

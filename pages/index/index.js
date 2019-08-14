@@ -28,8 +28,10 @@ Page({
     comment_ing_cout:0, //点评中
     is_comment_cout:0,//已点评
     surplus_cout:0,// 剩余点评包
+    class_info:[]
   },
   onPullDownRefresh: function () {
+      wx.stopPullDownRefresh();
       this.getClassInfo();
       this.getMembers();
       // 查询首页统计数据
@@ -209,6 +211,7 @@ Page({
             class_id: class_id,
             banner_img: banner_img,
             class_name:class_name,
+            class_info: res.data.data.class_info,
             class_content: res.data.data.class_info.content
           });
           wx.setStorageSync('class_id', class_id);

@@ -70,7 +70,7 @@ Page({
       if(options.showShareTip=='1'){
         wx.showModal({
           title: '温馨提示',
-          content:'分享至微信班级群，提示老师及时点评',
+          content:'点击转发作品分享至微信班级群，提醒导师及时点评；如需查看点评进度，请进入个人中心->我的点评查看。',
           showCancel:false,
           confirmText:'我知道了',
           success:(res)=>{

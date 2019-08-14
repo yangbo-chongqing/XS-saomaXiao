@@ -805,25 +805,25 @@ Page({
                     wx.showToast({
                       title: res.data.msg,
                       icon: 'none',
-                      duration: 4000,
+                      duration: 4500,
                     })
                     wx.setStorageSync('work_id', data.works_id);
                     setTimeout(function () {
                       wx.redirectTo({
                         url: '../work_info/work_info?showShareTip=1'
                       });
-                    }, 3000);
+                    }, 4000);
                 } else {
                     wx.showToast({
                       title: "发布成功",
                       icon: 'none',
-                      duration: 4000,
+                      duration: 4500,
                     })
                     setTimeout(function () {
                       wx.redirectTo({
                         url: '../work_info/work_info'
                       });
-                    }, 3000);
+                    }, 4000);
                 }
               }
         })

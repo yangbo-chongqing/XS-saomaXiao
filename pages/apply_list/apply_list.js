@@ -51,11 +51,11 @@ Page({
       if(type == 1){
         this.get_my_state();
         wx.setNavigationBarTitle({
-          title: '待点评中心'
+          title: '点评中心'
         })
       }else{
         wx.setNavigationBarTitle({
-          title: '待点评作品'
+          title: '我的点评'
         })
       }
     }

@@ -3,7 +3,9 @@
     <view class="banner-img">
           <image mode="widthFix" style="width:100%" src="{{banner_img}}"></image>
       </view>
-
+      <view class="works-record main-title-container">
+          <view class="works-record-title main-title" style="width:100%;">{{class_info.school_info.name}}({{class_info.class_name}})</view>
+      </view>
       <view class="class-desc">
           <view class="class-desc-title">课程介绍</view>
           <rich-text nodes="{{class_content}}" class="class-desc-content"></rich-text>
@@ -131,12 +133,12 @@
             </view>
             <view bindtap="jump" data-url="../apply_list/apply_list?type=2"  class="weui-cell vux-tap-active weui-cell_access">
                 <view class="weui-cell__hd"><image src="/images/wddp.png"></image></view>
-                <view class="vux-cell-bd vux-cell-primary title">待点评作品</view>
+                <view class="vux-cell-bd vux-cell-primary title">我的点评</view>
                 <view class="weui-cell__ft"></view>
             </view>
             <view wx:if="{{is_teacher}}" bindtap="jump" data-url="../apply_list/apply_list?type=1"  class="weui-cell vux-tap-active weui-cell_access">
                 <view class="weui-cell__hd"><image src="/images/wddp.png"></image></view>
-                <view class="vux-cell-bd vux-cell-primary title">待点评中心</view>
+                <view class="vux-cell-bd vux-cell-primary title">点评中心</view>
                 <view class="weui-cell__ft"></view>
             </view>
             <button id="kf" open-type="contact" session-from="weapp"></button>
