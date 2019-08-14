@@ -126,9 +126,9 @@
                     <input style="padding-top:3px;width:80%;float:left;" data-type="1" bindfocus="template" type="text" value="{{form_yd}}" bindinput="get_form_info" id="yd" placeholder="请输入优点"></input>
                     <view style="width:15%;float:left;">
                         <picker id="yd_template" bindchange="bindPickerChange" range="{{comment_yd}}">
-                            <view class="picker">
+                            <van-button size="mini" plain round type="info" class="picker">
                             模板
-                            </view>
+                            </van-button>
                         </picker>
                     </view> 
                 </view>
@@ -157,9 +157,9 @@
                     <input style="padding-top:3px;width:80%;float:left;" data-type="2" bindfocus="template" type="text" bindinput="get_form_info" value="{{form_tsd}}" id="tsd" placeholder="请输入提升点"></input>
                     <view style="width:15%;float:left;">
                         <picker id="yd_template" bindchange="bindtsdChange" range="{{comment_tsd}}">
-                            <view class="picker">
-                            模板
-                            </view>
+                            <van-button size="mini" plain round type="info" class="picker">
+                                模板
+                            </van-button>
                         </picker>
                     </view> 
                 </view>
@@ -189,9 +189,9 @@
                     <input style="padding-top:3px;width:80%;float:left;" data-type="3" bindfocus="template" type="text" bindinput="get_form_info" value="{{form_xl}}" id="xl" placeholder="请输入训练方法"></input>
                       <view style="width:15%;float:left;">
                         <picker id="yd_template" bindchange="bindxlffChange" range="{{comment_xlff}}">
-                            <view class="picker">
-                            模板
-                            </view>
+                            <van-button size="mini" plain round type="info" class="picker">
+                                模板
+                            </van-button>
                         </picker>
                     </view> 
                 </view>
