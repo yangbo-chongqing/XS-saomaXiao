@@ -23,47 +23,43 @@
                 <!--<audio wx:if="{{task_info.example_url}}"  name="{{task_info.task_name}}" poster="{{task_info.cover_img}}" src="{{task_info.example_url}}" bindtap="play_miuse" author="{{task_info.reader_name}}" id="myAudio" controls></audio>-->
             <!--</view>-->
         <!--</view>-->
-        <!--提示-->
-        <van-notice-bar
-                left-icon="info-o"
-                color="#1989FA"
-                backgroundColor="#ECF9FF"
-                text="多朗读几次，进步会更明显哦！每个作品每次可录制10分钟！"
-                speed="20"
-        />
-       <view class="works-record main-title-container" wx:if="{{class_name}}">
+       <!-- <view class="works-record main-title-container" wx:if="{{class_name}}">
           <view class="works-record-title main-title">{{class_name}}</view>
-       </view>  
+       </view>   -->
         <!-- 选择范读导师 -->
-      <view class="works-record main-title-container"  wx:if="{{release}}">
-          <!-- <view class="works-record-title main-title no-border"><text>1</text>第一步：选择我的点评导师 (当前可用点评包：{{voucher_count}})</view> -->
-          <view class="works-record-title main-title">第一步：选择我的点评导师 (当前课程可用点评包：{{voucher_count}})</view>
-      </view>
-      <view wx:if="{{release}}">
-          <swiper indicator-active-color="red" indicator-color="#666" display-multiple-items="1"  indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-                <block>
-                  <swiper-item wx:for="{{teacher_list}}">
-                        <view class="teacher-item" wx:for="{{item}}" wx:for-item="value">
-                            <view bindtap="edit_teacher" style="position: relative;"  data-url="{{value.example_reader_id}}">
-                              <image class="teacher-avatar" src="{{value.member_url}}"></image>
-                              <view class="select"><image wx:if="{{value.example_reader_id == select_teacher_id}}" src="/images/xz.png"></image></view>
-                              
+      <view>
+          <view class="works-record main-title-container"  wx:if="{{release}}">
+              <!-- <view class="works-record-title main-title no-border"><text>1</text>第一步：选择我的点评导师 (当前可用点评包：{{voucher_count}})</view> -->
+              <!-- <view class="works-record-title main-title">第一步：选择导师 (可用点评包:{{voucher_count}})[已选：{{select_teacher}}老师]</view> -->
+            <view class="works-record-title main-title" style="width:85%;float:left;">第一步：选择导师[已选：{{select_teacher}}老师]</view>
+            <view bindtap="show_teacher" data-id="1" style="float:left;width:10%;" wx:if="{{!tea_show}}"><image src="/images/zxl.png" style="width:17px;height:17px;"></image></view>
+            <view bindtap="show_teacher" data-id="0" style="float:left;width:10%;" wx:if="{{tea_show}}"><image src="/images/zsl.png" style="width:17px;height:17px;"></image></view>
+          </view>
+           <view wx:if="{{release && tea_show}}">
+              <swiper indicator-active-color="red" indicator-color="#666" display-multiple-items="1"  indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+                    <block>
+                      <swiper-item wx:for="{{teacher_list}}">
+                            <view class="teacher-item" wx:for="{{item}}" wx:for-item="value">
+                                <view bindtap="edit_teacher" style="position: relative;" data-name="{{value.name}}"  data-url="{{value.example_reader_id}}">
+                                  <image class="teacher-avatar" src="{{value.member_url}}"></image>
+                                  <view class="select"><image wx:if="{{value.example_reader_id == select_teacher_id}}" src="/images/xz.png"></image></view>
+                                  
+                                </view>
+                                <view class="teacher-name">{{value.name}}</view>
                             </view>
-                            <view class="teacher-name">{{value.name}}</view>
-                        </view>
-                  </swiper-item>
-                  <swiper-item wx:for="{{k_all}}">
-                        
-                  </swiper-item>
-                  
-                </block>
-            </swiper>
+                      </swiper-item>
+                      <swiper-item wx:for="{{k_all}}">
+                            
+                      </swiper-item>
+                      
+                    </block>
+                </swiper>
+                <view class="null_tips" wx:if="{{!release}}">
+                    <text>{{message}}</text>
+                </view>
+              </view>  
       </view>
         
-        <view class="null_tips" wx:if="{{!release}}">
-            <text>{{message}}</text>
-        </view>
-
         <view class="works-record main-title-container" wx:if="{{release}}">
            <!-- <view class="works-record-title main-title no-border"><text>2</text>第二步：开始录制作品,录制完成后点击“发布”按钮即可</view> -->
               <view class="works-record-title main-title">第二步：开始录制作品,录制完成后点击“发布”按钮即可</view>
@@ -114,14 +110,22 @@
             </view>
         </view>
         <!-- 朗读记录 -->
-        <view class="works-record main-title-container" style="background-color:#fff;margin-bottom:20px;">
+        <view class="works-record main-title-container" style="background-color:#fff;">
             <view class="works-record-title">朗读记录</view>
             <view class="works-ss-report" bindtap="jump" wx:if="{{work_list.length>0}}">
                 <image src="/images/ss_report.png"></image>
                 成就报表
             </view>
         </view>
-        <view class="van-list" wx:if="{{work_list.length>0}}" style="background-color:#fff;padding-bottom:70px;">
+        <!--提示-->
+        <van-notice-bar
+                left-icon="info-o"
+                color="#1989FA"
+                backgroundColor="#ECF9FF"
+                text="多朗读几次，进步会更明显哦！每个作品每次可录制10分钟！"
+                speed="20"
+        />
+        <view class="van-list" wx:if="{{work_list.length>0}}" style="background-color:#fff;padding-bottom:70px;margin-top:20px;">
             <view class="vux-flexbox1 works-item vux-flex-col" wx:for="{{work_list}}">
                 <!--<view class="vux-flexbox-item works-impression" bindtap="jump_data" data-url="../work_info/work_info?work_id={{item.works_id}}">听听我的新作品吧！<text style="float:right;margin-right:5%;color: #0068b7;">作品详情</text></view>-->
                 <view class="audio-content">
@@ -149,7 +153,7 @@
                 </view>
             </view>
         </view>
-        <view wx:else class="no-content">暂无朗读记录</view>
+        <view wx:else class="no-content" style="margin-top:20px;">暂无朗读记录</view>
     </view>
     <view class="footer_menu">
         <!--<view bindtap="jump" data-url="../report/report">统计报表</view>-->

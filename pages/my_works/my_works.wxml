@@ -1,12 +1,21 @@
 <view class="myWorks">
   <view class="statstic">
-      <view class='list-msg2' bindtap='bindShowMsg'>
+      <!-- <view class='list-msg2' bindtap='bindShowMsg'>
           <text>{{tihuoWay}}</text>
           <image style='height:20rpx;width:20rpx;' src='/images/xl.png'></image>
-      </view>
+      </view> -->
       <!-- 下拉需要显示的列表 -->
-      <view class="select_box" wx:if="{{select}}">
+      <!-- <view class="select_box" wx:if="{{select}}">
           <view wx:for="{{class_list}}" class="select_one" bindtap="mySelect" data-name="{{item.school_name}} - {{item.class_name}}" data-id="{{item.class_id}}">{{item.school_name}} - {{item.class_name}}</view>
+      </view> -->
+
+      <view class="works-record main-title-container">
+          <view class="works-record-title main-title" style="width:75%;float:left">{{class_name}}</view>
+          <view class="" style="width:20%;float: left;">
+              <picker id="yd_template" bindchange="bindPickerChange" range="{{c_list}}">
+                <text style="float: left;font-size: 12px;">班级筛选</text><image src="/images/qh.png" style="width:17px !important;height:17px;float:left;"></image>
+              </picker>
+          </view>
       </view>
 
       <!-- 选择范读导师 -->

@@ -40,7 +40,8 @@ Page({
         select_teacher_id: 0, // 选中的范读导师
         release:true,
         message:'',
-        voucher_count:0
+        voucher_count:0,
+        select_teacher:''
     },
     onUnload: function () {
       this.stop_miuse_one();
@@ -78,6 +79,9 @@ Page({
                 class_id: class_id,
                 select_teacher_id: select_teacher_id,
                 class_name: wx.getStorageSync("current_class_name")
+            })
+            wx.setNavigationBarTitle({
+              title: wx.getStorageSync("current_class_name")
             })
             if(!class_id){ // 当前直接进入作品详情页面 没有进入班级页面
               this.get_member_class();
@@ -128,6 +132,9 @@ Page({
                     class_id: class_id,
                     class_name: name,
                   });
+                  wx.setNavigationBarTitle({
+                    title: name
+                  })
                   wx.setStorageSync('class_id', class_id);
                   wx.setStorageSync('current_class_name', name)
              
@@ -232,7 +239,8 @@ Page({
             that.timesetInterval();
             that.setData({//存值
                 miuse_state:2,
-                strat:true
+                strat:true,
+                tea_show:false
             })
             wx.showToast({
                 title: '开始录音',
@@ -783,6 +791,9 @@ Page({
             for (var i = 0; i < res.data.data.tutor_list.length; i++) {
               if (that.data.select_teacher_id == res.data.data.tutor_list[i].example_reader_id) {
                 is_online = true;
+                that.setData({
+                  select_teacher: res.data.data.tutor_list[i].name
+                });
               }
               ids[i] = res.data.data.tutor_list[i].example_reader_id;
               if (arr.length == 4) {
@@ -822,8 +833,11 @@ Page({
     // 修改默认导师
     edit_teacher(e) {
       var id = e.currentTarget.dataset.url;
+      var name = e.currentTarget.dataset.name;
       this.setData({
         select_teacher_id: id,
+        tea_show:false,
+        select_teacher:name
       });
       wx.setStorageSync('select_teacher_id', id);
     },
@@ -921,7 +935,17 @@ Page({
                 }
             }
         })
+    },
+    show_teacher(e){
+      var id = e.currentTarget.dataset.id;
+      if(id == 1){
+          this.setData({
+              tea_show: true,
+          });
+      }else if(id == 0){
+          this.setData({
+              tea_show: false,
+          });
+      }
     }
 });
-// 1.第一步：选择我的点评导师
-// 2.第二步：开始录制作品，朗读后请点击“发布”按钮发布作品

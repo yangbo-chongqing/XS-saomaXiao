@@ -35,7 +35,9 @@ Page({
     page_size:15,
     hasMore:true, //是否还有更多数据
     class_content_less_count:50,
-    showMoreDescState:false
+    showMoreDescState:false,
+    c_list:[],
+    cinfo_list:[]
   },
   onPullDownRefresh: function () {
       wx.stopPullDownRefresh();
@@ -43,6 +45,7 @@ Page({
       this.getMembers();
       // 查询首页统计数据
       this.get_statistical_data();
+      this.my_class_list();
   },
   onLoad: function (options) {
     
@@ -80,7 +83,7 @@ Page({
           });
           this.getClassInfo();
           this.getMembers();
-   
+          this.my_class_list();
       }
   },
   getUserInfo: function(e) {
@@ -151,7 +154,12 @@ Page({
           header: { "Content-Type": "application/x-www-form-urlencoded" },
           success: function (res) {
             if(res.data.code == 200){
-                var list = that.data.work_list.concat(res.data.data);
+                if (that.data.page == 1){
+                  var list = res.data.data;
+                }else{
+                  var list = that.data.work_list.concat(res.data.data);
+                }
+                
                 if(res.data.data.length<that.data.page_size){
                     that.setData({
                         hasMore: false
@@ -358,9 +366,59 @@ Page({
       if(!this.data.hasMore) return false;
       this.getHomeWork();
   },
-    showMoreDesc(){
-        this.setData({
-            showMoreDescState:!this.data.showMoreDescState
-        })
+  showMoreDesc(){
+      this.setData({
+          showMoreDescState:!this.data.showMoreDescState
+      })
+  },
+  my_class_list() {
+      var that = this;
+      var ts = Date.parse(new Date());
+      var data = {
+        member_id: wx.getStorageSync("member_id"),
+        token: wx.getStorageSync("token"),
+        page: 1,
+        page_size: 20,
+        type: 2,
+        ts: ts
+      };
+      var cs = app.encryption(data);
+      data.cs = cs;
+      app.show_l(that);
+      wx.request({
+        url: config.URL + "school/class/signclasslistnew",
+        data: data,
+        method: 'post',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded',
+        },
+        success: function (res) {
+          app.hide_l(that);
+          if (res.data.code == 200) {
+            var list = [];
+            for (var i = 0; i < res.data.data.length;i++){
+              list.push(res.data.data[i].class_name);
+            }
+            console.log(list);
+            if (res.data.data.length > 0) {
+              that.setData({
+                c_list: list,
+                cinfo_list: res.data.data
+              });
+            }
+          }
+        }
+      })
+  },
+  bindPickerChange: function (e) {
+    if (this.data.cinfo_list[e.detail.value].class_id){
+      this.setData({
+          class_id: this.data.cinfo_list[e.detail.value].class_id,
+          work_list:[],
+          page:1
+      })
+      this.getClassInfo();
+      this.getMembers();
     }
+  },
 });

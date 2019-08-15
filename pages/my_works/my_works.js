@@ -13,8 +13,11 @@ Page({
     max_info: [],
     hasMore:true, //是否有更多数据
     select: false,
-    tihuoWay: '当前班级:杉树伴读模拟板',
-    class_list:[]
+    tihuoWay: '杉树伴读模拟板',
+    class_list:[],
+    c_list: [],
+    cinfo_list: [],
+    class_name:''
   },
   onLoad: function (options) {
       var token = wx.getStorageSync("token");
@@ -28,6 +31,7 @@ Page({
       } else {
         this.setData({
           class_id: class_id,
+          class_name:class_name,
           tihuoWay: "当前班级："+class_name,
         });
         this.lists();
@@ -142,14 +146,28 @@ Page({
         success: function (res) {
             app.hide_l(that);
             if (res.data.code == 200) {
-              console.log(res.data.data);
+                var list = [];
+                for (var i = 0; i < res.data.data.length; i++) {
+                  list.push(res.data.data[i].class_name);
+                }
                 if(res.data.data.length > 0){
                   that.setData({
+                      c_list:list,
+                      cinfo_list: res.data.data,
                       class_list: res.data.data
                   });
                 }
             }
           }
       })
-  }
+  },
+  bindPickerChange: function (e) {
+    if (this.data.cinfo_list[e.detail.value].class_id) {
+      this.setData({
+        class_id: this.data.cinfo_list[e.detail.value].class_id,
+        class_name: this.data.cinfo_list[e.detail.value].class_name
+      })
+      this.lists();
+    }
+  },
 });

@@ -4,7 +4,12 @@
           <image mode="widthFix" style="width:100%" src="{{banner_img}}"></image>
       </view>
       <view class="works-record main-title-container">
-          <view class="works-record-title main-title" style="width:100%;">{{class_info.school_info.school_name}}-{{class_info.class_name}}</view>
+          <view class="works-record-title main-title" style="width:75%;float">{{class_info.school_info.school_name}}-{{class_info.class_name}}</view>
+          <view class="" style="width:20%;float:left">
+              <picker id="yd_template" bindchange="bindPickerChange" range="{{c_list}}">
+                <text style="float: left;font-size: 12px;">切换班级</text><image src="/images/qh.png" style="width:17px !important;height:17px;float:left;"></image>
+              </picker>
+          </view>
       </view>
       <view class="class-desc">
           <view class="class-desc-title">课程介绍</view>

@@ -44,6 +44,7 @@ Page({
     xlff_template: false,
     user_info:[],
     submit_state :1,
+    tea_show:false
   },
   onUnload: function () { 
     this.stop_miuse_one();
