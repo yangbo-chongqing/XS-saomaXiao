@@ -119,6 +119,7 @@
         </view>
         <!--提示-->
         <van-notice-bar
+                mode="closeable"
                 left-icon="info-o"
                 color="#1989FA"
                 backgroundColor="#ECF9FF"
