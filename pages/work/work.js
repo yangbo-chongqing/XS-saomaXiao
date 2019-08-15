@@ -275,13 +275,13 @@ Page({
             }
         })
     } else if (site_url == "MyCoupon") { // 我的卷包
-      var share_url = "/pages/work/work?type=MyCoupon";
+      var share_url = "/pages/work/work?type=MyCoupon&parent_id="+wx.getStorageSync("member_id");
     } else if (site_url == "CommentOrder"){
-      var share_url = "/pages/work/work?type=CommentOrder&apply_id=" + wx.getStorageSync("apply_id");
+      var share_url = "/pages/work/work?type=CommentOrder&apply_id=" + wx.getStorageSync("apply_id")+ "&parent_id=" + wx.getStorageSync("member_id");
     } else if (site_url == "TeacherDetail"){ // 导师详情
-      var share_url = "/pages/work/work?type=TeacherDetail&teacher_id=" + wx.getStorageSync("work_teacher_id");
+      var share_url = "/pages/work/work?type=TeacherDetail&teacher_id=" + wx.getStorageSync("work_teacher_id")+"&parent_id=" + wx.getStorageSync("member_id");
     } else if (site_url == "EvaluateList") {// 评价详情
-      var share_url = "/pages/work/work?type=EvaluateList&apply_id=" + wx.getStorageSync("work_apply_id");
+      var share_url = "/pages/work/work?type=EvaluateList&apply_id=" + wx.getStorageSync("work_apply_id") + "&parent_id=" + wx.getStorageSync("member_id");
     }
     return {
       title: share_title||this.data.share_title,

@@ -118,7 +118,7 @@
     </view>
     <!-- 点评弹框 -->
     <view animation="{{animation}}" class="van-popup van-popup--bottom dp_info"
-          style="height: 29rem;z-index: 2041; transition: transform 300ms linear 0ms; transform: translateY(800px); transform-origin: 50% 50% 0px;">
+          style="height: 30rem;z-index: 2041; transition: transform 300ms linear 0ms; transform: translateY(800px); transform-origin: 50% 50% 0px;">
         <view class="van-cell van-field">
             <view class="van-cell__title van-field__label" style="width: 4.5rem;">优点:</view>
             <view class="van-cell__value">

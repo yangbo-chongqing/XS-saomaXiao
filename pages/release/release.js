@@ -92,7 +92,7 @@ Page({
     onShareAppMessage: function(res) {
         var share_url = "/pages/release/release?class_id="+wx.getStorageSync("class_id")+"&task_id="+wx.getStorageSync("task_id")+"&parent_id="+wx.getStorageSync("member_id");
         return {
-            title: "寻声朗读",
+            title: this.data.share_title,
             imageUrl: this.data.share_image,
             path: share_url,
             success: function(res) {
@@ -164,8 +164,10 @@ Page({
             header: { "Content-Type": "application/x-www-form-urlencoded" },
             success: function (res) {
               if(res.data.code == 200){
+                  console.log(123);
                   that.setData({
-                    task_info: res.data.data.task_detail
+                    task_info: res.data.data.task_detail,
+                    share_title:res.data.data.task_detail.task_name,
                   })
                   app.hide_l(that);
               }else if (res.data.msg == "用户认证不通过") {

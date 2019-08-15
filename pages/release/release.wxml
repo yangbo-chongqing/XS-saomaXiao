@@ -37,7 +37,7 @@
         <!-- 选择范读导师 -->
       <view class="works-record main-title-container"  wx:if="{{release}}">
           <!-- <view class="works-record-title main-title no-border"><text>1</text>第一步：选择我的点评导师 (当前可用点评包：{{voucher_count}})</view> -->
-          <view class="works-record-title main-title">第一步：选择我的点评导师 (当前可用点评包：{{voucher_count}})</view>
+          <view class="works-record-title main-title">第一步：选择我的点评导师 (当前课程可用点评包：{{voucher_count}})</view>
       </view>
       <view wx:if="{{release}}">
           <swiper indicator-active-color="red" indicator-color="#666" display-multiple-items="1"  indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">

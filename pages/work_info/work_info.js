@@ -44,26 +44,6 @@ Page({
     xlff_template: false,
     user_info:[],
     submit_state :1,
-    array: ['美国', '中国', '巴西', '日本'],
-    objectArray: [
-      {
-        id: 0,
-        name: '美国'
-      },
-      {
-        id: 1,
-        name: '中国'
-      },
-      {
-        id: 2,
-        name: '巴西'
-      },
-      {
-        id: 3,
-        name: '日本'
-      }
-    ],
-    index: 0,
   },
   onUnload: function () { 
     this.stop_miuse_one();
@@ -944,17 +924,17 @@ Page({
   },
   bindPickerChange: function (e) {
     this.setData({
-      form_yd: this.data.comment_yd[e.detail.value]
+      form_yd: this.data.form_yd +" "+ this.data.comment_yd[e.detail.value]
     })
   },
   bindtsdChange:function(e){
     this.setData({
-      form_tsd: this.data.comment_tsd[e.detail.value]
+      form_tsd: this.data.form_tsd +" "+ this.data.comment_tsd[e.detail.value]
     })
   },
   bindxlffChange:function(e){
     this.setData({
-      form_xl: this.data.comment_xlff[e.detail.value]
+      form_xl: this.data.form_xl +" "+ this.data.comment_xlff[e.detail.value]
     })
   }
 });
