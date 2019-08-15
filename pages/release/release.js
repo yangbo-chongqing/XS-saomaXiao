@@ -836,7 +836,6 @@ Page({
       var name = e.currentTarget.dataset.name;
       this.setData({
         select_teacher_id: id,
-        tea_show:false,
         select_teacher:name
       });
       wx.setStorageSync('select_teacher_id', id);

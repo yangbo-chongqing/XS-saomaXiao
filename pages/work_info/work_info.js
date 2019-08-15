@@ -58,7 +58,7 @@ Page({
       }else{
         var work_id = options.work_id;
       }
-      //work_id = 188593;
+    //work_id = 303285;
       wx.setStorageSync('work_id', work_id);
       if(!token){
           wx.redirectTo({

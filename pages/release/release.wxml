@@ -27,7 +27,6 @@
           <view class="works-record-title main-title">{{class_name}}</view>
        </view>   -->
         <!-- 选择范读导师 -->
-      <view>
           <view class="works-record main-title-container"  wx:if="{{release}}">
               <!-- <view class="works-record-title main-title no-border"><text>1</text>第一步：选择我的点评导师 (当前可用点评包：{{voucher_count}})</view> -->
               <!-- <view class="works-record-title main-title">第一步：选择导师 (可用点评包:{{voucher_count}})[已选：{{select_teacher}}老师]</view> -->
@@ -54,12 +53,11 @@
                       
                     </block>
                 </swiper>
+            
+              </view>  
                 <view class="null_tips" wx:if="{{!release}}">
                     <text>{{message}}</text>
                 </view>
-              </view>  
-      </view>
-        
         <view class="works-record main-title-container" wx:if="{{release}}">
            <!-- <view class="works-record-title main-title no-border"><text>2</text>第二步：开始录制作品,录制完成后点击“发布”按钮即可</view> -->
               <view class="works-record-title main-title">第二步：开始录制作品,录制完成后点击“发布”按钮即可</view>
@@ -109,6 +107,12 @@
                 录制作品</view>
             </view>
         </view>
+
+        <!-- 朗读记录 -->
+        <view class="works-record main-title-container" wx:if="{{release}}" style="background-color:#fff;">
+            <view class="works-record-title">可用点评包:{{voucher_count}}</view>
+        </view>
+
         <!-- 朗读记录 -->
         <view class="works-record main-title-container" style="background-color:#fff;">
             <view class="works-record-title">朗读记录</view>

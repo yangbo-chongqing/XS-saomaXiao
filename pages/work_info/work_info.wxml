@@ -56,7 +56,7 @@
         </view>
     </view>
     <view class="share_button">
-        <van-button class="act-btn" open-type="share" round type="danger" size="mini">转发作品
+        <van-button  plain type="danger" class="act-btn" open-type="share" size="mini">转发作品
         </van-button>
     </view>
     <!--所在班级  -->

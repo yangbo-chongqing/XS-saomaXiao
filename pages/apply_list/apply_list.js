@@ -95,6 +95,7 @@ Page({
       page_size: that.data.page_size,
       identity: that.data.select_type,
       type:that.data.switch_type,
+      class_id: wx.getStorageSync("class_id"),
       ts: ts
     };
     var cs = app.encryption(data);
