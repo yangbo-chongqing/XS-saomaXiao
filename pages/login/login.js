@@ -188,6 +188,14 @@ Page({
             wx.redirectTo({
               url: '../work_info/work_info'
             })
+          } else if (that.data.type == "release") {
+            wx.redirectTo({
+              url: '../release/release'
+            })
+          } else {
+            wx.redirectTo({
+              url: '../index/index'
+            })
           }
 					// wx.navigateTo({
 					// 	url: '/pages/index/index',

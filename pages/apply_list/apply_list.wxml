@@ -91,7 +91,7 @@
                                         <button wx:if="{{item.state == 1}}" bindtap="jump" data-url="../work_info/work_info?work_id={{item.work_info.works_id}}" class="act-btn bg-red van-button van-button--danger van-button--mini van-button--round">立即点评</button>
                                         <view wx:if="{{item.state == 2}}">
                                           <button  bindtap="jump" data-url="../work_info/work_info?work_id={{item.work_info.works_id}}" class="act-btn bg-red van-button van-button--danger van-button--mini van-button--round" style="background-color: #ccc;border-color: #ccc;">查看点评</button>
-                                          <button wx:if="{{item.evaluate_state == 1}}" bindtap="jump" data-url="../work/work?type=EvaluateList&apply_id={{item.work_info.apply_id}}" style="margin-left:5px;"  class="van-button van-button--default van-button--mini van-button--round">查看评价</button>
+                                          <!-- <button wx:if="{{item.evaluate_state == 1}}" bindtap="jump" data-url="../work/work?type=EvaluateList&apply_id={{item.work_info.apply_id}}" style="margin-left:5px;"  class="van-button van-button--default van-button--mini van-button--round">查看评价</button> -->
                                         </view>
                                     </view>
                                     <view wx:if="{{select_type == 2}}">

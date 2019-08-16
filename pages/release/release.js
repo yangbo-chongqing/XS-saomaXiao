@@ -59,15 +59,15 @@ Page({
             wx.setStorageSync('parent_id',parent_id);
         }
         var class_id = options.class_id;
-        if(!class_id){ // 当前分享页的类型
+        if(!class_id){ // 当前分享页的类型·
             class_id =  wx.getStorageSync("class_id");
         }
         wx.setStorageSync('class_id',class_id);
+
         var task_id = options.task_id;
         if(!task_id){ // 当前分享页的类型
             task_id =  wx.getStorageSync("task_id");
         }
-        // task_id = 314;
         wx.setStorageSync('task_id',task_id);
         if(!token){ // 用户未登录 则跳转到授权登录
             wx.redirectTo({
@@ -127,6 +127,7 @@ Page({
           success: function (res) {
             if (res.data.code == 200) {
               if(res.data.data.class_info){
+                  var class_id = res.data.data.class_id;
                   var name = res.data.data.class_info.school_info.school_name + '-' + res.data.data.class_info.class_name;
                   that.setData({//存值
                     class_id: class_id,
@@ -811,6 +812,7 @@ Page({
               var index = Math.floor(Math.random() * ids.length);
               that.setData({
                 select_teacher_id: ids[index],
+                select_teacher: res.data.data.tutor_list[index].name
               });
               wx.setStorageSync('select_teacher_id', ids[index]);
             }
