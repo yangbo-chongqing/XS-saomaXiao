@@ -323,3 +323,59 @@ page{
     text-align: center;
     margin-top: 15px;
 }
+
+.audio-content{
+    position: relative;
+    margin-top: 10px;
+    width: 304px;
+    margin: 20rpx auto 0;
+}
+.works-item {
+  border-bottom: 1px solid #ccc;
+  padding: 20rpx 0;
+  width: 95%;
+  margin: auto;
+}
+.vux-flexbox1 {
+  text-align: left;
+  box-align: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.works-record-duration{
+    position: absolute;
+    right: 17px;
+    bottom: 10px;
+    color: #888;
+    font-size: 12px;
+}
+.comment_image{
+  margin-top: 5px;
+  width:15%;
+  float:left; 
+  padding-left: 60rpx;
+}
+.comment_image image{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.to-detail-content{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top:0;
+    width:235px;
+}
+
+.comment_list {
+    margin-top: 5px;
+    width: 100%;
+    height: 15px;
+    background-color: #fff;
+    line-height: 15px;
+    padding-left: 60rpx;
+    box-sizing: border-box;
+}
+

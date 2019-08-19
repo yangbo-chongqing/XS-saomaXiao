@@ -172,7 +172,7 @@ Page({
             header: { "Content-Type": "application/x-www-form-urlencoded" },
             success: function (res) {
               if(res.data.code == 200){
-                  console.log(123);
+                  res.data.data.task_detail.duration = app.timeToFormat(res.data.data.task_detail.duration);
                   that.setData({
                     task_info: res.data.data.task_detail,
                     share_title:res.data.data.task_detail.task_name,
@@ -213,6 +213,10 @@ Page({
             success: function (res) {
                 app.hide_l(that);
                 if(res.data.code == 200){
+                    var list = res.data.data;
+                    for(var i=0;i<list.length;i++){
+                      list[i].duration = app.timeToFormat(list[i].duration);
+                    }
                     that.setData({
                         work_list: res.data.data
                     })

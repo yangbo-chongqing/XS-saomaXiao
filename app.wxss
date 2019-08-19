@@ -18142,6 +18142,8 @@ button::after {
   background: #fff;
   box-shadow:1 0 1px #000 inset;
   border-top:1px solid #eee;
+  z-index: 52;
+
 }
 .footer_menu view{
   width: 50%;

@@ -6,8 +6,12 @@
             <view class="lyric {{!task_info.example_url?'higher':''}}">
                 <text >{{task_info.lyric_text}}</text>
             </view>
+            <!-- <view class="aplayer-body" style="position: relative;"> -->
             <view class="aplayer-body">
-                <audio wx:if="{{task_info.example_url}}"  name="{{task_info.task_name}}" poster="{{task_info.cover_img}}" src="{{task_info.example_url}}" bindtap="play_miuse" author="{{task_info.reader_name}}" id="myAudio" controls></audio>
+                <audio wx:if="{{task_info.example_url}}"   name="{{task_info.task_name}}" poster="{{task_info.cover_img}}" src="{{task_info.example_url}}" bindtap="play_miuse" author="{{task_info.reader_name}}" id="myAudio" controls></audio>
+                 <!-- <view class="to-detail-content" style="right: 28px !important;">
+                    <view>{{task_info.duration}}</view>
+                </view> -->
             </view>
             <!--<imt-audio wx:if="{{task_info.example_url}}" src="{{task_info.example_url}}" duration="{{task_info.duration||0}}"></imt-audio>-->
         </view>
@@ -134,9 +138,11 @@
             <view class="vux-flexbox1 works-item vux-flex-col" wx:for="{{work_list}}">
                 <!--<view class="vux-flexbox-item works-impression" bindtap="jump_data" data-url="../work_info/work_info?work_id={{item.works_id}}">听听我的新作品吧！<text style="float:right;margin-right:5%;color: #0068b7;">作品详情</text></view>-->
                 <view class="audio-content">
-                    <audio src="{{item.video_url}}" name="{{item.works_name}}" poster="{{item.cover_img}}" author="{{item.author_name}}" bindtap="play_miuse" id="miuse{{item.works_id}}"  controls></audio>
+                    <audio src="{{item.video_url}}" name="{{item.works_name}}" poster="{{item.cover_img}}" author="{{item.author_name}}           {{item.duration}}" bindtap="play_miuse" id="miuse{{item.works_id}}"  controls></audio>
                     <!-- <text class="works-record-duration">{{item.duration>=60?(Math.floor(item.duration/60)+':'+(item.duration%60)):'00:'+item.duration}}</text> -->
-                    <view class="to-detail-content" bindtap="jump_data" data-url="../work_info/work_info?work_id={{item.works_id}}"></view>
+                    <view class="to-detail-content" bindtap="jump_data" data-url="../work_info/work_info?work_id={{item.works_id}}">
+                        <!-- <view>{{item.duration}}</view> -->
+                    </view>
                 </view>
                 <view class="comment_list" wx:if="{{item.teacher_comment_list[0]}}">老师点评</view>
                 <view class="comment_info" wx:for="{{item.teacher_comment_list}}"  wx:for-item="val">

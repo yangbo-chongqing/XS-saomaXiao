@@ -44,7 +44,9 @@ Page({
     xlff_template: false,
     user_info:[],
     submit_state :1,
-    tea_show:false
+    tea_show:false,
+    history_work_list:[],
+    work_id:0
   },
   onUnload: function () { 
     this.stop_miuse_one();
@@ -58,6 +60,9 @@ Page({
       }else{
         var work_id = options.work_id;
       }
+      this.setData({ 
+        work_id: work_id
+      });
       wx.setStorageSync('work_id', work_id);
       if(!token){
           wx.redirectTo({
@@ -111,6 +116,16 @@ Page({
         app.hide_l(that);
         if (res.data.code == 200) {
             var works_detail = res.data.data.works_detail;
+            if (works_detail.task_info && works_detail.class_info){
+              var tid = works_detail.task_info.task_id;
+              var cid = works_detail.class_info.class_id;
+              var mid = works_detail.author_id;
+              that.classworkslist(tid,cid,mid);
+            }
+            var audio_name = works_detail.author_name + "           " + app.timeToFormat(works_detail.duration);
+            that.setData({
+              audio_name: audio_name
+            });
             var date = new Date();
             works_detail.create_time = util.formatTimeTwo(works_detail.create_time,'Y-M-D h:m:s');
             // if (works_detail.cover_img && !that.data.share_image){
@@ -122,7 +137,7 @@ Page({
                 that.setData({//存值
                   share_title: works_detail.works_name + " " + works_detail.author + " " + util.formatTimeTwo(works_detail.duration, 'm:s')
                 })
-             }
+            }
             that.setData({//存值
                  work_info: res.data.data.works_detail,
             })
@@ -293,6 +308,26 @@ Page({
   },
   // 隐藏点评框
   comment_hide(){
+    // 停止录音
+    var that = this;
+    wx.showToast({
+      title: '录制完成',
+      icon: 'none',
+      duration: 1500,
+    })
+    //结束录音计时 
+    clearInterval(that.data.setInter);
+    clearInterval(that.data.setInter1);
+    recorderManager.stop();
+    recorderManager.onStop((res) => {
+        this.tempFilePath = res.tempFilePath;
+        that.setData({//存值
+            miuse_url: res.tempFilePath,
+            strat: false,
+            miuse_state: 1,
+            tempFilePath: res
+        })
+    })
     this.animation.translateY(800).step({ duration: 300 })
     this.setData({ animation: this.animation.export() })
   },
@@ -936,5 +971,59 @@ Page({
     this.setData({
       form_xl: this.data.form_xl +" "+ this.data.comment_xlff[e.detail.value]
     })
+  },
+  classworkslist:function(tid,cid,mid){
+    var that = this;
+    app.show_l(that);
+    var ts = Date.parse(new Date());
+    var data = {
+        member_id: wx.getStorageSync("member_id"),
+        token: wx.getStorageSync("token"),
+        page: 1,
+        page_size: 10,
+        class_id: cid,
+        student_member_id: mid,
+        task_id: tid,
+        ts: ts,
+    };
+    var cs = app.encryption(data);
+    data.cs = cs;
+    wx.request({
+        url: config.URL + "school/classwork/classworkslist",
+        data: data,
+        method: 'post',
+        header: { "Content-Type": "application/x-www-form-urlencoded" },
+        success: function (res) {
+            app.hide_l(that);
+            if (res.data.code == 200) {
+                var list = res.data.data;
+                for (var i = 0; i < list.length; i++) {
+                  list[i].duration = app.timeToFormat(list[i].duration);
+                }
+                that.setData({
+                  history_work_list: list
+                })
+            }
+        }
+    })
+  },
+  //跳转个人中心
+  work_switch(e) {
+      var that = this;
+      var work_id = e.currentTarget.dataset.url;
+      // 停止音频
+      this.stop_miuse_one();
+      // 回到顶部
+      wx.pageScrollTo({
+        scrollTop: 0
+      })
+      this.setData({
+        work_id: work_id
+      });
+      wx.setStorageSync('work_id', work_id);
+      this.getworkinfo();
+      this.hasright();
+      this.animation = wx.createAnimation()
+      this.getMembers();
   }
 });

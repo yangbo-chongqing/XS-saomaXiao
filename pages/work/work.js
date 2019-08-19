@@ -153,6 +153,7 @@ Page({
         title: '评价详情'
       })
       var apply_id = options.apply_id;
+      console.log(apply_id);
       if (!teacher_id) {
         apply_id = wx.getStorageSync("work_apply_id")
       }

@@ -165,7 +165,10 @@ Page({
     if (this.data.cinfo_list[e.detail.value].class_id) {
       this.setData({
         class_id: this.data.cinfo_list[e.detail.value].class_id,
-        class_name: this.data.cinfo_list[e.detail.value].class_name
+        class_name: this.data.cinfo_list[e.detail.value].class_name,
+        page:1,
+        works_list:[],
+        hasMore:true
       })
       this.lists();
     }

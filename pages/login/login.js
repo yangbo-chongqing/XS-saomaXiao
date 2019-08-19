@@ -33,7 +33,7 @@ Page({
 				})
 			}else if(type == "user"){
         wx.redirectTo({
-					url: '../user/user'
+          url: '../index/index'
 				})
 			}else if(type == "work_list"){
         wx.redirectTo({
@@ -174,7 +174,7 @@ Page({
 						})
 					}else if(that.data.type == "user"){
             wx.redirectTo({
-							url: '../user/user'
+              url: '../index/index'
 						})
 					}else if(that.data.type == "work_list"){
             wx.redirectTo({

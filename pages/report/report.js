@@ -28,7 +28,7 @@ Page({
         wx.setStorageSync('class_id',class_id);
         if(!token){ // 用户未登录 则跳转到授权登录
             wx.redirectTo({
-                url: '../login/login?type=work'
+                url: '../login/login?type=report'
             })
         }else{
             this.setData({
