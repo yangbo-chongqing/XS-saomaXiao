@@ -3,7 +3,13 @@
     <view class="works-detail" style="background-image: url('{{task_info.cover_img}}');">
         <!-- 顶部文档 -->
         <view class="lyric-content">
-            <view class="lyric {{!task_info.example_url?'higher':''}}">
+            <view wx:if="{{task_info.position == 0}}" class="lyric {{!task_info.example_url?'higher':''}}" style="text-align:left">
+                <text >{{task_info.lyric_text}}</text>
+            </view>
+            <view wx:if="{{task_info.position == 1}}" class="lyric {{!task_info.example_url?'higher':''}}" style="text-align:center">
+                <text >{{task_info.lyric_text}}</text>
+            </view>
+             <view wx:if="{{task_info.position == 2}}" class="lyric {{!task_info.example_url?'higher':''}}" style="text-align:right">
                 <text >{{task_info.lyric_text}}</text>
             </view>
             <!-- <view class="aplayer-body" style="position: relative;"> -->
@@ -59,7 +65,7 @@
                 </swiper>
             
               </view>  
-                <view class="null_tips" wx:if="{{!release}}">
+                <view  class="null_tips" wx:if="{{!release}}">
                     <text>{{message}}</text>
                 </view>
         <view class="works-record main-title-container" wx:if="{{release}}">

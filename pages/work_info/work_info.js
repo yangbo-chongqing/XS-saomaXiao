@@ -46,7 +46,9 @@ Page({
     submit_state :1,
     tea_show:false,
     history_work_list:[],
-    work_id:0
+    work_id:0,
+    reread:1,
+    member_id:0
   },
   onUnload: function () { 
     this.stop_miuse_one();
@@ -61,7 +63,8 @@ Page({
         var work_id = options.work_id;
       }
       this.setData({ 
-        work_id: work_id
+        work_id: work_id,
+        member_id: member_id
       });
       wx.setStorageSync('work_id', work_id);
       if(!token){
@@ -310,16 +313,16 @@ Page({
   comment_hide(){
     // 停止录音
     var that = this;
-    wx.showToast({
-      title: '录制完成',
-      icon: 'none',
-      duration: 1500,
-    })
     //结束录音计时 
     clearInterval(that.data.setInter);
     clearInterval(that.data.setInter1);
     recorderManager.stop();
     recorderManager.onStop((res) => {
+        wx.showToast({
+          title: '录制完成',
+          icon: 'none',
+          duration: 1500,
+        })
         this.tempFilePath = res.tempFilePath;
         that.setData({//存值
             miuse_url: res.tempFilePath,
@@ -505,6 +508,7 @@ Page({
       score:that.data.form_score,
       work_id: wx.getStorageSync("work_id"),
       duration: that.data.recordingTimeqwe,
+      reread: that.data.reread,
       ts: ts
     };
     var cs = app.encryption(data);
@@ -1025,5 +1029,21 @@ Page({
       this.hasright();
       this.animation = wx.createAnimation()
       this.getMembers();
+  },
+  // 修改导师点评状态
+  rChange: function (e) {
+      var val = e.detail.value;
+      if(val){
+          this.setData({
+              reread: val
+          });
+      }
+  },
+  // 跳转文稿详情
+  jump_test:function(){
+      var task_id = this.data.work_info.task_info.task_id;
+      wx.navigateTo({
+          url: '../release/release?task_id=' + task_id
+      })
   }
 });

@@ -2,7 +2,17 @@
 <view class="ss-task" style="backgroud:#fff;">
     <view class="works-detail" style="background-image: url('{{work_info.cover_img}}');">
         <!-- 顶部文档 -->
-        <view class="lyric-content">
+        <view class="lyric-content" wx:if="{{work_info.task_info.position == 0}}" style="text-align:left">
+            <text class="lyric">{{work_info.lyric_text}}</text>
+            <view class="vux-flexbox vux-flex-row"></view>
+        </view>
+        <!-- 顶部文档 -->
+        <view class="lyric-content" wx:if="{{work_info.task_info.position == 1}}" style="text-align:center">
+            <text class="lyric">{{work_info.lyric_text}}</text>
+            <view class="vux-flexbox vux-flex-row"></view>
+        </view>
+        <!-- 顶部文档 -->
+        <view class="lyric-content" wx:if="{{work_info.task_info.position == 2}}" style="text-align:right">
             <text class="lyric">{{work_info.lyric_text}}</text>
             <view class="vux-flexbox vux-flex-row"></view>
         </view>
@@ -78,8 +88,8 @@
     <!-- 老师评论列表 -->
     <view class="comment-list">
         <block wx:if="{{work_info.teacher_comment_list&&work_info.teacher_comment_list.length>0}}">
-            <view class="vux-flexbox comment-item vux-flex-row" style="align-items: flex-start;"
-                  wx:for="{{work_info.teacher_comment_list}}">
+            <view wx:for="{{work_info.teacher_comment_list}}">
+            <view class="vux-flexbox comment-item vux-flex-row" style="align-items: flex-start;">
                 <view class="vux-flexbox-item" style="margin-left: 5px; flex: 0 0 10%;">
                     <image src="{{item.teacher_avatar}}" class="teacher-avatar"></image>
                 </view>
@@ -111,7 +121,19 @@
                         </view>
                     </view>
                 </view>
-
+               
+            </view>
+            <!--提示-->
+            <van-notice-bar
+                    bindtap="jump_test"
+                    wx:if="{{item.reread == 1 && work_info.author_id == member_id}}"
+                    mode="link"
+                    left-icon="info-o"
+                    color="#1989FA"
+                    backgroundColor="#ECF9FF"
+                    text="读的真棒，导师提醒可以再读一遍哦！点击立即朗读"
+                    speed="20"
+            />
             </view>
         </block>
         <view wx:else style="text-align: center;padding-top: 40rpx;color:#999;">暂无老师点评</view>
@@ -291,6 +313,24 @@
                 </view>
             </view>
         </view>
+        <view class="van-cell van-field">
+            <view class="van-cell__title van-field__label" style="width: 4.5rem;">建议再读:</view>
+            <view class="van-cell__value">
+                <view class="van-field__body">
+                    <radio-group class="radio-group"  bindchange = "rChange">
+                        <label class="radio">
+                          <radio value="1" wx:if="{{reread=='1'}}" checked />
+                          <radio value="1" wx:else/>
+                          是
+                          <radio style="margin-left:30px;" wx:if="{{reread=='0'}}" value="0" checked/>                             <radio style="margin-left:30px;" wx:else value="0" /> 
+                          否
+                        </label>
+                    </radio-group>
+                    
+                </view>
+            </view>
+        </view>
+
         <view class="van-cell van-field">
             <view class="van-cell__value van-cell__value--alone">
                 <button wx:if="{{submit_state == 1}}" bindtap="get_qiniu_info"
