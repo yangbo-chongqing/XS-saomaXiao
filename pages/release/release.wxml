@@ -3,7 +3,7 @@
     <view class="works-detail" style="background-image: url('{{task_info.cover_img}}');">
         <!-- 顶部文档 -->
         <view class="lyric-content">
-            <view wx:if="{{task_info.position == 0}}" class="lyric {{!task_info.example_url?'higher':''}}" style="text-align:left">
+            <view wx:if="{{!task_info.position || task_info.position == 0}}" class="lyric {{!task_info.example_url?'higher':''}}" style="text-align:left">
                 <text >{{task_info.lyric_text}}</text>
             </view>
             <view wx:if="{{task_info.position == 1}}" class="lyric {{!task_info.example_url?'higher':''}}" style="text-align:center">
@@ -51,7 +51,10 @@
                             <view class="teacher-item" wx:for="{{item}}" wx:for-item="value">
                                 <view bindtap="edit_teacher" style="position: relative;" data-name="{{value.name}}"  data-url="{{value.example_reader_id}}">
                                   <image class="teacher-avatar" src="{{value.member_url}}"></image>
-                                  <view class="select"><image wx:if="{{value.example_reader_id == select_teacher_id}}" src="/images/xz.png"></image></view>
+                                  <view class="select">
+                                      <image wx:if="{{value.example_reader_id == select_teacher_id}}" src="/images/xz.png"></image>
+                                      <image wx:else src="/images/wxz.png"></image>
+                                  </view>
                                   
                                 </view>
                                 <view class="teacher-name">{{value.name}}</view>

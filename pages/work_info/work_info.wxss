@@ -378,4 +378,15 @@ page{
     padding-left: 60rpx;
     box-sizing: border-box;
 }
+.comment_name {
+    margin-top: 5px;
+    line-height: 30px;
+    font-size: 25rpx;
+}
+
+.comment_time {
+    line-height: 10px;
+    font-size: 20rpx;
+    color: #A0A0A0;
+}
 

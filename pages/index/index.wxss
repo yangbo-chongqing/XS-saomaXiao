@@ -266,7 +266,7 @@
 .select{
   width: 15px;
   height: 15px;
-  border:1px solid #eee;
+  /* border:1px solid #eee; */
   border-radius: 50%;
   position: absolute;
   right: 11px;

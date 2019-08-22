@@ -812,7 +812,7 @@ Page({
             if (arr.length > 0) {
               new_list.push(arr);
             }
-            if (!is_online) {
+            if (!is_online && ids.length) {
               var index = Math.floor(Math.random() * ids.length);
               that.setData({
                 select_teacher_id: ids[index],

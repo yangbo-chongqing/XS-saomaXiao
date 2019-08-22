@@ -23,7 +23,7 @@ Page({
       var token = wx.getStorageSync("token");
       var member_id = wx.getStorageSync("member_id");
       var class_id = wx.getStorageSync("class_id");
-      var class_name = wx.getStorageSync("current_class_name");
+      var class_name = wx.getStorageSync("my_works_class_name");
       if (!token) { // 用户未登录 则跳转到授权登录
           wx.redirectTo({
               url: '../login/login?type=my_works'

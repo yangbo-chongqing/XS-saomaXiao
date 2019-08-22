@@ -243,6 +243,7 @@ Page({
           });
           wx.setStorageSync('class_id', class_id);
           wx.setStorageSync('current_class_name', res.data.data.class_info.school_info.school_name + '-' + res.data.data.class_info.class_name)
+          wx.setStorageSync('my_works_class_name', res.data.data.class_info.class_name)
           that.getHomeWork();
           that.get_class_tea_list();
           // 查询首页统计数据

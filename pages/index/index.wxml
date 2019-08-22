@@ -42,6 +42,7 @@
                             <image class="teacher-avatar" src="{{value.member_url}}"></image>
                             <view class="select">
                               <image wx:if="{{value.example_reader_id == select_teacher_id}}" src="/images/xz.png"></image>
+                              <image wx:else src="/images/wxz.png"></image>
                             </view>
                             
                           </view>

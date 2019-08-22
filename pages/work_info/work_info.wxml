@@ -2,7 +2,7 @@
 <view class="ss-task" style="backgroud:#fff;">
     <view class="works-detail" style="background-image: url('{{work_info.cover_img}}');">
         <!-- 顶部文档 -->
-        <view class="lyric-content" wx:if="{{work_info.task_info.position == 0}}" style="text-align:left">
+        <view class="lyric-content" wx:if="{{!work_info.task_info.position || work_info.task_info.position == 0}}" style="text-align:left">
             <text class="lyric">{{work_info.lyric_text}}</text>
             <view class="vux-flexbox vux-flex-row"></view>
         </view>
