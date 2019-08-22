@@ -147,6 +147,7 @@
             <view class="vux-flexbox1 works-item vux-flex-col" wx:for="{{work_list}}">
                 <!--<view class="vux-flexbox-item works-impression" bindtap="jump_data" data-url="../work_info/work_info?work_id={{item.works_id}}">听听我的新作品吧！<text style="float:right;margin-right:5%;color: #0068b7;">作品详情</text></view>-->
                 <view class="audio-content">
+                    <view style="margin-bottom:5px;">{{item.create_time}}</view>
                     <audio src="{{item.video_url}}" name="{{item.works_name}}" poster="{{item.cover_img}}" author="{{item.author_name}}           {{item.duration}}" bindtap="play_miuse" id="miuse{{item.works_id}}"  controls></audio>
                     <!-- <text class="works-record-duration">{{item.duration>=60?(Math.floor(item.duration/60)+':'+(item.duration%60)):'00:'+item.duration}}</text> -->
                     <view class="to-detail-content" bindtap="jump_data" data-url="../work_info/work_info?work_id={{item.works_id}}">

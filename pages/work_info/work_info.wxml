@@ -371,11 +371,12 @@
     <view class="van-list" wx:if="{{history_work_list.length>0}}" style="background-color:#fff;padding-bottom:70px;margin-top:20px;">
         <view class="vux-flexbox1 works-item vux-flex-col" wx:if="{{item.works_id != work_id}}" wx:for="{{history_work_list}}">
             <view class="audio-content" >
+                <view style="margin-bottom:5px;">{{item.create_time}}</view>
                 <audio src="{{item.video_url}}" name="{{item.works_name}}" poster="{{item.cover_img}}" author="{{item.author_name}}           {{item.duration}}" bindtap="play_miuse" id="miuse{{item.works_id}}"  controls></audio>
                 <!-- <text class="works-record-duration">{{item.duration>=60?(Math.floor(item.duration/60)+':'+(item.duration%60)):'00:'+item.duration}}</text> -->
                 <view class="to-detail-content" bindtap="work_switch" data-url="{{item.works_id}}"></view>
             </view>
-            <view class="comment_list" wx:if="{{item.teacher_comment_list[0]}}">老师点评</view>
+            <view class="comment_list" wx:if="{{item.teacher_comment_list[0]}}">导师点评</view>
             <view class="comment_info" wx:for="{{item.teacher_comment_list}}"  wx:for-item="val">
                 <view class="comment_image"><image src="{{val.teacher_avatar}}"></image></view>
                 <view class="comment_content">
@@ -383,7 +384,7 @@
                       <view class="comment_name">{{val.teacher_name}}</view>
                       <view class="comment_time">{{val.comment_time}}</view>
                   </view>
-                  <view style="margin-top:20px;">
+                  <view style="margin-top:13px;">
                       <!-- <view wx:if="{{val.comment_id != play_miuse_id}}" class="comment_bf" data-id="{{val.comment_id}}" data-url="{{val.voice_comment}}" bindtap="play_comment"><image src="/images/cbf.png"></image></view>
                       <view wx:if="{{val.comment_id == play_miuse_id}}" class="comment_bf" data-id="{{val.comment_id}}" data-url="{{val.voice_comment}}" bindtap="play_comment"><image src="/images/czt.png"></image></view> -->
                       <view style="width:67px;height:67px;overflow:hidden;float:left;margin-left:15%;"><audio src="{{val.voice_comment}}" bindtap="play_miuse" id="common{{val.comment_id}}" poster="https://resource.xunsheng.org.cn/20190808115253-task-cover-283.jpg" name="老师点评" controls></audio></view>
