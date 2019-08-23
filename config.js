@@ -17,9 +17,6 @@ var config = {
   QIUNIU_URL: "https://up.qbox.me/",
   LANG_INTEGRAL:"寻声",
   PROJECT_NAME:"xunsheng",
-
-  // LANG_INTEGRAL:"寻声",
-  // PROJECT_NAME:"xunsheng",
 }
 module.exports = config;
   
