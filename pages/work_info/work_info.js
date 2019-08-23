@@ -142,6 +142,11 @@ Page({
                   share_title: works_detail.works_name + " " + works_detail.author + " " + util.formatTimeTwo(works_detail.duration, 'm:s')
                 })
             }
+            if (res.data.data.works_detail.class_info && res.data.data.works_detail.class_info.class_name){
+              wx.setNavigationBarTitle({
+                title: res.data.data.works_detail.class_info.class_name
+              })
+            }
             that.setData({//存值
                  work_info: res.data.data.works_detail,
             })

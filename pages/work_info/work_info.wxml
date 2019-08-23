@@ -73,9 +73,9 @@
     <view wx:if="{{apply_content}}" class="class_view">
         {{apply_content}}
     </view>
-    <view class="class_view">
+    <!-- <view class="class_view">
         所在班级：{{work_info.class_info.class_name}}
-    </view>
+    </view> -->
     <!-- 老师评论 -->
     <view class="works-record">
         <view class="works-record-title" style="width:50%;float:left;">老师评论</view>

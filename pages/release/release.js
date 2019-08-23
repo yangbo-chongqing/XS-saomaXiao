@@ -62,12 +62,14 @@ Page({
         if(!class_id){ // 当前分享页的类型·
             class_id =  wx.getStorageSync("class_id");
         }
+        // class_id = 9706
         wx.setStorageSync('class_id',class_id);
 
         var task_id = options.task_id;
         if(!task_id){ // 当前分享页的类型
             task_id =  wx.getStorageSync("task_id");
         }
+        // task_id = 26;
         wx.setStorageSync('task_id',task_id);
         if(!token){ // 用户未登录 则跳转到授权登录
             wx.redirectTo({
@@ -821,10 +823,20 @@ Page({
               wx.setStorageSync('select_teacher_id', ids[index]);
             }
             if (res.data.data.tutor_list.length == 0){
-                that.setData({
-                  release: false,
-                  message: '班级暂无导师在线, 无法录制作品'
-                });
+                if (res.data.data.is_square == 1){
+                    that.setData({
+                      release: true,
+                      message: '班级暂无导师在线, 无法录制作品',
+                      select_teacher_id: 0,
+                    });
+                }else{
+                    that.setData({
+                      release: false,
+                      message: '班级暂无导师在线, 无法录制作品',
+                      select_teacher_id: 0,
+                    });
+                }
+                
             }
             that.setData({
               teacher_ids: ids,
@@ -857,6 +869,7 @@ Page({
             works_id: works_id,
             ts: ts
         };
+        wx.setStorageSync('work_id', data.works_id);
         var cs = app.encryption(data);
         data.cs = cs;
         // app.show_l(that);
