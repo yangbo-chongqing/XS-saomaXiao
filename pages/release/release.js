@@ -891,6 +891,7 @@ Page({
                       icon: 'none',
                       duration: 4500,
                     })
+                    wx.setStorageSync('work_id', data.works_id);
                     setTimeout(function () {
                       wx.redirectTo({
                         url: '../work_info/work_info'

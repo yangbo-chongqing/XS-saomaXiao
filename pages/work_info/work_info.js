@@ -62,6 +62,7 @@ Page({
       }else{
         var work_id = options.work_id;
       }
+      //work_id = 338738;
       this.setData({ 
         work_id: work_id,
         member_id: member_id
