@@ -41,8 +41,8 @@
               <!-- <view class="works-record-title main-title no-border"><text>1</text>第一步：选择我的点评导师 (当前可用点评包：{{voucher_count}})</view> -->
               <!-- <view class="works-record-title main-title">第一步：选择导师 (可用点评包:{{voucher_count}})[已选：{{select_teacher}}老师]</view> -->
 
-            <view class="works-record-title main-title" wx:if="{{select_teacher}}" style="width:85%;float:left;">第一步：选择导师[已选：{{select_teacher}}老师]</view>
-            <view class="works-record-title main-title" wx:else style="width:85%;float:left;">第一步：选择导师</view>     
+            <view class="works-record-title main-title" wx:if="{{select_teacher}}" style="width:85%;float:left;">第一步：可选导师[已选：{{select_teacher}}老师]</view>
+            <view class="works-record-title main-title" wx:else style="width:85%;float:left;">第一步：可选导师</view>     
             <view bindtap="show_teacher" data-id="1" style="float:left;width:10%;" wx:if="{{!tea_show}}"><image src="/images/zxl.png" style="width:17px;height:17px;"></image></view>
             <view bindtap="show_teacher" data-id="0" style="float:left;width:10%;" wx:if="{{tea_show}}"><image src="/images/zsl.png" style="width:17px;height:17px;"></image></view>
           </view>
@@ -69,6 +69,9 @@
                     </block>
                 </swiper>
             
+              </view>
+              <view wx:if="{{tea_show && teacher_list.length == 0}}" class="null_tips">
+                  <text>{{message}}</text>
               </view>  
                 <view  class="null_tips" wx:if="{{!release}}">
                     <text>{{message}}</text>

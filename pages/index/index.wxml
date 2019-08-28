@@ -29,7 +29,7 @@
           </block>
       </view>
       <view class=" main-title-container">
-          <view class="works-record-title main-title">我的首选点评导师</view>
+          <view class="works-record-title main-title">可选导师</view>
           <!-- <view bindtap="jump" data-url="../report/report" style="float: right;padding-right: 5%;color:#0068b7;">更多»</view> -->
       </view>
       {{}}

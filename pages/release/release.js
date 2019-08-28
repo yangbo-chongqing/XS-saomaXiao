@@ -795,55 +795,60 @@ Page({
             var is_online = false;
             var new_list = [];
             var arr = [];
-            for (var i = 0; i < res.data.data.tutor_list.length; i++) {
-              if (that.data.select_teacher_id == res.data.data.tutor_list[i].example_reader_id) {
-                is_online = true;
-                that.setData({
-                  select_teacher: res.data.data.tutor_list[i].name
-                });
-              }
-              ids[i] = res.data.data.tutor_list[i].example_reader_id;
-              if (arr.length == 4) {
-                new_list.push(arr);
-                arr = [];
-                arr.push(res.data.data.tutor_list[i]);
-              } else {
-                arr.push(res.data.data.tutor_list[i]);
-              }
-            }
-            if (arr.length > 0) {
-              new_list.push(arr);
-            }
-            if (!is_online && ids.length) {
-              var index = Math.floor(Math.random() * ids.length);
-              that.setData({
-                select_teacher_id: ids[index],
-                select_teacher: res.data.data.tutor_list[index].name
-              });
-              wx.setStorageSync('select_teacher_id', ids[index]);
-            }
-            if (res.data.data.tutor_list.length == 0){
-                if (res.data.data.is_square == 1){
-                    that.setData({
-                      release: true,
-                      message: '班级暂无导师在线, 无法录制作品',
-                      select_teacher_id: 0,
-                    });
-                }else{
-                    that.setData({
-                      release: false,
-                      message: '班级暂无导师在线, 无法录制作品',
-                      select_teacher_id: 0,
-                    });
+            if (res.data.data.voucher_count > 0 ){
+              console.log(123);
+              for (var i = 0; i < res.data.data.tutor_list.length; i++) {
+                if (that.data.select_teacher_id == res.data.data.tutor_list[i].example_reader_id) {
+                  is_online = true;
+                  that.setData({
+                    select_teacher: res.data.data.tutor_list[i].name
+                  });
                 }
-                
+                ids[i] = res.data.data.tutor_list[i].example_reader_id;
+                if (arr.length == 4) {
+                  new_list.push(arr);
+                  arr = [];
+                  arr.push(res.data.data.tutor_list[i]);
+                } else {
+                  arr.push(res.data.data.tutor_list[i]);
+                }
+              }
+              if (arr.length > 0) {
+                new_list.push(arr);
+              }
+              if (!is_online && ids.length) {
+                var index = Math.floor(Math.random() * ids.length);
+                that.setData({
+                  select_teacher_id: ids[index],
+                  select_teacher: res.data.data.tutor_list[index].name
+                });
+                wx.setStorageSync('select_teacher_id', ids[index]);
+              }
+              if (res.data.data.tutor_list.length == 0) {
+                //if (res.data.data.is_square == 1){
+                that.setData({
+                  release: true,
+                  message: '班级暂无导师在线',
+                  select_teacher_id: 0,
+                });
+                //}else{
+                //    that.setData({
+                //      release: false,
+                //      message: '班级暂无导师在线, 无法录制作品',
+                //      select_teacher_id: 0,
+                //    });
+                //}
+
+              }
+              that.setData({
+                teacher_ids: ids,
+                // k_all: k_all,
+                // teacher_list: res.data.data.tutor_list
+                teacher_list: new_list
+              });
+            //that.release_verification();
             }
-            that.setData({
-              teacher_ids: ids,
-             // k_all: k_all,
-             // teacher_list: res.data.data.tutor_list
-              teacher_list: new_list
-            });
+            
           }
         }
       })
@@ -852,10 +857,18 @@ Page({
     edit_teacher(e) {
       var id = e.currentTarget.dataset.url;
       var name = e.currentTarget.dataset.name;
-      this.setData({
-        select_teacher_id: id,
-        select_teacher:name
-      });
+      if (this.data.select_teacher_id == id){
+          this.setData({
+            select_teacher_id: 0,
+            select_teacher: ''
+          });
+      }else{
+          this.setData({
+            select_teacher_id: id,
+            select_teacher: name
+          });
+      }
+    
       wx.setStorageSync('select_teacher_id', id);
     },
     // 申请老师点评
@@ -902,14 +915,14 @@ Page({
                     wx.showToast({
                       title: "发布成功",
                       icon: 'none',
-                      duration: 4500,
+                      duration: 3000,
                     })
                     wx.setStorageSync('work_id', data.works_id);
                     setTimeout(function () {
                       wx.redirectTo({
                         url: '../work_info/work_info'
                       });
-                    }, 4000);
+                    }, 3000);
                 }
               }
         })
@@ -935,6 +948,7 @@ Page({
               'content-type': 'application/x-www-form-urlencoded',
             },
             success: function (res) {
+                app.hide_l(that);
                 if(res.data.code == 200){ // 
                     if(res.data.data.class_state == 0){
                         that.setData({
@@ -943,7 +957,11 @@ Page({
                         });
                     } else if (res.data.data.voucher_count == 0){
                         that.setData({
-                          release: false,
+                          //release: false,
+                          select_teacher_id:0,
+                          teacher_ids: [],
+                          teacher_list: [],
+                          select_teacher:'',
                           message: res.data.data.voucher_message,
                         });
                     }

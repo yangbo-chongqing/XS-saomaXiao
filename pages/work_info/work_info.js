@@ -1047,6 +1047,7 @@ Page({
   },
   // 跳转文稿详情
   jump_test:function(){
+      this.stop_miuse_one();
       var task_id = this.data.work_info.task_info.task_id;
       wx.navigateTo({
           url: '../release/release?task_id=' + task_id

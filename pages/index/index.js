@@ -159,7 +159,7 @@ Page({
                 }else{
                   var list = that.data.work_list.concat(res.data.data);
                 }
-                
+  
                 if(res.data.data.length<that.data.page_size){
                     that.setData({
                         hasMore: false
@@ -222,7 +222,10 @@ Page({
       success: function (res) {
         if (res.data.code == 200) {
           var class_id = res.data.data.class_id;
-          var banner_img = res.data.data.class_info.head_img;
+          if (res.data.data.class_info.head_img){
+            var banner_img = res.data.data.class_info.head_img;
+          }
+         
           if (res.data.data.class_info.class_name){
              var class_name = res.data.data.class_info.class_name;
              wx.setNavigationBarTitle({
@@ -310,8 +313,7 @@ Page({
             if (arr.length > 0){
               new_list.push(arr);
             }
-            if(!is_online){
-              console.log(123);
+          if (!is_online && res.data.data.voucher_count > 0){
               var index = Math.floor(Math.random() * ids.length); 
               that.setData({
                 select_teacher_id: ids[index],
@@ -329,9 +331,16 @@ Page({
   },
   edit_teacher(e){
     var id = e.currentTarget.dataset.url;
-    this.setData({
-      select_teacher_id: id,
-    });
+    if (this.data.select_teacher_id == id){
+      this.setData({
+        select_teacher_id: 0,
+      });
+    }else{
+      this.setData({
+        select_teacher_id: id,
+      });
+    }
+   
     wx.setStorageSync('select_teacher_id', id);
   },
   get_statistical_data(){
