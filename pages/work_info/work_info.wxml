@@ -1,6 +1,6 @@
 <view wx:if="{{loading}}" class="loading_background"></view>
 <view class="ss-task" style="backgroud:#fff;">
-    <view class="works-detail" style="background-image: url('{{work_info.cover_img}}');">
+    <view class="works-detail" wx:if="{{work_info.works_type == 'audio'}}" style="background-image: url('{{work_info.cover_img}}');">
         <!-- 顶部文档 -->
         <view class="lyric-content" wx:if="{{!work_info.task_info.position || work_info.task_info.position == 0}}" style="text-align:left">
             <text class="lyric">{{work_info.lyric_text}}</text>
@@ -26,6 +26,10 @@
             </view>
         </view>
     </view>
+    <!-- 视频 -->
+     <view class="works-detail" wx:if="{{work_info.works_type == 'video'}}">
+        <video src="{{work_info.video_url}}" style="width:100%;height:100%"  controls ></video>
+     </view>
 
     <view wx:if="{{apply_count > 0}}" bindtap="next_work" class="waiting">
         <image src="/images/ld.png" style="width:20px;height:20px;"></image>
