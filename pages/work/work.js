@@ -258,7 +258,7 @@ Page({
 //                    })
                           wx.showModal({
                             title: '温馨提示',
-                            content: '恭喜你分享成功',
+                            content: res.data.msg,
                             showCancel: false,
                             confirmText: '我知道了',
                             success: (res) => {
