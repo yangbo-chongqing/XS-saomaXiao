@@ -211,7 +211,7 @@ Page({
     };
     if (!that.data.select_id){
       wx.showToast({
-        title: "请选择付费导师",
+        title: "请选择点评导师",
         icon: 'none',
         duration: 1500,
       })

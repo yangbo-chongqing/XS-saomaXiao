@@ -63,8 +63,8 @@ Page({
               var parent_id = options.parent_id;
               wx.setStorageSync('parent_id', parent_id);
           }
-          var class_id = options.class_id||'9698';
-          if (class_id) {
+          var class_id = options.class_id||0;
+          if (!class_id) {
             class_id = wx.getStorageSync("class_id");
           }
        // class_id = 10254;
@@ -72,6 +72,7 @@ Page({
           this.setData({
             class_id: class_id
           });
+          console.log(class_id);
       }
       if(!token){
           wx.redirectTo({
