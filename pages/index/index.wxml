@@ -5,6 +5,11 @@
       </view>
       <view wx:if="{{!is_login}}" style="width:80%;margin-left:10%;text-align:center;margin-top:50px;">
           您还未进行登录，需要<span style="color:red;" bindtap="tab_swiper" data-url="2">登录</span>才可以进行阅读
+          <view class="w-100 loginbox" style="margin-top:20px;">
+            <button bindtap="tab_swiper" data-url="2">
+              <text style="color: #fff;">立即登录</text>
+            </button>
+          </view>
       </view>
       <view wx:if="{{is_login}}">
               <view class="works-record main-title-container">
