@@ -8,6 +8,11 @@
       <text>微信登录</text>
     </button>
   </view>
+   <view class="w-100" style="margin-top:20px;">
+      <button bindtap="jump_index" open-type="getUserInfo" style="line-height:50px;" >
+        <text>返回首页</text>
+      </button>
+    </view>
 </view>
 <view class="tel_bin_box" wx:if="{{is_tel}}">
   <image src="/images/logo.png" class="logo" mode="widthFix"></image>
@@ -18,5 +23,10 @@
     <image class="w-10 wx_login" mode="widthFix" src="../../images/wx_login.png" />
     <text>电话授权</text>
   </button>
+  <view class="w-100" style="margin-top:20px;">
+      <button bindtap="jump_index" open-type="getUserInfo" style="line-height:50px;" >
+        <text>返回首页</text>
+      </button>
+    </view>
 </view>
 <button open-type="contact" session-from="weapp" id="service" style='display:none'></button>

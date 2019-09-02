@@ -10,7 +10,7 @@ Page({
     share_title:"寻声朗读",
     share_url:"",
     share_image:"https://resource.xunsheng.org.cn/xsds_banner.png",
-    banner_img:'',
+    banner_img:'http://resource.xunsheng.org.cn/20190731181352-task-cover-283.jpg',
     class_name:'',
     index_tab:1,
     user_info:[],
@@ -37,7 +37,8 @@ Page({
     class_content_less_count:50,
     showMoreDescState:false,
     c_list:[],
-    cinfo_list:[]
+    cinfo_list:[],
+    is_login:false
   },
   onPullDownRefresh: function () {
       wx.stopPullDownRefresh();
@@ -67,7 +68,7 @@ Page({
           if (!class_id) {
             class_id = wx.getStorageSync("class_id");
           }
-       // class_id = 10254;
+          // class_id = 10254;
           wx.setStorageSync('class_id', class_id);
           this.setData({
             class_id: class_id
@@ -75,12 +76,13 @@ Page({
           console.log(class_id);
       }
       if(!token){
-          wx.redirectTo({
-              url: '../login/login?type=index'
-          })
+          // wx.redirectTo({
+          //     url: '../login/login?type=index'
+          // })
       }else{
           this.setData({
-            select_teacher_id: select_teacher_id
+            select_teacher_id: select_teacher_id,
+            is_login:true
           });
           this.getClassInfo();
           this.getMembers();
@@ -263,10 +265,17 @@ Page({
     })
   },
   tab_swiper(e){
-    var url = e.currentTarget.dataset.url;
-    this.setData({
-      index_tab: url
-    });
+    if(!this.data.is_login){
+      wx.redirectTo({
+          url: '../login/login?type=index'
+      })
+    }else{
+        var url = e.currentTarget.dataset.url;
+        this.setData({
+          index_tab: url
+        });
+    }
+   
   },
   // 查询班级付费导师
   get_class_tea_list(){

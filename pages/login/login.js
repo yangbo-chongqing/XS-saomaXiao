@@ -83,7 +83,8 @@ Page({
 						},
 						success: function (res) {
 							app.hide_l(that);
-							if (!res.data.data.is_tel) {
+              
+              if (res.data.data && !res.data.data.is_tel) {
 								that.setData({
 									is_tel: true,
 									state: res.data.data.state,
@@ -109,6 +110,11 @@ Page({
 		
 		}
 	},
+  jump_index:function(){
+      wx.redirectTo({
+        url: '../index/index'
+      })
+  },
 	getPhoneNumber: function (e) { //点击获取手机号码按钮
 		var that = this;
 		wx.login({

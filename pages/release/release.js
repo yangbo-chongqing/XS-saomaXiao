@@ -62,7 +62,7 @@ Page({
         if(!class_id){ // 当前分享页的类型·
             class_id =  wx.getStorageSync("class_id");
         }
-        // class_id = 9706
+        //class_id = 10266
         wx.setStorageSync('class_id',class_id);
 
         var task_id = options.task_id;
