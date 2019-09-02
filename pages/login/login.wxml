@@ -9,7 +9,7 @@
     </button>
   </view>
    <view class="w-100" style="margin-top:20px;">
-      <button bindtap="jump_index" open-type="getUserInfo" style="line-height:50px;" >
+      <button bindtap="jump_index" style="line-height:50px;" >
         <text>返回首页</text>
       </button>
     </view>
@@ -24,7 +24,7 @@
     <text>电话授权</text>
   </button>
   <view class="w-100" style="margin-top:20px;">
-      <button bindtap="jump_index" open-type="getUserInfo" style="line-height:50px;" >
+      <button bindtap="jump_index" style="line-height:50px;" >
         <text>返回首页</text>
       </button>
     </view>
