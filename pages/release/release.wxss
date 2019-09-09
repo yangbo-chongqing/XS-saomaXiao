@@ -403,3 +403,13 @@ swiper{
   color: #666;
   margin: 35px 0;
 }
+.loginbox button {
+  width: 80%;
+  border-radius: 30px;
+  display: block;
+  margin: 0 auto;
+  height: 35px;
+  line-height: 35px;
+  background: #0bb20c!important;
+  text-align: center;
+}

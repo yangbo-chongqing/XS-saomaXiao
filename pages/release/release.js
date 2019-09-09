@@ -41,7 +41,8 @@ Page({
         release:true,
         message:'',
         voucher_count:0,
-        select_teacher:''
+        select_teacher:'',
+        is_login:true
     },
     onUnload: function () {
       this.stop_miuse_one();
@@ -71,10 +72,26 @@ Page({
         }
         // task_id = 26;
         wx.setStorageSync('task_id',task_id);
+
+        var is_login = options.is_login;
+        if (!is_login) { // 当前分享页的类型·
+          is_login = 0;
+        }
+
         if(!token){ // 用户未登录 则跳转到授权登录
+          if (is_login == 1){
+              this.setData({
+                  is_login:false,
+                  task_id: task_id,
+                  class_id: class_id,
+                  class_name: wx.getStorageSync("current_class_name")
+              })
+              this.get_tast_info();
+          }else{
             wx.redirectTo({
-                url: '../login/login?type=release'
+              url: '../login/login?type=release'
             })
+          }
         }else{
             this.setData({
                 task_id: task_id,
@@ -984,5 +1001,10 @@ Page({
               tea_show: false,
           });
       }
+    },
+    jump_login(){
+      wx.redirectTo({
+        url: '../login/login?type=release'
+      })
     }
 });

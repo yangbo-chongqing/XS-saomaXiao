@@ -42,11 +42,15 @@ Page({
   },
   onPullDownRefresh: function () {
       wx.stopPullDownRefresh();
-      this.getClassInfo();
-      this.getMembers();
-      // 查询首页统计数据
-      this.get_statistical_data();
-      this.my_class_list();
+      if(!this.data.is_login){
+        this.get_work_cats();
+      }else{
+        this.getClassInfo();
+        this.getMembers();
+        // 查询首页统计数据
+        this.get_statistical_data();
+        this.my_class_list();
+      }
   },
   onLoad: function (options) {
     
@@ -76,6 +80,7 @@ Page({
           console.log(class_id);
       }
       if(!token){
+          this.get_work_cats();
           // wx.redirectTo({
           //     url: '../login/login?type=index'
           // })
@@ -440,5 +445,37 @@ Page({
       this.getClassInfo();
       this.getMembers();
     }
+  },
+  get_work_cats:function(){
+    var that = this;
+    var ts = Date.parse(new Date());
+    var data = {
+      app_ver: '4.1.5',
+      hallid:'xunsheng',
+      museid:'xslmx'
+    };
+    var cs = app.encryption(data);
+    data.cs = cs;
+    app.show_l(that);
+    wx.request({
+      url: config.URL + "task/default/index",
+      data: data,
+      method: 'post',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
+      success: function (res) {
+        app.hide_l(that);
+        if(res.data.code == 200){
+          var list = res.data.data.task_list;
+          for (var i = 0; i < list.length; i++) {
+            list[i].duration = app.formatSeconds(list[i].duration);
+          }
+          that.setData({
+            work_list: list
+          });
+        }
+      }
+    })
   },
 });

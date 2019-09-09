@@ -5,12 +5,12 @@
   <view class="w-100">
     <button open-type="getUserInfo" bindgetuserinfo="onGotUserInfo">
       <image class="w-10 wx_login" src="../../images/wx_login.png" />
-      <text>微信登录</text>
+      <text>微信授权</text>
     </button>
   </view>
    <view class="w-100" style="margin-top:20px;">
       <button bindtap="jump_index" style="line-height:50px;" >
-        <text>返回首页</text>
+        <text>拒绝授权</text>
       </button>
     </view>
 </view>
