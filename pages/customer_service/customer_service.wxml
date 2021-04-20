@@ -1,0 +1,5 @@
+<!--pages/customer_service/customer_service.wxml-->
+<view class="service">
+  <button class="service-btn" session-from="{'member_id':{{member_id}}}" open-type="contact"><image class="service-img" src="/images/server.png"></image></button>
+</view>
+

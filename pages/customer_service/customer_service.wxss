@@ -1,0 +1,17 @@
+/* pages/customer_service/customer_service.wxss */
+.service{
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.service-btn{
+  width: 100vw;
+  height: 100vh;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+.service-img{
+  width: 100vw;
+  height: 100vh;
+}

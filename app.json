@@ -10,7 +10,8 @@
     "pages/work_info/work_info",
     "pages/release/release",
     "pages/apply_for/apply_for",
-    "pages/my_works/my_works"
+    "pages/my_works/my_works",
+    "pages/customer_service/customer_service"
   ],
   "window": {
     "backgroundTextStyle": "light",
