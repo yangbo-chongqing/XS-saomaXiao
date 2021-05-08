@@ -173,21 +173,37 @@
   display: inline-block;
   height: 30px;
 }
-.loginbox button{
+.loginbox .myBtn button{
   width: 80%;
-  border-radius: 30px;
+  border-radius: 10px;
   display: block;
   margin: 0 auto;
-  height: 35px;
-  line-height: 35px;
-  background: #0bb20c!important;
+  height: 40px;
+  line-height: 40px !important;
+  background: #F5F5F5 !important;
+  text-align: center;
+}
+.loginbox .myBtn text{
+  color: #999999;
+  position: relative;
+  margin-left: 10px;
+  font-size:32rpx
+}
+.loginbox button{
+  width: 80%;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+  height: 40px;
+  line-height: 40px !important;
+  background: #FF80AB !important;
   text-align: center;
 }
 .loginbox text{
   color: #fff;
   position: relative;
-  top: -10px;
   margin-left: 10px;
+  font-size:32rpx
 }
 .wx_title{
   text-align: center;
@@ -260,4 +276,31 @@
 .loginbox .logo,.tel_bin_box .logo{
   width: 200rpx;
   margin:80rpx auto 0;
+}
+.titFont{
+  color:#999999;
+  font-size:32rpx;
+  margin-top:18rpx;
+}
+.borderBt{
+  width:80%;
+  margin-top:60rpx;
+  margin-left:10%
+}
+.centerFont{
+  color:#333333;
+  font-size:32rpx;
+  width:80%;
+  text-align: left;
+  margin-left:10%;
+  margin-top:30rpx;
+}
+.bottomFont{
+  font-size:32rpx;
+  width:80%;
+  text-align: left;
+  margin-left:10%;
+  margin-top:20rpx;
+  color:#999999;
+
 }

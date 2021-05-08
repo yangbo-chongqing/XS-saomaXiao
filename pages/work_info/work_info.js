@@ -2,94 +2,137 @@
 //获取应用实例
 const config = require('../../config.js');
 const md5 = require('../../utils/md5.js');
+
 const util = require('../../utils/util.js');
 const app = getApp();
 const recorderManager = wx.getRecorderManager();
-const innerAudioContext = wx.createInnerAudioContext();
+// const innerAudioContext = wx.createInnerAudioContext();
+let innerAudioContext = null;
+
 Page({
   data: {
-    work_info:[],
-    share_title:"寻声朗读",
-    share_url:"",
-    share_image:"https://resource.xunsheng.org.cn/xsds_banner.png",
-    audioCtx:[],
-    grade_arr:['','D','C','B','A','S'],
+    work_info: [],
+    share_title: "寻声朗读",
+    share_url: "",
+    share_image: "https://resource.xunsheng.org.cn/xsds_banner.png",
+    audioCtx: [],
+    grade_arr: ['', 'D', 'C', 'B', 'A', 'S'],
     is_play: 0,
     play_miuse_id: '',
-    form_grade : '',
-    form_score :0,
-    form_star_count:0, //星星数量
-    hasright:0,
+    loadding:false,
+    form_grade: '',
+    loading:true,
+    form_score: 0,
+    form_star_count: 0, //星星数量
+    hasright: 0,
     recordingTimeqwe: 0,
     miuse_state: 1,
     miuse_url: '',
     setInter: "",//录音名称
     strat: false,
-    form_yd:'', // 优点
-    form_tsd:'',// 提升点
-    form_xl:'', // 训练
-    is_apply:'',
-    apply_content:'',
-    apply_count:0,
-    next_apply:0,
+    form_yd: '', // 优点
+    form_tsd: '',// 提升点
+    form_xl: '', // 训练
+    is_apply: '',
+    apply_content: '',
+    apply_count: 0,
+    //底部评论音频
+    // isPlay: [false, false, false, false, false, false, false, false],
+    // playTime: [0, 0, 0, 0, 0, 0, 0, 0],
+    // typeId: null,
+    // seekArry: [0, 0, 0, 0, 0, 0, 0, 0],
+    //
+    next_apply: 0,
     minute: '0' + 0,   // 分
     second: '0' + 0,    // 秒
-    my_work:false,
-    show_grade_tip:false, //五星好评提示
-    comment_yd:[], // 提升点范文
-    yd_template: false, 
+    my_work: false,
+    show_grade_tip: false, //五星好评提示
+    comment_yd: [], // 提升点范文
+    yd_template: false,
     comment_tsd: [], // 提升点范文
     tsd_template: false,
     comment_xlff: [], // 提升点范文
     xlff_template: false,
-    user_info:[],
-    submit_state :1,
-    tea_show:false,
-    history_work_list:[],
-    work_id:0,
-    reread:1,
-    member_id:0
+    user_info: [],
+    submit_state: 1,
+    tea_show: false,
+    history_work_list: [],
+    work_id: 0,
+    reread: 1,
+    member_id: 0,
+    //音频
+    isPlayAudio: true,
+    // audioSeek: 0,
+    // audioDuration: 0,
+    showTime1: 0,
+    // showTime2: '00:00',
+    // audioTime: 0,
+    // videoUrl: '',
   },
-  onUnload: function () { 
+  onUnload: function () {
     this.stop_miuse_one();
   },
   onLoad: function (options) {
-      var token = wx.getStorageSync("token");
-      var member_id = wx.getStorageSync("member_id");
-      var work_id = '';
-      if (!options.work_id){
-        var work_id = wx.getStorageSync("work_id");
-      }else{
-        var work_id = options.work_id;
-      }
-      //work_id = 56803;
-      this.setData({ 
-        work_id: work_id,
-        member_id: member_id
-      });
-      wx.setStorageSync('work_id', work_id);
-      if(!token){
-          wx.redirectTo({
-              url: '../login/login?type=work_info'
-          })
-      }else{
-        this.getworkinfo();
-        this.hasright();
-        this.animation = wx.createAnimation()
-        this.getMembers();
-      }
-      if(options.showShareTip=='1'){
-        wx.showModal({
-          title: '温馨提示',
-          content:'点击转发作品分享至微信班级群，提醒导师及时点评；如需查看点评进度，请进入个人中心->我的点评查看。',
-          showCancel:false,
-          confirmText:'我知道了',
-          success:(res)=>{
-            if(res.confirm){
-            }
+
+    innerAudioContext = wx.createInnerAudioContext();
+    innerAudioContext.onSeeked(res => {
+      console.log(res)
+    });
+    innerAudioContext.onSeeking(res => {
+      console.log(232)
+    })
+    var token = wx.getStorageSync("token");
+    var member_id = wx.getStorageSync("member_id");
+    var work_id = '';
+    if (!options.work_id) {
+      var work_id = wx.getStorageSync("work_id");
+    } else {
+      var work_id = options.work_id;
+    }
+    //work_id = 56803;
+    this.setData({
+      work_id: work_id,
+      member_id: member_id
+    });
+    wx.setStorageSync('work_id', work_id);
+    if (!token) {
+      wx.redirectTo({
+        url: '../login/login?type=work_info'
+      })
+    } else {
+      this.getworkinfo();
+      this.hasright();
+      this.animation = wx.createAnimation()
+      this.getMembers();
+    }
+    if (options.showShareTip == '1') {
+      wx.showModal({
+        title: '温馨提示',
+        content: '点击转发作品分享至微信班级群，提醒导师及时点评；如需查看点评进度，请进入个人中心->我的点评查看。',
+        showCancel: false,
+        confirmText: '我知道了',
+        success: (res) => {
+          if (res.confirm) {
           }
-        })
+        }
+      })
+    }
+  },
+  onPlayEvent(e) {
+    console.log("event", e.detail)
+    if(e.detail.pid!='p99'){
+      this.selectComponent("#p99").pause()
+    }
+    let id=e.detail.pid.split('p')[1]
+    console.log(this.data.work_info.teacher_comment_list.length)
+    for(let i=0;i<this.data.work_info.teacher_comment_list.length;i++){
+      console.log(1)
+      if(i!==e.detail.pid&&this.data.work_info.teacher_comment_list[i].voice_comment){
+        console.log(this.data.work_info.teacher_comment_list[i].voice_comment)
+
+        this.selectComponent("#"+"p" + i).pause()
       }
+    }
   },
   onPullDownRefresh: function () {
     wx.stopPullDownRefresh();
@@ -97,7 +140,7 @@ Page({
     this.hasright();
   },
   // 获取作品详情
-  getworkinfo:function(){
+  getworkinfo: function () {
     var that = this;
     app.show_l(that);
     var ts = Date.parse(new Date());
@@ -105,7 +148,7 @@ Page({
       member_id: wx.getStorageSync("member_id"),
       token: wx.getStorageSync("token"),
       works_id: wx.getStorageSync("work_id"),
-      ts:ts
+      ts: ts
     };
     var cs = app.encryption(data);
     data.cs = cs;
@@ -119,78 +162,79 @@ Page({
       success: function (res) {
         app.hide_l(that);
         if (res.data.code == 200) {
-            var works_detail = res.data.data.works_detail;
-            if (works_detail.task_info && works_detail.class_info){
-              var tid = works_detail.task_info.task_id;
-              var cid = works_detail.class_info.class_id;
-              var mid = works_detail.author_id;
-              that.classworkslist(tid,cid,mid);
-            }
-            var audio_name = works_detail.author_name + "           " + app.timeToFormat(works_detail.duration);
-            that.setData({
-              audio_name: audio_name
-            });
-            var date = new Date();
-            works_detail.create_time = util.formatTimeTwo(works_detail.create_time,'Y-M-D h:m:s');
-            // if (works_detail.cover_img && !that.data.share_image){
-            //     that.setData({//存值
-            //       share_image: works_detail.cover_img,
-            //     })
-            // }
-            if (!that.data.share_title){
-                that.setData({//存值
-                  share_title: works_detail.works_name + " " + works_detail.author + " " + util.formatTimeTwo(works_detail.duration, 'm:s')
-                })
-            }
-            if (res.data.data.works_detail.class_info && res.data.data.works_detail.class_info.class_name){
-              wx.setNavigationBarTitle({
-                title: res.data.data.works_detail.class_info.class_name
-              })
-            }
+          var works_detail = res.data.data.works_detail;
+          if (works_detail.task_info && works_detail.class_info) {
+            var tid = works_detail.task_info.task_id;
+            var cid = works_detail.class_info.class_id;
+            var mid = works_detail.author_id;
+            that.classworkslist(tid, cid, mid);
+          }
+          var audio_name = works_detail.author_name + "           " + app.timeToFormat(works_detail.duration);
+          that.setData({
+            audio_name: audio_name,
+            loading:false
+          });
+          var date = new Date();
+          works_detail.create_time = util.formatTimeTwo(works_detail.create_time, 'Y-M-D h:m:s');
+          // if (works_detail.cover_img && !that.data.share_image){
+          //     that.setData({//存值
+          //       share_image: works_detail.cover_img,
+          //     })
+          // }
+          if (!that.data.share_title) {
             that.setData({//存值
-                 work_info: res.data.data.works_detail,
+              share_title: works_detail.works_name + " " + works_detail.author + " " + util.formatTimeTwo(works_detail.duration, 'm:s')
             })
+          }
+          if (res.data.data.works_detail.class_info && res.data.data.works_detail.class_info.class_name) {
+            wx.setNavigationBarTitle({
+              title: res.data.data.works_detail.class_info.class_name
+            })
+          }
+          that.setData({//存值
+            work_info: res.data.data.works_detail,
+          })
 
-          if (res.data.data.works_detail.class_info && res.data.data.works_detail.member_id == wx.getStorageSync("member_id")){
+          if (res.data.data.works_detail.class_info && res.data.data.works_detail.member_id == wx.getStorageSync("member_id")) {
             that.setData({//存值
               is_apply: 1,
             })
-          }else{
+          } else {
             that.setData({//存值
               is_apply: 0,
             })
           }
-          if (works_detail.member_id == wx.getStorageSync("member_id")){ // 当前作品是我的作品
+          if (works_detail.member_id == wx.getStorageSync("member_id")) { // 当前作品是我的作品
             that.setData({
               my_work: true
             });
 
             //5星奖励提示
-            if(works_detail.teacher_comment_list.length>0){
-              var teacher_comment_arr=[];
-              works_detail.teacher_comment_list.forEach(item=>{
-                if(item.grade==='S'){
+            if (works_detail.teacher_comment_list.length > 0) {
+              var teacher_comment_arr = [];
+              works_detail.teacher_comment_list.forEach(item => {
+                if (item.grade === 'S') {
                   teacher_comment_arr.push(item.comment_id);
                 }
               })
-              var max_comment_id=teacher_comment_arr.length>0?Math.max.apply(null,teacher_comment_arr):'';
-              var storage_comment_id=wx.getStorageSync('show_teacher_comment_'+wx.getStorageSync("work_id"));
-              if((max_comment_id&&!storage_comment_id)||(max_comment_id&&storage_comment_id&&max_comment_id>storage_comment_id)){
+              var max_comment_id = teacher_comment_arr.length > 0 ? Math.max.apply(null, teacher_comment_arr) : '';
+              var storage_comment_id = wx.getStorageSync('show_teacher_comment_' + wx.getStorageSync("work_id"));
+              if ((max_comment_id && !storage_comment_id) || (max_comment_id && storage_comment_id && max_comment_id > storage_comment_id)) {
                 that.setData({
-                  show_grade_tip:true
+                  show_grade_tip: true
                 })
-                wx.setStorageSync('show_teacher_comment_'+wx.getStorageSync("work_id"),max_comment_id);
-//                wx.showModal({
-//                  title:'温馨提示',
-//                  content:'恭喜你作品获得5星好评',
-//                  showCancel:false,
-//                  confirmText:'我知道了',
-//                  success:(res) =>{
-//                    if(res.confirm){
-//                      wx.setStorageSync('show_teacher_comment',max_comment_id);
-//                    }
-//                  }
-//                });
+                wx.setStorageSync('show_teacher_comment_' + wx.getStorageSync("work_id"), max_comment_id);
+                //                wx.showModal({
+                //                  title:'温馨提示',
+                //                  content:'恭喜你作品获得5星好评',
+                //                  showCancel:false,
+                //                  confirmText:'我知道了',
+                //                  success:(res) =>{
+                //                    if(res.confirm){
+                //                      wx.setStorageSync('show_teacher_comment',max_comment_id);
+                //                    }
+                //                  }
+                //                });
               }
             }
           }
@@ -201,37 +245,37 @@ Page({
           wx.redirectTo({
             url: '../login/login?type=index'
           })
-        } else if (res.data.msg == "获取作品失败"){
+        } else if (res.data.msg == "获取作品失败") {
           wx.showToast({
             title: '获取作品失败',
             icon: 'none',
             duration: 1500,
           });
           that.setData({
-            loading:true
+            loading: true
           });
-          setTimeout(function(){
+          setTimeout(function () {
             wx.redirectTo({
               url: '../index/index'
             })
-          },1800)
-          
+          }, 1800)
+
         }
       }
     })
   },
-  onShareAppMessage: function(res) {
+  onShareAppMessage: function (res) {
 
-    var share_url = "/pages/work_info/work_info?work_id=" + wx.getStorageSync('work_id')+"&parent_id="+wx.getStorageSync("member_id");
+    var share_url = "/pages/work_info/work_info?work_id=" + wx.getStorageSync('work_id') + "&parent_id=" + wx.getStorageSync("member_id");
     console.log(this.data.share_title);
     return {
       title: this.data.share_title,
       imageUrl: this.data.share_image,
       path: share_url,
-      success: function(res) {
+      success: function (res) {
         // 转发成功
       },
-      fail: function(res) {
+      fail: function (res) {
         // 转发失败
       }
     }
@@ -249,7 +293,7 @@ Page({
     this.stop_miuse_one();
     var url = e.currentTarget.dataset.url;
     wx.redirectTo({
-      url: '../index/index?index_tab='+url,
+      url: '../index/index?index_tab=' + url,
     })
   },
   bf(e) {
@@ -271,6 +315,22 @@ Page({
       play_miuse_id: ''
     })
   },
+  myevent(e) {
+    // 这里就是子组件传过来的内容了
+    let showTime1=parseInt(e.detail.params.thatTime) 
+console.log(e)
+if(!e.detail.params.paused){
+this.setData({
+  loadding:false
+})
+}
+    this.setData({
+      showTime1:showTime1,
+      isPlayAudio:e.detail.params.paused,
+      audioTime:e.detail.params.value,
+    })
+      console.log(e.detail.params)
+    },
   // 播放音频
   play_miuse(e) {
     var miuse_id = e.target.id;
@@ -295,12 +355,12 @@ Page({
     }
   },
   // 选择评星
-  select_score(e){
+  select_score(e) {
     var id = e.detail;  //星星数
-     var score = id*20;
-    if (this.data.grade_arr[id]== "S"){
+    var score = id * 20;
+    if (this.data.grade_arr[id] == "S") {
       score = 100;
-    } else if (this.data.grade_arr[id] == "A"){
+    } else if (this.data.grade_arr[id] == "A") {
       score = 94;
     } else if (this.data.grade_arr[id] == "B") {
       score = 89;
@@ -312,11 +372,11 @@ Page({
     this.setData({
       form_grade: this.data.grade_arr[id],
       form_score: score,
-      form_star_count:id
+      form_star_count: id
     })
   },
   // 隐藏点评框
-  comment_hide(){
+  comment_hide() {
     // 停止录音
     var that = this;
     //结束录音计时 
@@ -324,30 +384,40 @@ Page({
     clearInterval(that.data.setInter1);
     recorderManager.stop();
     recorderManager.onStop((res) => {
-        wx.showToast({
-          title: '录制完成',
-          icon: 'none',
-          duration: 1500,
-        })
-        this.tempFilePath = res.tempFilePath;
-        that.setData({//存值
-            miuse_url: res.tempFilePath,
-            strat: false,
-            miuse_state: 1,
-            tempFilePath: res
-        })
+      wx.showToast({
+        title: '录制完成',
+        icon: 'none',
+        duration: 1500,
+      })
+      this.tempFilePath = res.tempFilePath;
+      that.setData({//存值
+        miuse_url: res.tempFilePath,
+        strat: false,
+        miuse_state: 1,
+        tempFilePath: res
+      })
     })
     this.animation.translateY(800).step({ duration: 300 })
     this.setData({ animation: this.animation.export() })
   },
   // 显示点评框
-  comment_show(){
-      this.animation.translateY(0).step({ duration: 300 })
-      this.setData({ animation: this.animation.export() })
+  comment_show() {
+    this.animation.translateY(0).step({ duration: 300 })
+    this.setData({ animation: this.animation.export() })
+    // 暂停音频
+    let t=this
+    t.selectComponent("#p99").pause()
+    for(let i=0;i<t.data.work_info.teacher_comment_list.length;i++){
+      console.log(1)
+      if(t.data.work_info.teacher_comment_list[i].voice_comment){
+        console.log(t.data.work_info.teacher_comment_list[i].voice_comment)
+        t.selectComponent("#"+"p" + i).pause()
+      }
+    }
   },
   // 查询当前用户是否有评论权限
-  hasright(){
-    var that = this;  
+  hasright() {
+    var that = this;
     var ts = Date.parse(new Date());
     var data = {
       member_id: wx.getStorageSync("member_id"),
@@ -365,27 +435,27 @@ Page({
         'content-type': 'application/x-www-form-urlencoded',
       },
       success: function (res) {
-         if(res.data.code == 200){ //
-            if (res.data.data.hasright){
-                that.setData({
-                  hasright:1
-                })
-                // 查询评论模板
-                
-            }
-           that.get_commont_tpl();
-         }
+        if (res.data.code == 200) { //
+          if (res.data.data.hasright) {
+            that.setData({
+              hasright: 1
+            })
+            // 查询评论模板
+
+          }
+          that.get_commont_tpl();
+        }
       }
     })
   },
-  get_form_info(e){
+  get_form_info(e) {
     var id = e.target.id;
     var value = e.detail.value;
-    if (id == "yd"){
-       this.setData({
-         form_yd: value
-       });
-    } else if (id == "tsd"){
+    if (id == "yd") {
+      this.setData({
+        form_yd: value
+      });
+    } else if (id == "tsd") {
       this.setData({
         form_tsd: value
       });
@@ -393,32 +463,32 @@ Page({
       this.setData({
         form_xl: value
       });
-    } else if (id == "score"){
+    } else if (id == "score") {
       var grade = "";
       value = parseInt(value);
-      if (value > 0 && value <= 70){
-         grade = "D"; 
+      if (value > 0 && value <= 70) {
+        grade = "D";
       } else if (value >= 71 && value <= 79) {
         grade = "C";
-      } else if(value >= 80 && value <= 89){
+      } else if (value >= 80 && value <= 89) {
         grade = "B";
-      } else if(value >= 90 && value <= 94){
+      } else if (value >= 90 && value <= 94) {
         grade = "A";
-      } else if(value >= 95 && value <= 100){
+      } else if (value >= 95 && value <= 100) {
         grade = "S";
-      } else if (value > 100){
+      } else if (value > 100) {
         grade = "S";
         value = 100;
       } else if (value <= 0) {
         grade = "";
         value = 0;
-      }else{
+      } else {
         return;
       }
       this.setData({
         form_score: value,
         form_grade: grade,
-        form_star_count:this.data.grade_arr.indexOf(grade)
+        form_star_count: this.data.grade_arr.indexOf(grade)
       });
     }
   },
@@ -441,7 +511,7 @@ Page({
         miuse_state: 2,
         strat: true,
         miuse_url: '',
-        recordingTimeqwe:0,
+        recordingTimeqwe: 0,
         minute: '0' + 0,   // 分
         second: '0' + 0,    // 秒
       })
@@ -455,14 +525,14 @@ Page({
       });
     });
     //错误回调
-    recorderManager.onError((res) => {
-      console.log(res);
-      wx.showToast({
-        title: '录音失败',
-        icon: 'none',
-        duration: 1500,
-      })
-    })
+    // recorderManager.onError((res) => {
+    //   console.log(res);
+    //   wx.showToast({
+    //     title: '录音失败',
+    //     icon: 'none',
+    //     duration: 1500,
+    //   })
+    // })
   },
   //录音计时器
   recordingTimer: function () {
@@ -501,17 +571,17 @@ Page({
       })
     })
   },
-  submit_from(qiniu_url){
+  submit_from(qiniu_url) {
     var that = this;
     //app.show_l(that);
     var ts = Date.parse(new Date());
     var data = {
       member_id: wx.getStorageSync("member_id"),
       token: wx.getStorageSync("token"),
-      teacher_comment: '优点：' + that.data.form_yd + '\r\n提升点:' + that.data.form_tsd +'\r\n训练方法:'+that.data.form_xl,
+      teacher_comment: '优点：' + that.data.form_yd + '\r\n提升点:' + that.data.form_tsd + '\r\n训练方法:' + that.data.form_xl,
       voice_url: qiniu_url,
-      grade:that.data.form_grade,
-      score:that.data.form_score,
+      grade: that.data.form_grade,
+      score: that.data.form_score,
       work_id: wx.getStorageSync("work_id"),
       duration: that.data.recordingTimeqwe,
       reread: that.data.reread,
@@ -543,7 +613,7 @@ Page({
             form_tsd: '',
             form_xl: '',
             form_grade: '',
-            form_star_count:0,
+            form_star_count: 0,
             miuse_state: 1,
             strat: true,
             miuse_url: '',
@@ -558,16 +628,16 @@ Page({
           that.comment_hide();
           wx.showModal({
             title: '温馨提示',
-            content:'分享至微信班级群，提示学生查看点评内容',
-            showCancel:false,
-            confirmText:'我知道了',
-            success:(res)=>{
-              if(res.confirm){
+            content: '分享至微信班级群，提示学生查看点评内容',
+            showCancel: false,
+            confirmText: '我知道了',
+            success: (res) => {
+              if (res.confirm) {
 
               }
             }
           })
-        }else{
+        } else {
           wx.showToast({
             title: res.data.error,
             icon: 'none',
@@ -579,7 +649,7 @@ Page({
         });
       }
     })
-    
+
   },
   // 获取七牛云参数
   get_qiniu_info: function () {
@@ -591,7 +661,7 @@ Page({
         submit_state: 0
       })
     }
-    if (!that.data.miuse_url && that.data.recordingTimeqwe){
+    if (!that.data.miuse_url && that.data.recordingTimeqwe) {
       //结束录音计时 
       clearInterval(that.data.setInter);
       clearInterval(that.data.setInter1);
@@ -609,7 +679,7 @@ Page({
       })
       return false;
     }
-    
+
     if (!that.data.form_yd && !that.data.form_tsd && !that.data.form_xl) {
       wx.showToast({
         title: '未填写点评内容',
@@ -694,81 +764,82 @@ Page({
               });
             }
           })
-        }else{
-            app.hide_l(that);
-            that.setData({
-              submit_state: 1
-            });
+        } else {
+          app.hide_l(that);
+          that.setData({
+            submit_state: 1
+          });
         }
       }
     })
   },
   // 判断当前作品是否是点评作品
-  is_apply_work:function(){
-      var that = this;
-      var ts = Date.parse(new Date());
-      var data = {
-        member_id: wx.getStorageSync("member_id"),
-        token: wx.getStorageSync("token"),
-        work_id: wx.getStorageSync("work_id") ,
-        ts: ts
-      };
-      var cs = app.encryption(data);
-      data.cs = cs;
-      wx.request({
-        url: config.URL + "fa/Xspaycomment/is_apply_work",
-        data: data,
-        method: 'post',
-        header: {
-          'content-type': 'application/x-www-form-urlencoded',
-        },
-        success: function (res) {
-          if (res.data.code == 200) {
-            if (res.data.data.untreated_count > 0 ){
-              that.setData({//存值
-                apply_count: res.data.data.untreated_count,
-                next_apply: res.data.data.nep_work
-              })
-            }else{
-              that.setData({//存值
-                apply_count: 0,
-                next_apply: 0
-              })
-            }
-            var html = "";
-            var names = ""
-            for (var i = 0; i < res.data.data.tutor_info.length; i++) {
-              if (!html) {
-                html += "此作品申请" + res.data.data.tutor_info[i].name;
-                names += res.data.data.tutor_info[i].name;
-              } else {
-                html += "," + res.data.data.tutor_info[i].name;
-                names += "," + res.data.data.tutor_info[i].name;
-              }
-
-            }
-            if (html) {
-              html += '老师进行点评指导';
-            }else{
-              html = "";
-            }
+  is_apply_work: function () {
+    var that = this;
+    var ts = Date.parse(new Date());
+    var data = {
+      member_id: wx.getStorageSync("member_id"),
+      token: wx.getStorageSync("token"),
+      work_id: wx.getStorageSync("work_id"),
+      ts: ts
+    };
+    var cs = app.encryption(data);
+    data.cs = cs;
+    wx.request({
+      url: config.URL + "fa/Xspaycomment/is_apply_work",
+      data: data,
+      method: 'post',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
+      success: function (res) {
+        if (res.data.code == 200) {
+          if (res.data.data.untreated_count > 0) {
             that.setData({//存值
-              apply_content: html
+              apply_count: res.data.data.untreated_count,
+              next_apply: res.data.data.nep_work
             })
-            if (html && that.data.my_work){
-                console.log(11);
-                that.setData({//存值
-                  share_image: 'https://resource.xunsheng.org.cn/xcxshare_dpw.png',
-                  share_title: that.data.work_info.works_name + ' ' + that.data.work_info.author + " " + util.formatTimeTwo(that.data.work_info.duration, 'm:s') +' 申请' +names+'老师点评',
-                })
+          } else {
+            that.setData({//存值
+              apply_count: 0,
+              next_apply: 0
+            })
+          }
+          var html = "";
+          var names = ""
+          for (var i = 0; i < res.data.data.tutor_info.length; i++) {
+            if (!html) {
+              html += "此作品申请" + res.data.data.tutor_info[i].name;
+              names += res.data.data.tutor_info[i].name;
+            } else {
+              html += "," + res.data.data.tutor_info[i].name;
+              names += "," + res.data.data.tutor_info[i].name;
             }
 
           }
+          if (html) {
+            html += '老师进行点评指导';
+          } else {
+            html = "";
+          }
+          that.setData({//存值
+            apply_content: html
+          })
+          if (html && that.data.my_work) {
+            console.log(11);
+            that.setData({//存值
+              share_image: 'https://resource.xunsheng.org.cn/xcxshare_dpw.png',
+              share_title: that.data.work_info.works_name + ' ' + that.data.work_info.author + " " + util.formatTimeTwo(that.data.work_info.duration, 'm:s') + ' 申请' + names + '老师点评',
+            })
+          }
+
         }
-      })
+      }
+    })
   },
-  next_work:function(){
-    if (this.data.next_apply){
+
+  next_work: function () {
+    if (this.data.next_apply) {
       wx.setStorageSync('work_id', this.data.next_apply);
     }
     this.getworkinfo();
@@ -811,12 +882,12 @@ Page({
     }, 1000)
   },
   //隐藏五星好评提示
-  hideGradeTip(){
+  hideGradeTip() {
     this.setData({
-      show_grade_tip:false
+      show_grade_tip: false
     })
   },
-  stop_miuse_one(){
+  stop_miuse_one() {
     var that = this;
     if (this.data.play_miuse_id) { // 当前音频正在播放
       this.data.audioCtx[this.data.play_miuse_id].pause();
@@ -830,55 +901,55 @@ Page({
     var checked = e.detail.value
     var changed = {}
     var type = e.currentTarget.dataset.type;
-    if (type == 1){
-        for (var i = 0; i < this.data.comment_yd.length; i++) {
-            if (checked.indexOf(this.data.comment_yd[i].name) !== -1) {
-            this.setData({
-              form_yd: this.data.comment_yd[i].value
-            })
-            changed['comment_yd[' + i + '].checked'] = true
-          } else {
-            changed['comment_yd[' + i + '].checked'] = false
-          }
+    if (type == 1) {
+      for (var i = 0; i < this.data.comment_yd.length; i++) {
+        if (checked.indexOf(this.data.comment_yd[i].name) !== -1) {
+          this.setData({
+            form_yd: this.data.comment_yd[i].value
+          })
+          changed['comment_yd[' + i + '].checked'] = true
+        } else {
+          changed['comment_yd[' + i + '].checked'] = false
         }
-        this.setData(changed)
-    }else if(type == 2){
-        for (var i = 0; i < this.data.comment_tsd.length; i++) {
-          if (checked.indexOf(this.data.comment_tsd[i].name) !== -1) {
-            this.setData({
-              form_tsd: this.data.comment_tsd[i].value
-            })
-            changed['comment_tsd[' + i + '].checked'] = true
-          } else {
-            changed['comment_tsd[' + i + '].checked'] = false
-          }
+      }
+      this.setData(changed)
+    } else if (type == 2) {
+      for (var i = 0; i < this.data.comment_tsd.length; i++) {
+        if (checked.indexOf(this.data.comment_tsd[i].name) !== -1) {
+          this.setData({
+            form_tsd: this.data.comment_tsd[i].value
+          })
+          changed['comment_tsd[' + i + '].checked'] = true
+        } else {
+          changed['comment_tsd[' + i + '].checked'] = false
         }
-        this.setData(changed)
-    }else if(type == 3){
-        for (var i = 0; i < this.data.comment_xlff.length; i++) {
-          if (checked.indexOf(this.data.comment_xlff[i].name) !== -1) {
-            this.setData({
-              form_xl: this.data.comment_xlff[i].value
-            })
-            changed['comment_xlff[' + i + '].checked'] = true
-          } else {
-            changed['comment_xlff[' + i + '].checked'] = false
-          }
+      }
+      this.setData(changed)
+    } else if (type == 3) {
+      for (var i = 0; i < this.data.comment_xlff.length; i++) {
+        if (checked.indexOf(this.data.comment_xlff[i].name) !== -1) {
+          this.setData({
+            form_xl: this.data.comment_xlff[i].value
+          })
+          changed['comment_xlff[' + i + '].checked'] = true
+        } else {
+          changed['comment_xlff[' + i + '].checked'] = false
         }
-        this.setData(changed)
+      }
+      this.setData(changed)
     }
-  
+
   },
-  template(e){
+  template(e) {
     return;
     var type = e.currentTarget.dataset.type;
-    if(type == 1){
+    if (type == 1) {
       this.setData({
         yd_template: true,
         tsd_template: false,
         xlff_template: false
       })
-    } else if (type == 2){
+    } else if (type == 2) {
       this.setData({
         yd_template: false,
         tsd_template: true,
@@ -892,55 +963,55 @@ Page({
       })
     }
   },
-  get_commont_tpl(){
-      var that = this;
-      var ts = Date.parse(new Date());
-      var data = {
-          member_id: wx.getStorageSync("member_id"),
-          token: wx.getStorageSync("token"),
-          ts: ts
-      };
-      var cs = app.encryption(data);
-      data.cs = cs;
-      wx.request({
-          url: config.URL + "fa/Xspaycomment/get_comment_tpl",
-          data: data,
-          method: 'post',
-          header: {
-            'content-type': 'application/x-www-form-urlencoded',
-          },
-          success: function (res) {
-              if (res.data.code == 200) { //
-                var tsd_list = [];
-                var xlff_list = [];
-                var yd_list = [];
-                for (var i = 0; i < res.data.data.comment_tsd.length;i++){
-                    tsd_list.push(
-                      { name: res.data.data.comment_tsd[i], value: res.data.data.comment_tsd[i] },
-                    );
-                }
-                for (var i = 0; i < res.data.data.comment_xlff.length; i++) {
-                  xlff_list.push(
-                    { name: res.data.data.comment_xlff[i], value: res.data.data.comment_xlff[i] },
-                  );
-                }
-                for (var i = 0; i < res.data.data.comment_yd.length; i++) {
-                  yd_list.push(
-                    { name: res.data.data.comment_yd[i], value: res.data.data.comment_yd[i] },
-                  );
-                }
-                that.setData({
-                  comment_yd: res.data.data.comment_yd,
-                  comment_tsd: res.data.data.comment_tsd,
-                  comment_xlff: res.data.data.comment_xlff
-                })
-
-              }
+  get_commont_tpl() {
+    var that = this;
+    var ts = Date.parse(new Date());
+    var data = {
+      member_id: wx.getStorageSync("member_id"),
+      token: wx.getStorageSync("token"),
+      ts: ts
+    };
+    var cs = app.encryption(data);
+    data.cs = cs;
+    wx.request({
+      url: config.URL + "fa/Xspaycomment/get_comment_tpl",
+      data: data,
+      method: 'post',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
+      success: function (res) {
+        if (res.data.code == 200) { //
+          var tsd_list = [];
+          var xlff_list = [];
+          var yd_list = [];
+          for (var i = 0; i < res.data.data.comment_tsd.length; i++) {
+            tsd_list.push(
+              { name: res.data.data.comment_tsd[i], value: res.data.data.comment_tsd[i] },
+            );
           }
-      })
+          for (var i = 0; i < res.data.data.comment_xlff.length; i++) {
+            xlff_list.push(
+              { name: res.data.data.comment_xlff[i], value: res.data.data.comment_xlff[i] },
+            );
+          }
+          for (var i = 0; i < res.data.data.comment_yd.length; i++) {
+            yd_list.push(
+              { name: res.data.data.comment_yd[i], value: res.data.data.comment_yd[i] },
+            );
+          }
+          that.setData({
+            comment_yd: res.data.data.comment_yd,
+            comment_tsd: res.data.data.comment_tsd,
+            comment_xlff: res.data.data.comment_xlff
+          })
+
+        }
+      }
+    })
   },
   // 查询我的信息
-  getMembers(){
+  getMembers() {
     var that = this;
     var ts = Date.parse(new Date());
     var data = {
@@ -959,7 +1030,7 @@ Page({
       },
       success: function (res) {
         if (res.data.code == 200) {
-          
+
           that.setData({
             user_info: res.data.data
           });
@@ -969,88 +1040,114 @@ Page({
   },
   bindPickerChange: function (e) {
     this.setData({
-      form_yd: this.data.form_yd +" "+ this.data.comment_yd[e.detail.value]
+      form_yd: this.data.form_yd + " " + this.data.comment_yd[e.detail.value]
     })
   },
-  bindtsdChange:function(e){
+  bindtsdChange: function (e) {
     this.setData({
-      form_tsd: this.data.form_tsd +" "+ this.data.comment_tsd[e.detail.value]
+      form_tsd: this.data.form_tsd + " " + this.data.comment_tsd[e.detail.value]
     })
   },
-  bindxlffChange:function(e){
+  bindxlffChange: function (e) {
     this.setData({
-      form_xl: this.data.form_xl +" "+ this.data.comment_xlff[e.detail.value]
+      form_xl: this.data.form_xl + " " + this.data.comment_xlff[e.detail.value]
     })
   },
-  classworkslist:function(tid,cid,mid){
+  classworkslist: function (tid, cid, mid) {
     var that = this;
     app.show_l(that);
     var ts = Date.parse(new Date());
     var data = {
-        member_id: wx.getStorageSync("member_id"),
-        token: wx.getStorageSync("token"),
-        page: 1,
-        page_size: 10,
-        class_id: cid,
-        student_member_id: mid,
-        task_id: tid,
-        ts: ts,
+      member_id: wx.getStorageSync("member_id"),
+      token: wx.getStorageSync("token"),
+      page: 1,
+      page_size: 10,
+      class_id: cid,
+      student_member_id: mid,
+      task_id: tid,
+      ts: ts,
     };
     var cs = app.encryption(data);
     data.cs = cs;
     wx.request({
-        url: config.URL + "school/classwork/classworkslist",
-        data: data,
-        method: 'post',
-        header: { "Content-Type": "application/x-www-form-urlencoded" },
-        success: function (res) {
-            app.hide_l(that);
-            if (res.data.code == 200) {
-                var list = res.data.data;
-                for (var i = 0; i < list.length; i++) {
-                  list[i].duration = app.timeToFormat(list[i].duration);
-                }
-                that.setData({
-                  history_work_list: list
-                })
-            }
+      url: config.URL + "school/classwork/classworkslist",
+      data: data,
+      method: 'post',
+      header: { "Content-Type": "application/x-www-form-urlencoded" },
+      success: function (res) {
+        app.hide_l(that);
+        if (res.data.code == 200) {
+          var list = res.data.data;
+          for (var i = 0; i < list.length; i++) {
+            list[i].duration = app.timeToFormat(list[i].duration);
+          }
+          that.setData({
+            history_work_list: list
+          })
         }
+      }
     })
   },
   //跳转个人中心
   work_switch(e) {
-      var that = this;
-      var work_id = e.currentTarget.dataset.url;
-      // 停止音频
-      this.stop_miuse_one();
-      // 回到顶部
-      wx.pageScrollTo({
-        scrollTop: 0
-      })
-      this.setData({
-        work_id: work_id
-      });
-      wx.setStorageSync('work_id', work_id);
-      this.getworkinfo();
-      this.hasright();
-      this.animation = wx.createAnimation()
-      this.getMembers();
+    var that = this;
+    var work_id = e.currentTarget.dataset.url;
+    // 停止音频
+    this.stop_miuse_one();
+    // 回到顶部
+    wx.pageScrollTo({
+      scrollTop: 0
+    })
+    this.setData({
+      work_id: work_id
+    });
+    wx.setStorageSync('work_id', work_id);
+    this.getworkinfo();
+    this.hasright();
+    this.animation = wx.createAnimation()
+    this.getMembers();
   },
   // 修改导师点评状态
   rChange: function (e) {
-      var val = e.detail.value;
-      if(val){
-          this.setData({
-              reread: val
-          });
-      }
+    var val = e.detail.value;
+    if (val) {
+      this.setData({
+        reread: val
+      });
+    }
   },
   // 跳转文稿详情
-  jump_test:function(){
-      this.stop_miuse_one();
-      var task_id = this.data.work_info.task_info.task_id;
-      wx.navigateTo({
-          url: '../release/release?task_id=' + task_id
-      })
-  }
+  jump_test: function () {
+    this.stop_miuse_one();
+    var task_id = this.data.work_info.task_info.task_id;
+    wx.navigateTo({
+      url: '../release/release?task_id=' + task_id
+    })
+  },
+  start(e){
+    this.selectComponent("#p99").start()
+
+  },
+  sliderChange(e){
+    console.log(e.detail.value)
+    this.setData({
+      loadding:true
+    })
+    this.selectComponent("#p99").seeks(e.detail.value)
+
+  },
+  playMyRadio(){
+    console.log(this.selectComponent("#p99"))
+    this.setData({
+      loadding:true
+    })
+    this.selectComponent("#p99").play()
+  },
+  stopAudio(){
+    this.selectComponent("#p99").pause()
+  },
+  onUnload: function () {
+  },
+  onShow: function () {
+  },
 });

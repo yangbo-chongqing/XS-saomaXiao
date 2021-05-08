@@ -1,0 +1,106 @@
+/* components/radio.wxss *//* 音频 */
+
+.flex{
+  display: flex;
+  width:100%
+}
+.audioPlayer{
+  width: 100%;
+  height: 120rpx;
+  margin-bottom: 30rpx;
+  box-sizing: border-box;
+  padding: 20rpx 30rpx 5rpx 30rpx;
+}
+.player{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.audioBack{
+  width: 100%;
+  height: 100%;
+}
+.audioControls{
+  width: 100%;
+  height: 80rpx;
+  opacity: .8;
+  position: absolute;
+  bottom: 0;
+  color: white;
+  font-size: 6pt;
+  line-height: 80rpx;
+  text-align: center;
+}
+.audioControls .bottom{
+  width: 70rpx;
+  height: 100%;
+}
+.bottomFlex{
+    display: flex;
+    align-items: center;
+}
+ .bottom image{
+  margin-top: 20%;
+  margin-left: 20%;
+  width: 50rpx;
+  height: 50rpx;
+}
+.voice_me{
+    margin-left:2%;
+    width:50%
+}
+.player image{
+  width: 30rpx;
+  height: 30rpx;
+  margin-left: 22rpx;
+}
+ .slider{
+  width: 750rpx;
+  position: absolute;
+  bottom: 0rpx;
+  left: -15rpx;
+  z-index: 999;
+}
+.ss-task{
+  overflow-x: hidden !important;
+}
+.slider slider{
+  width: 100%;
+  padding:0rpx !important;
+  z-index: 999;
+  /* margin-left: 4%;
+  margin-right: 0; */
+}
+.audioControls .time{
+  height: 100%;
+  font-size: 28rpx;
+  margin-left:20rpx
+}
+.bottomBlock{
+    background: #fff!important;
+    height: 36rpx;
+}
+.commentBlock{
+    background-color: #F5F5F5;
+    margin-top:20rpx;
+    border-radius: 18rpx;
+}
+.audio_content{
+    background:#FF80AB;
+    border-radius: 30rpx;
+}
+.sliderBottom{
+    /* width:280rpx; */
+    width: 80%;
+}
+
+.timeOut{
+    display: flex;
+    align-items: center;
+   color:#fff;
+    padding-right:10rpx;
+}
+.starLeft{
+    margin-top:16rpx;
+    width:40%
+}

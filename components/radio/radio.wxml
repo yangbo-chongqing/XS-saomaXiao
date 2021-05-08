@@ -1,0 +1,25 @@
+<wxs module="dateFr" src="./radio.wxs"></wxs>
+
+<view class='player'>
+  <view class='audio_content'>
+    <view class='flex'>
+      <view class='bottomFlex' >
+        <!-- 按钮 -->
+        <view wx:if="{{!paused}}"  catchtap="pause">
+          <image src='/images/stop.png' />
+        </view>
+        <view wx:else catchtap="play">
+          <image src='/images/play.png' />
+        </view>
+      </view>
+      <view class='sliderBottom'>
+        <slider  min="0" bindtouchstart="start"  bindchange='seek' backgroundColor="#CCCCCC" activeColor='#fff' block-size="12"
+          block-color="#fff" value='{{value}}' />
+      </view>
+      <view class='timeOut'>
+        {{dateFr.getDate(myDuration)}}
+        <!-- 0:12 -->
+      </view>
+    </view>
+  </view>
+</view>

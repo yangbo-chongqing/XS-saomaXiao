@@ -1,5 +1,5 @@
 var config = {
-  //APPID:'wx603621725daad98e', // 工尔测试
+  // APPID:'wx603621725daad98e', // 工尔测试
   APPID:'wxebccec0b2aff9d88', //正式
   // wxf609a5e8e32b3b5e
   // 测试服务器地址

@@ -1,8 +1,12 @@
+<wxs module="dateFr" src="./work_info.wxs"></wxs>
+
 <view wx:if="{{loading}}" class="loading_background"></view>
-<view class="ss-task" style="backgroud:#fff;">
-    <view class="works-detail" wx:if="{{work_info.works_type == 'audio'}}" style="background-image: url('{{work_info.cover_img}}');">
+<view wx:if="{{!loading}}" class="ss-task" style="backgroud:#fff;">
+    <view class="works-detail" wx:if="{{work_info.works_type == 'audio'}}"
+        style="background-image: url('{{work_info.cover_img}}');">
         <!-- 顶部文档 -->
-        <view class="lyric-content" wx:if="{{!work_info.task_info.position || work_info.task_info.position == 0}}" style="text-align:left">
+        <view class="lyric-content" wx:if="{{!work_info.task_info.position || work_info.task_info.position == 0}}"
+            style="text-align:left">
             <text class="lyric">{{work_info.lyric_text}}</text>
             <view class="vux-flexbox vux-flex-row"></view>
         </view>
@@ -19,36 +23,74 @@
 
         <!--<imt-audio wx:if="{{work_info.video_url}}" src="{{work_info.video_url}}" duration="{{work_info.duration}}"></imt-audio>-->
         <view class="aplayer" style="transform: translate(0px, 0px);">
-            <view class="aplayer-body">
+            <!-- <view class="aplayer-body">
                 <audio src="{{work_info.video_url}}" name="{{work_info.works_name}}" poster="{{work_info.cover_img}}"
                        author="{{audio_name}}" bindtap="play_miuse" bindended="end_play" id="myAudio"
                        controls></audio>
+            </view> -->
+
+            <view class='audioPlayer'>
+                <view class='player'>
+                    <view class='audioControls'>
+                        <view class='flex'>
+                            <view class='bottom'>
+                                <!-- 按钮 -->
+                                <view catchtap='stopAudio' data-index="{{1}}" wx:if="{{!isPlayAudio&&!loadding}}"
+                                    data-duration="{{work_info.duration}}" data-videoUrl="{{work_info.video_url}}">
+                                    <image src='/images/stop.png' />
+                                </view>
+                                <view wx:if="{{isPlayAudio&&!loadding}}" data-index="{{1}}" catchtap='playMyRadio'
+                                    data-videoUrl="{{work_info.video_url}}">
+                                    <image src='/images/play.png' />
+                                </view>
+                                <view wx:if="{{loadding}}">
+                                    <van-loading class="loaddingIcon" color="#fff" type="spinner" />
+                                </view>
+                            </view>
+                            <view class='time'>
+                                {{dateFr.getDate(showTime1)}}/{{dateFr.getDate(work_info.duration)}}
+                            </view>
+                        </view>
+                        <radioMy bindmyevent="myevent" style="display:none" bind:play="onPlayEvent"
+                            url="{{work_info.video_url}}" myDuration="{{work_info.duration}}" pid="p99" id="p99">
+                        </radioMy>
+
+                    </view>
+                </view>
             </view>
+            <view class='slider'>
+                <slider bindtouchstart="start" bindchange='sliderChange' data-videoUrl="{{work_info.video_url}}"
+                    data-duration="{{work_info.duration}}" backgroundColor="#CCCCCC" activeColor='#ff9999'
+                    block-size="20" block-color="#fff" value='{{audioTime}}' />
+            </view>
+            <view class="bottomBlock"></view>
         </view>
     </view>
     <!-- 视频 -->
-     <view class="works-detail" wx:if="{{work_info.works_type == 'video'}}">
-        <video src="{{work_info.video_url}}" style="width:100%;height:100%"  controls ></video>
-     </view>
+    <view class="works-detail" wx:if="{{work_info.works_type == 'video'}}">
+        <video src="{{work_info.video_url}}" style="width:100%;height:100%" controls></video>
+    </view>
 
     <view wx:if="{{apply_count > 0}}" bindtap="next_work" class="waiting">
         <image src="/images/ld.png" style="width:20px;height:20px;"></image>
         <text>待点评({{apply_count}})⋙</text>
     </view>
     <!-- 用户信息 -->
-    <view class="vux-flexbox user-info vux-flex-row" style="margin-bottom:5px;">
+    <view class="vux-flexbox user-info vux-flex-row" style="margin-bottom:5px;margin-top:20rpx">
         <view class="vux-flexbox-item" style="margin-left: 8px; flex: 0 0 12.5%;">
             <image wx:if="{{work_info.avatar}}" src="{{work_info.avatar}}" class="user-avatar"></image>
-            <image wx:else src="http://resource.xunsheng.org.cn/xsmatch/static/imgs/head.jpeg"
-                   class="user-avatar"></image>
+            <image wx:else src="http://resource.xunsheng.org.cn/xsmatch/static/imgs/head.jpeg" class="user-avatar">
+            </image>
         </view>
         <view class="vux-flexbox-item" style="margin-left: 8px;margin-top: 10px;">
             <view class="vux-flexbox vux-flex-col">
-                <view class="vux-flexbox vux-flex-col user-name">{{work_info.author}}<view wx:if="{{work_info.user_class_info}}">({{work_info.user_class_info.name}})</view></view>
-                <van-button class="act-btn" wx:if="{{work_info.class_info}}" bindtap="jump"
-                            data-url="../release/release?class_id={{work_info.class_info.class_id}}&task_id={{work_info.task_info.task_id}}"
-                            round type="danger" size="mini">做作业
-                </van-button>
+                <view class="vux-flexbox vux-flex-col user-name">{{work_info.author}}<view
+                        wx:if="{{work_info.user_class_info}}">({{work_info.user_class_info.name}})</view>
+                </view>
+                <!-- <van-button class="act-btn" wx:if="{{work_info.class_info}}" bindtap="jump"
+                    data-url="../release/release?class_id={{work_info.class_info.class_id}}&task_id={{work_info.task_info.task_id}}"
+                    round type="danger" size="mini">做作业
+                </van-button> -->
 
             </view>
             <view class="vux-flexbox-item" style="margin-top: 3px;width:100%;">
@@ -61,18 +103,23 @@
                             {{work_info.create_time}} {{work_info.device_name}}
                         </view>
                     </view>
-                    <van-button class="act-btn" wx:if="{{is_apply}}" bindtap="jump"
-                                data-url="../apply_for/apply_for?works_id={{work_info.works_id}}&success=1"
-                                round type="danger" size="mini">申请点评
-                    </van-button>
+                    <!-- <van-button class="act-btn" wx:if="{{is_apply}}" bindtap="jump"
+                        data-url="../apply_for/apply_for?works_id={{work_info.works_id}}&success=1" round type="danger"
+                        size="mini">申请点评
+                    </van-button> -->
+                    <!-- <van-button color="#FF80AB" class="act-btn" wx:if="{{work_info.class_info}}" bindtap="jump"
+                        data-url="../release/release?class_id={{work_info.class_info.class_id}}&task_id={{work_info.task_info.task_id}}"
+                        round size="small" plain>
+                        <image src="/images/tube.png" style="width:19rpx;height:29rpx;vertical-align: sub;"></image> 朗读
+                    </van-button> -->
                 </view>
             </view>
         </view>
     </view>
-    <view class="share_button">
-        <van-button  plain type="danger" class="act-btn" open-type="share" size="mini">转发作品
+    <!-- <view class="share_button">
+        <van-button plain type="danger" class="act-btn" open-type="share" size="mini">转发作品
         </van-button>
-    </view>
+    </view> -->
     <!--所在班级  -->
     <view wx:if="{{apply_content}}" class="class_view">
         {{apply_content}}
@@ -82,81 +129,113 @@
     </view> -->
     <!-- 老师评论 -->
     <view class="works-record">
-        <view class="works-record-title" style="width:50%;float:left;">老师评论</view>
-        <van-button wx:if="{{hasright == 1}}"
-                    bindtap="comment_show"
-                    style="float:right"
-                    round type="danger" size="mini">点评
+        <view class="works-record-title" style="width:50%;float:left;">导师点评</view>
+        <van-button bindtap="comment_show" style="float:right" round type="danger" wx:if="{{hasright == 1}}"
+            color="#FF80AB" class="act-btn" plain size="small">去点评
         </van-button>
     </view>
     <!-- 老师评论列表 -->
     <view class="comment-list">
         <block wx:if="{{work_info.teacher_comment_list&&work_info.teacher_comment_list.length>0}}">
-            <view wx:for="{{work_info.teacher_comment_list}}">
-            <view class="vux-flexbox comment-item vux-flex-row" style="align-items: flex-start;">
-                <view class="vux-flexbox-item" style="margin-left: 5px; flex: 0 0 10%;">
-                    <image src="{{item.teacher_avatar}}" class="teacher-avatar"></image>
-                </view>
-                <view class="vux-flexbox-item" style="margin-left: 5px;">
-                    <view class="vux-flexbox vux-flex-col">
-                        <view class="vux-flexbox-item teacher-name">
-                            <view class="vux-flexbox vux-flex-row">
-                                <view class="vux-flexbox-item" style="margin-left: 8px;">{{item.teacher_name}}</view>
-                                <view class="vux-flexbox-item comment-time" style="margin-left: 8px;">
-                                    {{item.comment_time}}
+            <view class="commentBlock" wx:for="{{work_info.teacher_comment_list}}">
+                <view class="vux-flexbox comment-item vux-flex-row" style="align-items: flex-start;">
+                    <view class="vux-flexbox-item" style="margin-left: 5px; flex: 0 0 10%;">
+                        <image src="{{item.teacher_avatar}}" class="teacher-avatar"></image>
+                    </view>
+                    <view class="vux-flexbox-item" style="margin-left: 5px;">
+                        <view class="vux-flexbox vux-flex-col">
+                            <view class="vux-flexbox-item teacher-name">
+                                <view class="vux-flexbox vux-flex-row">
+                                    <view class="vux-flexbox-item nameFont" style="margin-left: 8px;">
+                                        {{item.teacher_name}}
+                                    </view>
+                                    <!-- <view class="vux-flexbox-item comment-time" style="margin-left: 8px;">
+                                        {{item.comment_time}}
+                                    </view> -->
                                 </view>
                             </view>
                         </view>
-                    </view>
-                    <view class="vux-flexbox-item pf" style="margin-top: 10px;width: 100%;height:35px;">
-                        <van-rate
-                                value="{{item.grade == 'S'?5:item.grade == 'A'?4:item.grade == 'B'?3:item.grade == 'C'?2:item.grade == 'D'?1:item.grade == ''?0:0}}"
-                                readonly>
-                        </van-rate>
-                    </view>
-                    <view wx:if="{{item.voice_comment}}" class="vux-flexbox-item" style="margin-top: 5px;width: 100%;">
-                        <audio src="{{item.voice_comment}}" name="老师点评" poster="https://resource.xunsheng.org.cn/20190808115253-task-cover-283.jpg"
-                               bindtap="play_miuse" author="{{work_info.teacher_name}}" bindended="end_play"
-                               id="miuse{{item.comment_id}}" controls></audio>
-                    </view>
-                    <view class="vux-flexbox-item" style="margin-top: 5px;width: 100%;">
-                        <view class="vux-flexbox vux-flex-col">
-                            <text class="comment-content">{{item.teacher_comment}}</text>
+                        <view class="vux-flexbox-item pf" style="margin-top: 10px;width: 100%;">
+                            <view class=" comment-time" style="margin-left: 8px;">
+                                {{item.comment_time}}
+                            </view>
+
+                        </view>
+                        <view class="vux-flexbox-item rateTeacher"
+                            style="margin-top: 5px;width: 120%;transform:translate(-70rpx)">
+                            <view class="starLeft">
+                                <van-rate color="#FF80AB" void-color="#C8C9CC"
+                                    value="{{item.grade == 'S'?5:item.grade == 'A'?4:item.grade == 'B'?3:item.grade == 'C'?2:item.grade == 'D'?1:item.grade == ''?0:0}}"
+                                    readonly>
+                                </van-rate>
+                            </view>
+                            <view class="voice_me" wx:if="{{item.voice_comment}}">
+                                <!-- <audio src="{{item.voice_comment}}" name="老师点评"
+                                poster="https://resource.xunsheng.org.cn/20190808115253-task-cover-283.jpg"
+                                bindtap="play_miuse" author="{{work_info.teacher_name}}" bindended="end_play"
+                                id="miuse{{item.comment_id}}" controls></audio> -->
+                                <!-- 按钮 -->
+                                <!-- 
+                                <view class='player'>
+                                    <view class='audio_content'>
+                                        <view class='flex'>
+                                            <view  class='bottomFlex'>
+                                                <view catchtap='stopAudio'  data-duration="{{item.duration}}"
+                                                 data-videoUrl="{{item.voice_comment}}" data-type="{{index}}"  wx:if="{{isPlay[index]}}">
+                                                    <image src='/images/stop.png' />
+                                                </view>
+                                                <view wx:else  catchtap='playAudio'  data-duration="{{item.duration}}"
+                                                 data-videoUrl="{{item.voice_comment}}" data-type="{{index}}">
+                                                    <image src='/images/play.png' />
+                                                </view>
+                                            </view>
+                                            <view class='sliderBottom'>
+                                                <slider  bindchanging="start"  min="0"  data-videoUrl="{{item.voice_comment}}" data-duration="{{item.duration}}" data-type="{{index}}" bindchange='sliderChange' backgroundColor="#CCCCCC" activeColor='#fff' block-size="12" block-color="#fff"
+                                                    value='{{playTime[index]}}' />
+                                            </view>
+                                            <view class='timeOut'>
+                                                {{dateFr.getDate(item.duration)}}
+                                            </view>
+                                        </view>
+                                    </view>
+                                </view> -->
+                                <radioMy bind:play="onPlayEvent" url="{{item.voice_comment}}"
+                                    myDuration="{{item.duration}}" pid="{{'p'+index}}" id="{{'p'+index}}"></radioMy>
+                            </view>
+                        </view>
+                        <view class="vux-flexbox-item" style="margin-top: 5px;width: 120%;;transform:translate(-60rpx)">
+                            <view class="vux-flexbox vux-flex-col">
+                                <text class="comment-content">{{item.teacher_comment}}</text>
+                            </view>
+
                         </view>
                     </view>
+
                 </view>
-               
-            </view>
-            <!--提示-->
-            <van-notice-bar
-                    bindtap="jump_test"
-                    wx:if="{{item.reread == 1 && work_info.author_id == member_id}}"
-                    mode="link"
-                    left-icon="info-o"
-                    color="#1989FA"
-                    backgroundColor="#ECF9FF"
-                    text="读的真棒，导师提醒可以再读一遍哦！点击立即朗读"
-                    speed="20"
-            />
+                <!--提示-->
+                <!-- <van-notice-bar bindtap="jump_test" wx:if="{{item.reread == 1 && work_info.author_id == member_id}}"
+                    mode="link" left-icon="info-o" color="#1989FA" backgroundColor="#ECF9FF"
+                    text="读的真棒，导师提醒可以再读一遍哦！点击立即朗读" speed="20" /> -->
             </view>
         </block>
         <view wx:else style="text-align: center;padding-top: 40rpx;color:#999;">暂无老师点评</view>
     </view>
     <!-- 点评弹框 -->
     <view animation="{{animation}}" class="van-popup van-popup--bottom dp_info"
-          style="height: 30rem;z-index: 2041; transition: transform 300ms linear 0ms; transform: translateY(800px); transform-origin: 50% 50% 0px;">
+        style="height: 30rem;z-index: 2041; transition: transform 300ms linear 0ms; transform: translateY(800px); transform-origin: 50% 50% 0px;">
         <view class="van-cell van-field">
             <view class="van-cell__title van-field__label" style="width: 4.5rem;">优点:</view>
             <view class="van-cell__value">
                 <view class="van-field__body">
-                    <input style="padding-top:3px;width:80%;float:left;" data-type="1" bindfocus="template" type="text" value="{{form_yd}}" bindinput="get_form_info" id="yd" placeholder="请输入优点"></input>
+                    <input style="padding-top:3px;width:80%;float:left;" data-type="1" bindfocus="template" type="text"
+                        value="{{form_yd}}" bindinput="get_form_info" id="yd" placeholder="请输入优点"></input>
                     <view style="width:15%;float:left;">
                         <picker id="yd_template" bindchange="bindPickerChange" range="{{comment_yd}}">
                             <van-button size="mini" plain round type="info" class="picker">
-                            模板
+                                模板
                             </van-button>
                         </picker>
-                    </view> 
+                    </view>
                 </view>
             </view>
         </view>
@@ -180,14 +259,15 @@
             <view class="van-cell__title van-field__label" style="width: 4.5rem;">提升点:</view>
             <view class="van-cell__value">
                 <view class="van-field__body">
-                    <input style="padding-top:3px;width:80%;float:left;" data-type="2" bindfocus="template" type="text" bindinput="get_form_info" value="{{form_tsd}}" id="tsd" placeholder="请输入提升点"></input>
+                    <input style="padding-top:3px;width:80%;float:left;" data-type="2" bindfocus="template" type="text"
+                        bindinput="get_form_info" value="{{form_tsd}}" id="tsd" placeholder="请输入提升点"></input>
                     <view style="width:15%;float:left;">
                         <picker id="yd_template" bindchange="bindtsdChange" range="{{comment_tsd}}">
                             <van-button size="mini" plain round type="info" class="picker">
                                 模板
                             </van-button>
                         </picker>
-                    </view> 
+                    </view>
                 </view>
             </view>
         </view>
@@ -212,28 +292,29 @@
             <view class="van-cell__value">
                 <view class="van-field__body">
                     <!-- <textarea class="van-field__control" maxlength="-1" auto-height placeholder="请输入训练方法"></textarea> -->
-                    <input style="padding-top:3px;width:80%;float:left;" data-type="3" bindfocus="template" type="text" bindinput="get_form_info" value="{{form_xl}}" id="xl" placeholder="请输入训练方法"></input>
-                      <view style="width:15%;float:left;">
+                    <input style="padding-top:3px;width:80%;float:left;" data-type="3" bindfocus="template" type="text"
+                        bindinput="get_form_info" value="{{form_xl}}" id="xl" placeholder="请输入训练方法"></input>
+                    <view style="width:15%;float:left;">
                         <picker id="yd_template" bindchange="bindxlffChange" range="{{comment_xlff}}">
                             <van-button size="mini" plain round type="info" class="picker">
                                 模板
                             </van-button>
                         </picker>
-                    </view> 
+                    </view>
                 </view>
             </view>
         </view>
-        <view class="van-cell van-field" style="align-items: flex-start;"  wx:if="{{xlff_template}}">
+        <view class="van-cell van-field" style="align-items: flex-start;" wx:if="{{xlff_template}}">
             <view class="van-cell__title van-field__label" style="width: 4.5rem;">模板:</view>
             <view class="van-cell__value">
                 <view class="van-field__body">
                     <radio-group class="group" data-type="3" bindchange="radioChange">
                         <view class="label-2" style="height: 41px;line-height: 41px;" wx:for="{{comment_xlff}}">
-                          <radio id="{{item.name}}" hidden value="{{item.name}}" checked="{{item.checked}}"></radio>
-                          <view class="label-2__icon">
-                            <view class="label-2__icon-checked" style="opacity:{{item.checked ? 1: 0}}"></view>
-                          </view>
-                          <label class="label-2__text" for="{{item.name}}"><text>{{item.name}}</text></label>
+                            <radio id="{{item.name}}" hidden value="{{item.name}}" checked="{{item.checked}}"></radio>
+                            <view class="label-2__icon">
+                                <view class="label-2__icon-checked" style="opacity:{{item.checked ? 1: 0}}"></view>
+                            </view>
+                            <label class="label-2__text" for="{{item.name}}"><text>{{item.name}}</text></label>
                         </view>
                     </radio-group>
                 </view>
@@ -245,13 +326,13 @@
                 <view wx:if="{{miuse_state == 1}}" class="van-field__body" bindtap="openRecording">
                     <text style="float:right;" wx:if="{{miuse_url}}">开始录音 {{minute}}:{{second}}</text>
                     <text style="float:right;" wx:if="{{!miuse_url}}">开始录音</text>
-                    <image src="/images/lz.png"
-                           style="width: 30px;height: 30px;margin:5px 5px 0 0;float: right;"></image>
+                    <image src="/images/lz.png" style="width: 30px;height: 30px;margin:5px 5px 0 0;float: right;">
+                    </image>
                 </view>
                 <view wx:if="{{miuse_state != 1}}" class="van-field__body" bindtap="shutRecording">
                     <text style="float:right;">停止录音 {{minute}}:{{second}}</text>
-                    <image src="/images/tz.png"
-                           style="width: 30px;height: 30px;margin:5px 5px 0 0;float: right;"></image>
+                    <image src="/images/tz.png" style="width: 30px;height: 30px;margin:5px 5px 0 0;float: right;">
+                    </image>
                 </view>
             </view>
         </view>
@@ -259,8 +340,7 @@
             <view class="van-cell__title van-field__label" style="width: 4.5rem;">星级:</view>
             <view class="van-cell__value">
                 <view class="van-field__body">
-                    <van-rate
-                            value="{{form_star_count}}" bind:change="select_score" size="{{25}}">
+                    <van-rate value="{{form_star_count}}" bind:change="select_score" size="{{25}}">
                     </van-rate>
 
                     <!--<view wx:if="{{form_grade == 'S'}}">-->
@@ -312,8 +392,8 @@
             <view class="van-cell__title van-field__label" style="width: 4.5rem;">评分:</view>
             <view class="van-cell__value">
                 <view class="van-field__body">
-                    <input type="number" bindinput="get_form_info" id="score"
-                           value="{{form_score}}" placeholder="请输入评分"></input>
+                    <input type="number" bindinput="get_form_info" id="score" value="{{form_score}}"
+                        placeholder="请输入评分"></input>
                 </view>
             </view>
         </view>
@@ -321,16 +401,17 @@
             <view class="van-cell__title van-field__label" style="width: 4.5rem;">建议再读:</view>
             <view class="van-cell__value">
                 <view class="van-field__body">
-                    <radio-group class="radio-group"  bindchange = "rChange">
+                    <radio-group class="radio-group" bindchange="rChange">
                         <label class="radio">
-                          <radio value="1" wx:if="{{reread=='1'}}" checked />
-                          <radio value="1" wx:else/>
-                          是
-                          <radio style="margin-left:30px;" wx:if="{{reread=='0'}}" value="0" checked/>                             <radio style="margin-left:30px;" wx:else value="0" /> 
-                          否
+                            <radio value="1" wx:if="{{reread=='1'}}" checked />
+                            <radio value="1" wx:else />
+                            是
+                            <radio style="margin-left:30px;" wx:if="{{reread=='0'}}" value="0" checked />
+                            <radio style="margin-left:30px;" wx:else value="0" />
+                            否
                         </label>
                     </radio-group>
-                    
+
                 </view>
             </view>
         </view>
@@ -338,83 +419,88 @@
         <view class="van-cell van-field">
             <view class="van-cell__value van-cell__value--alone">
                 <button wx:if="{{submit_state == 1}}" bindtap="get_qiniu_info"
-                        class="van-button1 van-button1--danger van-button1--normal van-button1--block van-button1--round">
+                    class="van-button1 van-button1--danger van-button1--normal van-button1--block van-button1--round">
                     提交
                 </button>
-                 <button wx:if="{{submit_state == 0}}" class="van-button1 van-button1--normal van-button1--block van-button1--round" style="color: #000">
+                <button wx:if="{{submit_state == 0}}"
+                    class="van-button1 van-button1--normal van-button1--block van-button1--round" style="color: #000">
                     提交
                 </button>
             </view>
         </view>
     </view>
     <view animation="{{animation}}" class="van-overlay"
-          style="z-index: 2040; transition: transform 300ms linear 0ms; transform: translateY(800px); transform-origin: 50% 50% 0px;"
-          bindtap="comment_hide"></view>
+        style="z-index: 2040; transition: transform 300ms linear 0ms; transform: translateY(800px); transform-origin: 50% 50% 0px;"
+        bindtap="comment_hide"></view>
     <view class="footer_menu">
         <!--<view bindtap="jump" data-url="../report/report">统计报表</view>-->
         <view bindtap="jump_index" data-url="1">
             <van-icon name="home-o" size="45rpx" custom-class="tabbar-icon"></van-icon>
             课程主页
         </view>
-         <view bindtap="jump_index" data-url="2">
-             <van-icon name="friends-o" size="45rpx" custom-class="tabbar-icon"></van-icon>
-             个人中心
-         </view>
+        <view bindtap="jump_index" data-url="2">
+            <van-icon name="friends-o" size="45rpx" custom-class="tabbar-icon"></van-icon>
+            个人中心
+        </view>
     </view>
 
 
- <!-- 朗读记录 -->
-    <view class="works-record main-title-container" style="background-color:#fff;">
+    <!-- 朗读记录 -->
+    <!--  <view class="works-record main-title-container" style="background-color:#fff;">
         <view class="works-record-title">朗读记录</view>
-        <!-- <view class="works-ss-report" bindtap="jump" wx:if="{{history_work_list.length>0}}">
+       <view class="works-ss-report" bindtap="jump" wx:if="{{history_work_list.length>0}}">
             <image src="/images/ss_report.png"></image>
             成就报表
-        </view> -->
-    </view>
-  
-    <view class="van-list" wx:if="{{history_work_list.length>0}}" style="background-color:#fff;padding-bottom:70px;margin-top:20px;">
-        <view class="vux-flexbox1 works-item vux-flex-col" wx:if="{{item.works_id != work_id}}" wx:for="{{history_work_list}}">
-            <view class="audio-content" >
+        </view> 
+    </view>-->
+
+    <!-- <view class="van-list" wx:if="{{history_work_list.length>0}}"
+        style="background-color:#fff;padding-bottom:70px;margin-top:20px;">
+        <view class="vux-flexbox1 works-item vux-flex-col" wx:if="{{item.works_id != work_id}}"
+            wx:for="{{history_work_list}}">
+            <view class="audio-content">
                 <view style="margin-bottom:5px;">{{item.create_time}}</view>
-                <audio src="{{item.video_url}}" name="{{item.works_name}}" poster="{{item.cover_img}}" author="{{item.author_name}}           {{item.duration}}" bindtap="play_miuse" id="miuse{{item.works_id}}"  controls></audio>
-                <!-- <text class="works-record-duration">{{item.duration>=60?(Math.floor(item.duration/60)+':'+(item.duration%60)):'00:'+item.duration}}</text> -->
+                <audio src="{{item.video_url}}" name="{{item.works_name}}" poster="{{item.cover_img}}"
+                    author="{{item.author_name}}           {{item.duration}}" bindtap="play_miuse"
+                    id="miuse{{item.works_id}}" controls></audio>
+                <!-- <text class="works-record-duration">{{item.duration>=60?(Math.floor(item.duration/60)+':'+(item.duration%60)):'00:'+item.duration}}</text> 
                 <view class="to-detail-content" bindtap="work_switch" data-url="{{item.works_id}}"></view>
             </view>
             <view class="comment_list" wx:if="{{item.teacher_comment_list[0]}}">导师点评</view>
-            <view class="comment_info" wx:for="{{item.teacher_comment_list}}"  wx:for-item="val">
-                <view class="comment_image"><image src="{{val.teacher_avatar}}"></image></view>
+            <view class="comment_info" wx:for="{{item.teacher_comment_list}}" wx:for-item="val">
+                <view class="comment_image">
+                    <image src="{{val.teacher_avatar}}"></image>
+                </view>
                 <view class="comment_content">
-                  <view>
-                      <view class="comment_name">{{val.teacher_name}}</view>
-                      <view class="comment_time">{{val.comment_time}}</view>
-                  </view>
-                  <view style="margin-top:13px;">
-                      <!-- <view wx:if="{{val.comment_id != play_miuse_id}}" class="comment_bf" data-id="{{val.comment_id}}" data-url="{{val.voice_comment}}" bindtap="play_comment"><image src="/images/cbf.png"></image></view>
-                      <view wx:if="{{val.comment_id == play_miuse_id}}" class="comment_bf" data-id="{{val.comment_id}}" data-url="{{val.voice_comment}}" bindtap="play_comment"><image src="/images/czt.png"></image></view> -->
-                      <view style="width:67px;height:67px;overflow:hidden;float:left;margin-left:15%;"><audio src="{{val.voice_comment}}" bindtap="play_miuse" id="common{{val.comment_id}}" poster="https://resource.xunsheng.org.cn/20190808115253-task-cover-283.jpg" name="老师点评" controls></audio></view>
-                      <view class="comment_c" style="min-height:67px;">
-                          <text>{{val.teacher_comment}}</text>
-                      </view>
-                  </view>
+                    <view>
+                        <view class="comment_name">{{val.teacher_name}}</view>
+                        <view class="comment_time">{{val.comment_time}}</view>
+                    </view>
+                    <view style="margin-top:13px;">
+                        <!-- <view wx:if="{{val.comment_id != play_miuse_id}}" class="comment_bf" data-id="{{val.comment_id}}" data-url="{{val.voice_comment}}" bindtap="play_comment"><image src="/images/cbf.png"></image></view>
+                      <view wx:if="{{val.comment_id == play_miuse_id}}" class="comment_bf" data-id="{{val.comment_id}}" data-url="{{val.voice_comment}}" bindtap="play_comment"><image src="/images/czt.png"></image></view> 
+                        <view style="width:67px;height:67px;overflow:hidden;float:left;margin-left:15%;"><audio
+                                src="{{val.voice_comment}}" bindtap="play_miuse" id="common{{val.comment_id}}"
+                                poster="https://resource.xunsheng.org.cn/20190808115253-task-cover-283.jpg" name="老师点评"
+                                controls></audio></view>
+                        <view class="comment_c" style="min-height:67px;">
+                            <text>{{val.teacher_comment}}</text>
+                        </view>
+                    </view>
                 </view>
             </view>
         </view>
-    </view>
-    <view wx:else class="no-content" style="margin-top:20px;">暂无朗读记录</view>
+    </view> -->
+    <!-- <view wx:else class="no-content" style="margin-top:20px;">暂无朗读记录</view> -->
 
 
 
 
 
-    <van-dialog
-            customStyle="background-color:transparent"
-            use-slot
-            show="{{ show_grade_tip }}"
-            show-cancel-button="{{false}}"
-            show-confirm-button="{{false}}"
-            confirm-button-text="我知道了"
-    >
-        <image bindtap="hideGradeTip" mode="widthFix" src="http://resource.xunsheng.org.cn/20190809153328-task-cover-283.png" />
+    <van-dialog customStyle="background-color:transparent" use-slot show="{{ show_grade_tip }}"
+        show-cancel-button="{{false}}" show-confirm-button="{{false}}" confirm-button-text="我知道了">
+        <image bindtap="hideGradeTip" mode="widthFix"
+            src="http://resource.xunsheng.org.cn/20190809153328-task-cover-283.png" />
         <view slot="title"></view>
         <!--<view style="text-align: center;padding: 15px 0;">恭喜你获取5星好评</view>-->
     </van-dialog>

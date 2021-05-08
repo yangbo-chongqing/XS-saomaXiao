@@ -1,16 +1,23 @@
 <view wx:if="{{loading}}" class="loading_background"></view>
 <view class="loginbox" wx:if="{{!login_show}}">
   <image src="/images/logo.png" class="logo" mode="widthFix"></image>
+  <view class="titFont">随时随地 自信表达</view>
+  <view class="borderBt">
+    <image src="/images/borderBt.png" style="height:1px;width:100%"></image>
+  </view>
+  <view class="centerFont">申请获取以下权限，请确认是本人操作</view>
+  <view class="bottomFont">·  获取你的公开信息（昵称、头像等）</view>
+
   <view class="font-size-24 wx_title mg-b-100 mg-t-100"></view>
   <view class="w-100">
-    <button open-type="getUserInfo" bindgetuserinfo="onGotUserInfo">
-      <image class="w-10 wx_login" src="../../images/wx_login.png" />
+    <button  open-type="getUserInfo" bindgetuserinfo="onGotUserInfo">
+      <!-- <image class="w-10 wx_login" src="../../images/wx_login.png" /> -->
       <text>微信授权</text>
     </button>
   </view>
-   <view class="w-100" style="margin-top:20px;">
+   <view class="myBtn w-100" style="margin-top:20px;">
       <button bindtap="jump_index" style="line-height:50px;" >
-        <text>拒绝授权</text>
+        <text>取消</text>
       </button>
     </view>
 </view>
