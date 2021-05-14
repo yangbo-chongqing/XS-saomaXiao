@@ -54,12 +54,16 @@ Component({
      innerAudioContext.src=this.properties.url
 
     innerAudioContext.onPlay(() => {
+      console.log(innerAudioContext)
       if(this.data.paused){
         this.setData({
           paused: false
         })
         console.log(innerAudioContext.paused)
       }
+      this.setData({
+        myDuration:parseInt(innerAudioContext.duration) 
+      })
       console.log('开始播放')
     })
 
@@ -101,7 +105,8 @@ Component({
         })
       }
       this.setData({
-        duration: innerAudioContext.duration
+        duration: innerAudioContext.duration,
+        // myDuration:innerAudioContext.duration
       })
       console.log("暂停状态",innerAudioContext.paused) 
       console.log("可以播放了");
@@ -122,7 +127,7 @@ Component({
       if(this.data.seekPlay){
         this.setData({
         value:time,
-        thatTime:thatTime
+        thatTime:thatTime,
         })
       }
       this.setData({
@@ -236,6 +241,6 @@ Component({
         percentage: (10/this.data.innerAudioContext.duration * 100)+"%",
         paused:true
       })
-    }
+    },
   }
 })

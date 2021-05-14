@@ -71,6 +71,7 @@ Page({
   },
   onUnload: function () {
     this.stop_miuse_one();
+    console.log(123)
   },
   onLoad: function (options) {
 
@@ -1147,6 +1148,16 @@ this.setData({
     this.selectComponent("#p99").pause()
   },
   onUnload: function () {
+    console.log('AAAA')
+    this.selectComponent("#p99").pause()
+    for(let i=0;i<this.data.work_info.teacher_comment_list.length;i++){
+      console.log(i)
+        console.log(this.data.work_info.teacher_comment_list[i].voice_comment)
+        this.selectComponent("#"+"p" + i).pause()
+    }
+  },
+  onHide:function(){
+
   },
   onShow: function () {
   },

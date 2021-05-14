@@ -164,7 +164,7 @@ page{
 }
 
 .comment-item {
-    border-bottom: 1px solid #eee;
+    /* border-bottom: 1px solid #eee; */
     padding: 20rpx 0;
     box-sizing: border-box;
 }
